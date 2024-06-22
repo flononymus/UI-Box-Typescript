@@ -23,7 +23,8 @@
     "skipLibCheck": true,
     "jsx":"react",
     "outDir": "./src/dist",
-    "rootDir": "./src"
+    "rootDir": "./src",
+    "checkJs": true
   },
   "include": ["src/**/*.ts", "src/**/*.tsx"],
   "exclude": ["node_modules"]

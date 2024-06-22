@@ -7,3 +7,14 @@
  * https://www.electronjs.org/docs/latest/tutorial/sandbox
  */
 
+// const { contextBridge, ipcRenderer} = require('electron/renderer')
+
+// contextBridge.exposeInMainWorld('electron', {
+//     ipcRenderer: ipcRenderer,
+// });
+
+// contextBridge.exposeInMainWorld('darkMode', {
+//   toggle: () => ipcRenderer.invoke('dark-mode:toggle'),
+//   system: () => ipcRenderer.invoke('dark-mode:system'),
+//   getThemeSource: () => ipcRenderer.invoke('dark-mode:get-theme-source')
+// })

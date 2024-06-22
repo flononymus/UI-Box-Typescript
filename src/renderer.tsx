@@ -79,6 +79,6 @@ const container = document.getElementById('root');
 const root = createRoot(container!);
 root.render(<App />);
 
-const navbarContainer = document.getElementById('navbarRoot')
+const navbarContainer = document.getElementById('navbarRoot')as HTMLElement;
 const navbarRoot = createRoot(navbarContainer)
 navbarRoot.render(<Navbar/>)
