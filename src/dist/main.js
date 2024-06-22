@@ -15,7 +15,7 @@
   \*********************/
 /***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
 
-eval("const { app, BrowserWindow } = __webpack_require__(/*! electron */ \"electron\")\nconst path = __webpack_require__(/*! node:path */ \"node:path\")\n\nfunction createWindow () {\n  const mainWindow = new BrowserWindow({\n    width: 800,\n    height: 600,\n    webPreferences: {\n      preload: path.join(__dirname, 'preload.js')\n    }\n  })\n\n  mainWindow.loadFile('./src/index.html')\n\n  mainWindow.webContents.openDevTools()\n}\n\napp.whenReady().then(() => {\n  createWindow()\n\n  app.on('activate', function () {\n    if (BrowserWindow.getAllWindows().length === 0) createWindow()\n  })\n})\n\napp.on('window-all-closed', function () {\n  app.quit()\n})\n\n\n//# sourceURL=webpack://ui-box-typescript/./src/main.ts?");
+eval("const { app, BrowserWindow } = __webpack_require__(/*! electron */ \"electron\")\nconst path = __webpack_require__(/*! node:path */ \"node:path\")\n\nfunction createWindow () {\n  const mainWindow = new BrowserWindow({\n    width: 800,\n    height: 600,\n    webPreferences: {\n      preload: path.join(__dirname, 'preload.js')\n    //   preload: path.join(__dirname, 'preload.tsx')\n    }\n  })\n\n  mainWindow.loadFile('./src/index.html')\n\n  mainWindow.webContents.openDevTools()\n}\n\napp.whenReady().then(() => {\n  createWindow()\n\n  app.on('activate', function () {\n    if (BrowserWindow.getAllWindows().length === 0) createWindow()\n  })\n})\n\napp.on('window-all-closed', function () {\n  app.quit()\n})\n\n\n//# sourceURL=webpack://ui-box-typescript/./src/main.ts?");
 
 /***/ }),
 

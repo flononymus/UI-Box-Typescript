@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
 
     <meta http-equiv="Content-Security-Policy" content="
+    script-src 'self' 'unsafe-eval'; 
     default-src 'self' data: gap: https://ssl.gstatic.com ; 
     style-src   'self' https://fonts.googleapis.com;
     font-src    'self' data: https://fonts.gstatic.com;
@@ -21,7 +22,8 @@
   <body>
  
   <div id="root"> </div>
-  <script src="./dist/bundle.js"> </script>
+  <!-- <script src="./dist/bundle.js"> </script> -->
+  <script src="./dist/renderer.js"> </script>
 
 
   </body>
