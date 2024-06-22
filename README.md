@@ -1,6 +1,6 @@
-# UI-Box-Typescript (https://flokleiser.github.io/UI-Box/ )
+# UI-Box
 
-<!-- ### https://flokleiser.github.io/UI-Box/  -->
+this is the typescript version
 
 ___
 
@@ -8,7 +8,3 @@ A simple UI-sandbox/playground built with Electron and React
 
 
 ![preview](/src/media/preview.png)
-
-<!-- <div align="center">
-    <img src="./src/media/preview.png">
-</div> -->
