@@ -23,7 +23,6 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.default = Ball;
 const react_1 = __importStar(require("react"));
 function Ball() {
     const [resetTrigger, setResetTrigger] = (0, react_1.useState)(0);
@@ -245,3 +244,4 @@ function Ball() {
                 zIndex: -10
             }, id: "sceneBall" })));
 }
+exports.default = Ball;

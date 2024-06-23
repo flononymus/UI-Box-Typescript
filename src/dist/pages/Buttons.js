@@ -23,11 +23,9 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.default = Buttons;
 const react_1 = __importStar(require("react"));
 function Buttons() {
     const [isPressed, setIsPressed] = (0, react_1.useState)(false);
-    // const [isToggled, setIsToggled] = useState<number | null>(null);
     const [isToggled, setIsToggled] = (0, react_1.useState)([false, false, false]);
     const handlePress = () => {
         setIsPressed(true);
@@ -61,3 +59,4 @@ function Buttons() {
                 react_1.default.createElement("button", { className: `button2 ${isToggled[1] ? 'button2toggled' : ''}`, id: "buttonToggle2", onMouseDown: () => handleToggle(1) }),
                 react_1.default.createElement("button", { className: `button2 ${isToggled[2] ? 'button2toggled' : ''}`, id: "buttonToggle3", onMouseDown: () => handleToggle(2) })))));
 }
+exports.default = Buttons;

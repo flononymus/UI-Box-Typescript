@@ -23,7 +23,6 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.default = Switches;
 const react_1 = __importStar(require("react"));
 function Switches() {
     const [isSwitched, setSwitched] = (0, react_1.useState)(false);
@@ -36,3 +35,4 @@ function Switches() {
             react_1.default.createElement("div", { className: 'switcherDiv', style: { backgroundColor: isSwitched ? "rgba(255, 255, 255, 0.5)" : "#333", transition: '0.3s' }, onMouseDown: handleSwitch },
                 react_1.default.createElement("div", { className: 'switcherCircle', style: { left: isSwitched ? "0px" : "100px", transition: '0.3s', backgroundColor: isSwitched ? "#333" : "rgba(255, 255, 255, 0.5)" } })))));
 }
+exports.default = Switches;
