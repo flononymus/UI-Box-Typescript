@@ -7,13 +7,14 @@ exports.default = Particles;
 const react_1 = __importDefault(require("react"));
 const react_2 = require("react");
 function Particles() {
+    // const Particles:React.FC = () => {
     (0, react_2.useEffect)(() => {
         let canvas = document.querySelector("#scene"), ctx = canvas.getContext("2d", { willReadFrequently: true }), particles = [], amount = 0, mouse = { x: 0, y: 0 }, radius = 0.5;
         // let color = ["#ffffff"];
         const color = [getComputedStyle(document.documentElement).getPropertyValue('--particle-color')];
         let displayText = "O*";
-        let ww = canvas.width = window.innerWidth;
-        let wh = canvas.height = window.innerHeight;
+        let ww = window.innerWidth;
+        let wh = window.innerHeight;
         class Particle {
             constructor(x, y) {
                 this.x = x;
@@ -42,9 +43,9 @@ function Particles() {
                 this.vy *= this.friction;
                 this.x += this.vx;
                 this.y += this.vy;
-                ctx.fillStyle = this.color;
+                ctx.fillStyle = this.color[0];
                 ctx.beginPath();
-                ctx.arc(this.x, this.y, this.r, Math.PI * 2, false);
+                ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
                 ctx.fill();
                 let a = this.x - mouse.x;
                 let b = this.y - mouse.y;
@@ -73,7 +74,7 @@ function Particles() {
                 mouse.y = e.touches[0].clientY;
             }
         };
-        const onTouchEnd = (e) => {
+        const onTouchEnd = () => {
             mouse.x = -9999;
             mouse.y = -9999;
         };
@@ -109,8 +110,10 @@ function Particles() {
             }
             amount = particles.length;
         }
+        let animationFrameId;
         function render() {
-            requestAnimationFrame(render);
+            // requestAnimationFrame(render)
+            // animationFrameId = requestAnimationFrame(render);
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             for (let i = 0; i < amount; i++) {
                 particles[i].render();
@@ -124,7 +127,8 @@ function Particles() {
         window.addEventListener("mouseup", onMouseUp);
         window.addEventListener("touchend", onTouchEnd);
         initScene();
-        requestAnimationFrame(render);
+        // requestAnimationFrame(render);
+        animationFrameId = requestAnimationFrame(render);
         return () => {
             window.removeEventListener("resize", initScene);
             window.removeEventListener("mousemove", onMouseMove);
@@ -132,6 +136,7 @@ function Particles() {
             window.removeEventListener("mousedown", onMouseDown);
             window.removeEventListener("mouseup", onMouseUp);
             window.removeEventListener("touchend", onTouchEnd);
+            cancelAnimationFrame(animationFrameId);
         };
     }, []);
     return (react_1.default.createElement("div", null,
@@ -142,8 +147,8 @@ function Particles() {
                 position: 'absolute',
                 top: 0,
                 left: 0,
-                width: '100vw',
-                height: '100vh',
+                // width:'100vw',
+                // height:'100vh',
                 overflow: 'hidden',
                 zIndex: -10
             }, id: "scene" })));

@@ -137,6 +137,7 @@ function Tether() {
             vx2 = 0;
             vy2 = 0;
         };
+        let animationFrameId;
         const render = () => {
             if (!isDragging) {
                 const dx = centerX - particleX1;
@@ -219,7 +220,8 @@ function Tether() {
             ctx.beginPath();
             ctx.arc(particleX2, particleY2, radius / 2, 0, Math.PI * 2);
             ctx.fill();
-            requestAnimationFrame(render);
+            // requestAnimationFrame(render);
+            animationFrameId = requestAnimationFrame(render);
         };
         // window.addEventListener("resize", initscene);
         window.addEventListener("resize", resizeScene);
@@ -237,7 +239,8 @@ function Tether() {
             window.removeEventListener("mousedown", onMouseDown);
             window.removeEventListener("mouseup", onMouseUp);
             window.removeEventListener("touchend", onTouchEnd);
-            cancelAnimationFrame(render);
+            // cancelAnimationFrame(render);
+            cancelAnimationFrame(animationFrameId);
         };
     }, []);
     return (react_1.default.createElement("div", null,

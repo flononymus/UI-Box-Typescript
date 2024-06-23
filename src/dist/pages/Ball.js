@@ -27,6 +27,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = Ball;
 const react_1 = __importStar(require("react"));
 function Ball() {
+    // const Ball: React.FC = () => {
     const [resetTrigger, setResetTrigger] = (0, react_1.useState)(0);
     (0, react_1.useEffect)(() => {
         const canvasBall = document.querySelector("#sceneBall");
@@ -118,6 +119,7 @@ function Ball() {
             vx = 0;
             vy = 0;
         };
+        let animationFrameId;
         const render = () => {
             if (!isDragging) {
                 if (!isReleased) {
@@ -177,7 +179,8 @@ function Ball() {
             ctx.beginPath();
             ctx.arc(ballX, ballY, radius, 0, Math.PI * 2);
             ctx.fill();
-            requestAnimationFrame(render);
+            // requestAnimationFrame(render);
+            animationFrameId = requestAnimationFrame(render);
         };
         window.addEventListener("resize", resizeScene);
         window.addEventListener("mousemove", onMouseMove);
@@ -193,7 +196,8 @@ function Ball() {
             window.removeEventListener("mousedown", onMouseDown);
             window.removeEventListener("mouseup", onMouseUp);
             window.removeEventListener("touchend", onTouchEnd);
-            cancelAnimationFrame(render);
+            // cancelAnimationFrame(render);
+            cancelAnimationFrame(animationFrameId);
         };
     }, [resetTrigger]);
     // }, [initscene]);

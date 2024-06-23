@@ -23,9 +23,9 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.default = Spinner;
 const react_1 = __importStar(require("react"));
-function Spinner() {
+// export default function Spinner() {
+const Spinner = () => {
     const spinnerRef = (0, react_1.useRef)(null);
     const [isDragging, setIsDragging] = (0, react_1.useState)(false);
     const [rotation, setRotation] = (0, react_1.useState)(0);
@@ -35,7 +35,8 @@ function Spinner() {
     const friction = 0.99;
     const [lastTime, setLastTime] = (0, react_1.useState)(0);
     const maxSpeed = 15;
-    let direction;
+    // let direction : number = 0,
+    let direction = 0;
     let prevSide = null;
     const handleWheel = (event) => {
         // const scrollAmount = event.deltaY;
@@ -75,11 +76,14 @@ function Spinner() {
         };
     }, []);
     const calculateAngle = (x, y) => {
+        if (!spinnerRef.current)
+            return 0;
         const rect = spinnerRef.current.getBoundingClientRect();
         const spinnerX = rect.left + rect.width / 2;
         const spinnerY = rect.top + rect.height / 2;
         return Math.atan2(y - spinnerY, x - spinnerX) * (180 / Math.PI);
     };
+    // const handleMouseDown = (e:MouseEvent) => {
     const handleMouseDown = (e) => {
         setIsDragging(true);
         const angle = calculateAngle(e.clientX, e.clientY);
@@ -135,4 +139,5 @@ function Spinner() {
                 react_1.default.createElement("div", { className: "line", style: { top: '0%', left: '49%', height: '50%' } }),
                 react_1.default.createElement("div", { className: "line", style: { top: '36%', left: '29%', height: '50%', transform: 'rotate(60deg' } }),
                 react_1.default.createElement("div", { className: "line", style: { top: '36%', left: '70%', height: '50%', transform: 'rotate(120deg' } })))));
-}
+};
+exports.default = Spinner;
