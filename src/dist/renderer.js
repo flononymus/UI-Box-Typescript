@@ -30,11 +30,41 @@ const react_1 = __importStar(require("react"));
 const client_1 = require("react-dom/client");
 const Home_1 = __importDefault(require("./pages/Home"));
 const Navbar_1 = __importDefault(require("./components/Navbar"));
+const Settings_1 = __importDefault(require("./pages/Settings"));
+const Buttons_1 = __importDefault(require("./pages/Buttons"));
+const Spinner_1 = __importDefault(require("./pages/Spinner"));
+const Particles_1 = __importDefault(require("./pages/Particles"));
+const Tether_1 = __importDefault(require("./pages/Tether"));
+const Switches_1 = __importDefault(require("./pages/Switches"));
+const Ball_1 = __importDefault(require("./pages/Ball"));
 const App = () => {
     const [page, setPage] = (0, react_1.useState)('Home');
     let CurrentPage;
     switch (page) {
         case 'Home':
+            CurrentPage = Home_1.default;
+            break;
+        case 'Settings':
+            CurrentPage = Settings_1.default;
+            break;
+        case 'Buttons':
+            CurrentPage = Buttons_1.default;
+            break;
+        case 'Spinner':
+            CurrentPage = Spinner_1.default;
+            break;
+        case 'Particles':
+            CurrentPage = Particles_1.default;
+            break;
+        case 'Tether':
+            CurrentPage = Tether_1.default;
+            break;
+        case 'Switches':
+            CurrentPage = Switches_1.default;
+            break;
+        case 'Ball':
+            CurrentPage = Ball_1.default;
+            break;
         default:
             CurrentPage = Home_1.default;
     }
