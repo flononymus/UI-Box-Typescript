@@ -1,8 +1,6 @@
 # To-Do 
 ___
 
-- [ ] **look into eslint**
-
 - **General/QOL**
   - [x] Factor out Navbar into react component instead of on the index.html
   - [ ] Switch for navbar on top --> side: https://gist.github.com/reecelucas/2f510e6b8504008deaaa52732202d2da
@@ -18,18 +16,26 @@ ___
     - [ ] Fix lefthalf and righthalf transition
 
   - [ ] **Ball**
-    - [ ] Prototype 2d basketball thingy
+    - [x] Prototype 2d basketball thingy
+    - [ ] Add a hoop
+    - [ ] Add a reference for pull direction/pull strenght
 
   - [ ] **Tether**
     - [x] Figure out inconsistency with damping and stiffness --> initscene called twice on window resize
-    - [ ] Add actual tether
+    - [x] Add actual tether
+    - [ ] Make tethers interact with eachother
 
   - [ ] **Buttons**
     - [x] Smoother animations
     - [ ] Effects onpress
+    - [ ] some toggle buttons
 
   - [ ] **Switches**
+    - [ ] add a "manual" switch instead of click switch
     - [ ] More designs
+
+  - [ ] **Keyboard**
+    - [ ] Add some keyboard page with wasd 
 
   - [ ] **More examples**
 
