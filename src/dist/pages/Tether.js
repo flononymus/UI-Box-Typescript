@@ -23,7 +23,6 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.default = Tether;
 const react_1 = __importStar(require("react"));
 function Tether() {
     (0, react_1.useEffect)(() => {
@@ -257,3 +256,4 @@ function Tether() {
                 zIndex: -10
             }, id: "sceneTether" })));
 }
+exports.default = Tether;
