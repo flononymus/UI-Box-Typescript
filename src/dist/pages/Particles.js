@@ -113,7 +113,7 @@ function Particles() {
         let animationFrameId;
         function render() {
             // requestAnimationFrame(render)
-            // animationFrameId = requestAnimationFrame(render);
+            animationFrameId = requestAnimationFrame(render);
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             for (let i = 0; i < amount; i++) {
                 particles[i].render();
