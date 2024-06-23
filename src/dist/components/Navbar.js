@@ -3,6 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.default = Navbar;
 const react_1 = __importDefault(require("react"));
 function Navbar() {
     return (react_1.default.createElement("nav", null,
@@ -27,4 +28,3 @@ function Navbar() {
             react_1.default.createElement("button", { id: "settingsButton" },
                 react_1.default.createElement("span", { className: "material-symbols-outlined" }, "settings")))));
 }
-exports.default = Navbar;

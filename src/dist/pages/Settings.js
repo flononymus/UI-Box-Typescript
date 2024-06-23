@@ -12,6 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.default = Settings;
 const react_1 = __importDefault(require("react"));
 const react_2 = require("react");
 function Settings() {
@@ -33,8 +34,6 @@ function Settings() {
     function toggleSystemMode() {
         window.darkMode.system();
         window.darkMode.getThemeSource().then(setThemeSource);
-        // setDarkMode(false);
-        // setLightMode(true);
     }
     function themeSourceDisplay() {
         if (activeThemeSource === 'dark') {
@@ -58,4 +57,3 @@ function Settings() {
             "Navbar alignment:",
             react_1.default.createElement("strong", null, "not yet implemented"))));
 }
-exports.default = Settings;
