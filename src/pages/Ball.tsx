@@ -203,9 +203,7 @@ export default function Ball() {
             ctx.rect(hoopX1,hoopY1, radius*2, radius/2)
             ctx.fill();
 
-            // setTimeout(() => {
-                animationFrameId = requestAnimationFrame(render);
-            // }, 1000/fps);
+            animationFrameId = requestAnimationFrame(render);
         };
 
         window.addEventListener("resize", resizeScene);

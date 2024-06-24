@@ -198,9 +198,7 @@ function Ball() {
             ctx.beginPath;
             ctx.rect(hoopX1, hoopY1, radius * 2, radius / 2);
             ctx.fill();
-            // setTimeout(() => {
             animationFrameId = requestAnimationFrame(render);
-            // }, 1000/fps);
         };
         window.addEventListener("resize", resizeScene);
         window.addEventListener("mousemove", onMouseMove);
