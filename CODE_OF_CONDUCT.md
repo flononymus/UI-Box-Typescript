@@ -13,12 +13,12 @@ ___
     - [x] Add velocity and friction
     - [x] Add lefthalf and righthalf** for scrolling
     - [x] Fix lefthalf and righthalf dragging/set reference to actual center(?)
-
     - [ ] Fix lefthalf and righthalf transition
 
   - [ ] **Ball**
     - [x] Prototype 2d basketball thingy
-    - [ ] Reset button in the center of screen + bigger
+    - [ ] Ball start position from wherever the mouse is down?
+    - [x] Reset button in the center of screen + bigger
     - [ ] Add a hoop
     - [ ] Add a reference for pull direction/pull strenght
 
@@ -30,7 +30,7 @@ ___
   - [ ] **Buttons**
     - [x] Smoother animations
     - [ ] Effects onpress
-    - [ ] some toggle buttons
+    - [x] some toggle buttons
 
   - [ ] **Switches**
     - [ ] add a "manual" switch instead of click switch
@@ -47,9 +47,6 @@ ___
     - [ ] Navbar better style
     - [x] Icons instead of text
 
-- **Github Pages**
-  - [ ] Fix position of ball and particles
-  - [ ] Fix particle sizes --> not depending on screen size
 
 
 ___
@@ -72,3 +69,5 @@ ___
 
   - [x] **Github pages**
     - [x] Github actions to automatically push to gh-pages branch
+    - [x] Fix position of ball and particles
+    - [x] Fix particle sizes --> not depending on screen size
