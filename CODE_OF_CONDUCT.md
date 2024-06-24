@@ -18,6 +18,7 @@ ___
 
   - [ ] **Ball**
     - [x] Prototype 2d basketball thingy
+    - [ ] Reset button in the center of screen + bigger
     - [ ] Add a hoop
     - [ ] Add a reference for pull direction/pull strenght
 
