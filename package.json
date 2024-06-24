@@ -1,7 +1,7 @@
 {
-  "name": "ui-box-typescript",
+  "name": "ui-box",
   "version": "1.0.0",
-  "description": "UI-Box-Typescript",
+  "description": "UI-Box",
   "main": "src/dist/main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -10,14 +10,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/flokleiser/UI-Box-Typescript.git"
+    "url": "git+https://github.com/flokleiser/UI-Box.git"
   },
   "author": "Flo Kleiser",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/flokleiser/UI-Box-Typescript/issues"
+    "url": "https://github.com/flokleiser/UI-Box/issues"
   },
-  "homepage": "https://github.com/flokleiser/UI-Box-Typescript#readme",
+  "homepage": "https://github.com/flokleiser/UI-Box#readme",
   "devDependencies": {
     "@babel/core": "^7.24.7",
     "@babel/preset-env": "^7.24.7",
