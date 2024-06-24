@@ -190,18 +190,6 @@ export default function Ball() {
                 ctx.lineTo(ballX, ballY);
                 ctx.stroke();
 
-                // if (isDragging) {
-                //     ctx.strokeStyle = color;
-                //     ctx.lineWidth = 2;
-                //     // ctx.setLineDash([3,5]);
-                //     ctx.lineCap = "round";
-                //     let mirroredX = 2 * centerX - ballX;
-                //     let mirroredY = 2 * centerY - ballY;
-                //     ctx.beginPath();
-                //     ctx.moveTo(centerX, centerY);
-                //     ctx.lineTo(mirroredX,mirroredY);
-                //     ctx.stroke();
-                // }
             }
 
             ctx.fillStyle = color;
@@ -215,9 +203,9 @@ export default function Ball() {
             ctx.rect(hoopX1,hoopY1, radius*2, radius/2)
             ctx.fill();
 
-            setTimeout(() => {
+            // setTimeout(() => {
                 animationFrameId = requestAnimationFrame(render);
-            }, 1000/fps);
+            // }, 1000/fps);
         };
 
         window.addEventListener("resize", resizeScene);
