@@ -25,6 +25,8 @@ export default function Ball() {
         let vx = 0; 
         let vy = 0; 
 
+        const fps = 25
+
         const damping = 0.7; 
         const stiffness = 0.4; 
         const color = getComputedStyle(document.documentElement).getPropertyValue('--particle-color') || 'black';
@@ -213,7 +215,9 @@ export default function Ball() {
             ctx.rect(hoopX1,hoopY1, radius*2, radius/2)
             ctx.fill();
 
-            animationFrameId = requestAnimationFrame(render);
+            setTimeout(() => {
+                animationFrameId = requestAnimationFrame(render);
+            }, 1000/fps);
         };
 
         window.addEventListener("resize", resizeScene);
