@@ -25,15 +25,14 @@ var __importStar = (this && this.__importStar) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = Switches;
 const react_1 = __importStar(require("react"));
-const framer_motion_1 = require("framer-motion");
 function Switches() {
     const switcherMotion = {
         active: {
-            rotate: 0
+            rotation: "0"
             // scale:1
         },
         inactive: {
-            rotate: 180,
+            rotaton: 180,
             // scale:2,
             transition: { duration: 2 }
         }
@@ -51,11 +50,5 @@ function Switches() {
         react_1.default.createElement("h1", null, " Switches "),
         react_1.default.createElement("div", { className: 'centerContainer' },
             react_1.default.createElement("div", { className: 'switcherDiv', style: { backgroundColor: isSwitched ? "rgba(255, 255, 255, 0.5)" : "#333", transition: '0.3s' }, onMouseDown: handleSwitch },
-                react_1.default.createElement("div", { className: 'switcherCircle', style: { left: isSwitched ? "0px" : "100px", transition: '0.3s', backgroundColor: isSwitched ? "#333" : "rgba(255, 255, 255, 0.5)" } }))),
-        react_1.default.createElement("div", { className: 'centerContainer' },
-            react_1.default.createElement(framer_motion_1.motion.div, { className: 'switcherDiv', variants: switcherMotion, initial: "active", animate: isSwitchedMotion ? "inactive" : "active", 
-                // whileHover={{animate="inactive"}}
-                // animate="active" variants={switcherMotion}
-                style: { rotate: isSwitchedMotion ? '0' : '100' }, onMouseDown: handleSwitchMotion },
-                react_1.default.createElement("div", { className: 'switcherCircle', style: { backgroundColor: "rgba(255, 255, 255, 0.5)" } })))));
+                react_1.default.createElement("div", { className: 'switcherCircle', style: { left: isSwitched ? "0px" : "100px", transition: '0.3s', backgroundColor: isSwitched ? "#333" : "rgba(255, 255, 255, 0.5)" } })))));
 }
