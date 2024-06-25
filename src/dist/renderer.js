@@ -33516,12 +33516,6 @@ function Ball() {
         let isReleased = false;
         let ww = window.innerWidth;
         let wh = window.innerHeight;
-        // const hoop = {
-        //     centerX: (ww/4)*3,
-        //     centerY: ww/3,
-        //     width:80,
-        //     height:30,
-        // }
         let centerX = (ww / 2);
         let centerY = (wh / 5) * 3;
         let ballX = centerX;
@@ -33533,29 +33527,60 @@ function Ball() {
         const color = getComputedStyle(document.documentElement).getPropertyValue('--particle-color') || 'black';
         const gravity = 0.3;
         class Hoop {
-            constructor(centerX, centerY, width, height, color) {
+            constructor(centerX, centerY, width, height, wall, color) {
                 this.centerX = centerX;
                 this.centerY = centerY;
                 this.width = width;
                 this.height = height;
+                this.wall = wall;
                 this.color = color;
             }
             draw(ctx) {
                 ctx.fillStyle = this.color;
                 ctx.beginPath();
-                ctx.rect(this.centerX - this.width / 2, this.centerY, this.width, this.height);
+                // ctx.rect(this.centerX - this.width / 2, this.centerY, this.width, this.height);
+                // ctx.fill();
+                ctx.rect(this.centerX - this.width / 2, this.centerY + this.height, this.width, this.wall);
+                ctx.fill();
+                ctx.beginPath();
+                ctx.rect(this.centerX - this.width / 2, this.centerY, this.wall, this.height + this.wall);
+                ctx.fill();
+                // Draw the right wall
+                ctx.beginPath();
+                ctx.rect(this.centerX + this.width / 2 - this.wall, this.centerY, this.wall, this.height + this.wall);
                 ctx.fill();
             }
-            getBoundingClientRect() {
-                return {
-                    left: this.centerX - this.width / 2,
-                    top: this.centerY,
-                    right: this.centerX + this.width / 2,
-                    bottom: this.centerY + this.height
-                };
+            getBoundingClientRects() {
+                // return {
+                //     left: this.centerX - this.width / 2,
+                //     top: this.centerY,
+                //     right: this.centerX + this.width / 2,
+                //     bottom: this.centerY + this.height
+                // };
+                return [
+                    {
+                        left: this.centerX - this.width / 2,
+                        top: this.centerY + this.height,
+                        right: this.centerX + this.width / 2,
+                        bottom: this.centerY + this.height + this.wall
+                    },
+                    {
+                        left: this.centerX - this.width / 2,
+                        top: this.centerY,
+                        right: this.centerX - this.width / 2 + this.wall,
+                        bottom: this.centerY + this.height + this.wall
+                    },
+                    {
+                        left: this.centerX + this.width / 2 - this.wall,
+                        top: this.centerY,
+                        right: this.centerX + this.width / 2,
+                        bottom: this.centerY + this.height + this.wall
+                    }
+                ];
             }
         }
-        const hoop = new Hoop((canvasBall.width / 4) * 3, canvasBall.height / 3, 80, 30, color);
+        // const hoop = new Hoop((canvasBall.width / 4) * 3, canvasBall.height / 3, 80, 30, color);
+        const hoop = new Hoop((canvasBall.width / 4) * 3, canvasBall.height / 3, 80, 30, 10, color);
         const onMouseMove = (e) => {
             if (isDragging) {
                 mouse.x = e.clientX;
@@ -33644,19 +33669,34 @@ function Ball() {
                 ballX += vx;
                 ballY += vy;
                 //hoop
-                const hoopRect = hoop.getBoundingClientRect();
-                if (ballX + radius > hoopRect.left && ballX - radius < hoopRect.right &&
-                    ballY + radius > hoopRect.top && ballY - radius < hoopRect.bottom) {
-                    if (ballY - radius < hoopRect.top || ballY + radius > hoopRect.bottom) {
-                        vy *= -damping;
-                        ballY = ballY < hoopRect.top ? hoopRect.top - radius : hoopRect.bottom + radius;
-                    }
-                    else if (ballX - radius < hoopRect.left || ballX + radius > hoopRect.right) {
-                        vx *= -damping;
-                        ballX = ballX < hoopRect.left ? hoopRect.left - radius : hoopRect.right + radius;
+                const hoopRects = hoop.getBoundingClientRects();
+                for (const rect of hoopRects) {
+                    if (ballX + radius > rect.left && ballX - radius < rect.right &&
+                        ballY + radius > rect.top && ballY - radius < rect.bottom) {
+                        // Calculate the reflection based on the collision side
+                        if (ballY - radius < rect.top || ballY + radius > rect.bottom) {
+                            vy *= -damping;
+                            ballY = ballY < rect.top ? rect.top - radius : rect.bottom + radius;
+                        }
+                        else if (ballX - radius < rect.left || ballX + radius > rect.right) {
+                            vx *= -damping;
+                            ballX = ballX < rect.left ? rect.left - radius : rect.right + radius;
+                        }
                     }
                 }
-                // </ hoop
+                // if (
+                //     ballX + radius > hoopRect.left && ballX - radius < hoopRect.right &&
+                //     ballY + radius > hoopRect.top && ballY - radius < hoopRect.bottom
+                // ) {
+                //     if (ballY - radius < hoopRect.top || ballY + radius > hoopRect.bottom) {
+                //         vy *= -damping;
+                //         ballY = ballY < hoopRect.top ? hoopRect.top - radius : hoopRect.bottom + radius;
+                //     } else if (ballX - radius < hoopRect.left || ballX + radius > hoopRect.right) {
+                //         vx *= -damping;
+                //         ballX = ballX < hoopRect.left ? hoopRect.left - radius : hoopRect.right + radius;
+                //     }
+                // }
+                //hoop end
                 if (ballY + radius > wh || ballY - radius < 0) {
                     vy *= -damping;
                     if (ballY + radius > wh)
@@ -33694,14 +33734,6 @@ function Ball() {
                 vx = 0;
                 vy = 0;
             }
-            // if (
-            //     ballX + radius > hoop.centerX-40 && ballX - radius < hoop.centerX+40 &&
-            //     ballY + radius > hoop.centerY+30 && ballY - radius < hoop.centerY+30
-            // ) { 
-            //     vx *= -damping
-            //     vy *= -damping
-            //     console.log('hoop')
-            // }
             ctx.clearRect(0, 0, canvasBall.width, canvasBall.height);
             if (!isReleased) {
                 ctx.strokeStyle = color;
@@ -33716,10 +33748,6 @@ function Ball() {
             ctx.beginPath();
             ctx.arc(ballX, ballY, radius, 0, Math.PI * 2);
             ctx.fill();
-            // ctx.fillStyle = color;
-            // ctx.beginPath();
-            // ctx.rect(hoop.centerX,hoop.centerY,hoop.width,hoop.height)
-            // ctx.fill()
             hoop.draw(ctx);
             animationFrameId = requestAnimationFrame(render);
         };
