@@ -36,10 +36,8 @@ ___
     - [ ] add a "manual" switch instead of click switch
     - [ ] More designs
 
-  - [ ] **Keyboard**
-    - [ ] Add some keyboard page with wasd 
-
   - [ ] **More examples**
+    - [ ] Scrolling lock thing
 
 - **Styles + Design**
 
@@ -71,3 +69,6 @@ ___
     - [x] Github actions to automatically push to gh-pages branch
     - [x] Fix position of ball and particles
     - [x] Fix particle sizes --> not depending on screen size
+
+  - [x] **Keyboard**
+    - [x] Add some keyboard page with wasd 
