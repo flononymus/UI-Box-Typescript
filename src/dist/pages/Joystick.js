@@ -105,7 +105,6 @@ function Joystick() {
             const dist2 = Math.hypot(e.clientX - circleX2, e.clientY - circleY2);
             if (dist2 < radius) {
                 isDragging = true;
-                console.log('should be dragging');
             }
         };
         const onMouseUp = () => {
@@ -137,19 +136,11 @@ function Joystick() {
             const dx = circleX - centerX;
             const dy = circleY - centerY;
             const dist = Math.hypot(dx, dy);
-            // const dx2 = circleX2 - centerX2;
-            // const dy2 = circleY2 - centerY2;
-            // const dist2 = Math.hypot(dx2, dy2);
             if (dist > maxDistance) {
                 const angle = Math.atan2(dy, dx);
                 circleX = centerX + maxDistance * Math.cos(angle);
                 circleY = centerY + maxDistance * Math.sin(angle);
             }
-            // if (dist2 > maxDistance) {
-            //     const angle2 = Math.atan2(dy2, dx2);
-            //     circleX2 = centerX2 + maxDistance * Math.cos(angle2);
-            //     circleY2 = centerY2 + maxDistance * Math.sin(angle2);
-            // }
         };
         const initscene = () => {
             ww = canvasKeyboard.width = window.innerWidth;
@@ -224,6 +215,12 @@ function Joystick() {
             ctx.beginPath();
             ctx.arc(circleX, circleY, radius, 0, Math.PI * 2);
             ctx.fill();
+            ctx.font = '48px Material Icons';
+            // ctx.fillStyle = '#333';
+            ctx.fillStyle = '#333333';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText('keyboard', circleX, circleY);
             //big circle keyboard
             ctx.strokeStyle = color;
             ctx.lineWidth = 2;
@@ -235,6 +232,11 @@ function Joystick() {
             ctx.beginPath();
             ctx.arc(circleX2, circleY2, radius, 0, Math.PI * 2);
             ctx.fill();
+            ctx.font = '48px Material Icons';
+            ctx.fillStyle = '#333';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText('mouse', circleX2, circleY2);
             //big circle mouse 
             ctx.strokeStyle = color;
             ctx.lineWidth = 2;
