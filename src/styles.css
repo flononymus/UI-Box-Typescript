@@ -214,7 +214,8 @@ nav{
 .switcherDivVertical {
   position:relative;
   align-items: center;
-  display:grid;
+  /* display: grid; */
+  display: grid;
   width:100px;
   height:350px;
   margin: 0.5rem;

@@ -40,12 +40,34 @@ function Switches() {
     };
     const [isSwitched, setSwitched] = (0, react_1.useState)(false);
     const [isSwitchedMotion, setSwitchedMotion] = (0, react_1.useState)(false);
+    const [isSwitchedVertical, setSwitchedVertical] = (0, react_1.useState)(false);
+    const [isSwitchedVerticalTop, setSwitchedVerticalTop] = (0, react_1.useState)(false);
+    const [isSwitchedVerticalMiddle, setSwitchedVerticalMiddle] = (0, react_1.useState)(false);
+    const [isSwitchedVerticalBottom, setSwitchedVerticalBottom] = (0, react_1.useState)(false);
     function handleSwitch() {
         setSwitched(!isSwitched);
     }
     function handleSwitchMotion() {
         setSwitchedMotion(!isSwitchedMotion);
-        console.log('Switched', isSwitchedMotion);
+    }
+    function handleSwitchVertical(e) {
+        const verticalSwitch = document.getElementById("verticalSwitch");
+        verticalSwitch.getBoundingClientRect();
+        // console.log(verticalSwitch!.clientHeight)
+        // const topThird = verticalSwitch!.clientHeight()/3
+        if (e.clientY < verticalSwitch.clientHeight / 3) {
+            console.log('top');
+            // setSwitchedVerticalTop(!isSwitchedVerticalTop)
+        }
+        if (e.clientY > verticalSwitch.clientHeight / 3) {
+            console.log('bottom');
+        }
+        if (e.clientY < verticalSwitch.clientHeight && e.clientY > (verticalSwitch.clientHeight / 3) * 2) {
+            console.log('middle');
+        }
+        console.log(e.clientY);
+        setSwitchedVertical(!isSwitchedVertical);
+        // console.log('Switched', isSwitchedVertical);
     }
     return (react_1.default.createElement("div", null,
         react_1.default.createElement("h1", null, " Switches "),
@@ -62,7 +84,7 @@ function Switches() {
                     react_1.default.createElement(framer_motion_1.motion.div, { className: 'switcherDiv', style: { width: 275 }, onMouseDown: handleSwitchMotion }))),
             react_1.default.createElement("div", { className: 'centerContainer' },
                 react_1.default.createElement("div", { className: "switcherDivVertical" },
-                    react_1.default.createElement(framer_motion_1.motion.div, { className: 'switcherDivVerticalLine', onMouseDown: handleSwitchMotion, style: { alignItems: isSwitchedMotion ? 'center' : 'baseline' } },
-                        react_1.default.createElement("div", { className: 'switcherCircleVerticalOutline' },
+                    react_1.default.createElement(framer_motion_1.motion.div, { id: "verticalSwitch", className: 'switcherDivVerticalLine', onMouseDown: handleSwitchVertical },
+                        react_1.default.createElement("div", { className: 'switcherCircleVerticalOutline', style: { top: isSwitchedVertical ? "-150px" : "0px", transition: '0.2s' } },
                             react_1.default.createElement("div", { className: 'switcherCircleVerticalFill' }))))))));
 }
