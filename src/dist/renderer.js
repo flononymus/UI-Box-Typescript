@@ -33479,6 +33479,8 @@ function Navbar() {
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
+//idea: calculate trajectory mode, + button to turn it on/off
+//idea: make hoop like button, and calculate collision based on that
 var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
     var desc = Object.getOwnPropertyDescriptor(m, k);
@@ -33571,7 +33573,7 @@ function Ball() {
                 ];
             }
         }
-        const hoop = new Hoop((canvasBall.width / 4) * 3, canvasBall.height / 3, 100, 80, 10, color);
+        const hoop = new Hoop((canvasBall.width / 4) * 3, canvasBall.height / 3, 125, 80, 10, color);
         const onMouseMove = (e) => {
             if (isDragging) {
                 mouse.x = e.clientX;
@@ -33659,16 +33661,46 @@ function Ball() {
                 }
                 ballX += vx;
                 ballY += vy;
+                //hoop calculations
                 const hoopRects = hoop.calculateCollisions();
                 for (const rect of hoopRects) {
-                    if (ballX + radius > rect.left && ballX - radius < rect.right &&
-                        ballY + radius > rect.top && ballY - radius < rect.bottom) {
+                    if (ballX + radius > rect.left && ballX - radius < rect.right
+                        &&
+                            ballY + radius > rect.top && ballY - radius < rect.bottom) {
                         // Calculate the reflection based on the collision side
-                        if (ballY - radius < rect.top || ballY + radius > rect.bottom) {
+                        // if (ballY - radius < rect.top || ballY + radius > rect.bottom) {
+                        //     vy *= -damping;
+                        //     if (ballY < rect.top) {
+                        //         ballY = rect.top -radius;
+                        //         console.log('top')
+                        //     }
+                        //     if (ballY > rect.top) {
+                        //         ballY = rect.bottom + radius;
+                        //         console.log('bottom')
+                        //     }
+                        //     // ballY = ballY < rect.top ? rect.top - radius : rect.bottom + radius;
+                        // } else if (ballX - radius < rect.left || ballX + radius > rect.right) {
+                        //     vx *= -damping;
+                        //     if (ballX < rect.left) {
+                        //         ballX = rect.left - radius
+                        //         console.log('left')
+                        //     }
+                        //     if (ballX > rect.left) {
+                        //         ballX = rect.right + radius
+                        //         console.log('right')
+                        //     }
+                        //     // ballX = ballX < rect.left ? rect.left - radius : rect.right + radius;
+                        // }
+                        if (ballY - radius < rect.top && ballY + radius > rect.bottom) {
                             vy *= -damping;
                             ballY = ballY < rect.top ? rect.top - radius : rect.bottom + radius;
+                            // console.log('vy',vy)
+                            if (vy > -2.4) {
+                                vy = 0;
+                                console.log('ball stop', vy);
+                            }
                         }
-                        else if (ballX - radius < rect.left || ballX + radius > rect.right) {
+                        else if (ballX - radius < rect.left && ballX + radius > rect.right) {
                             vx *= -damping;
                             ballX = ballX < rect.left ? rect.left - radius : rect.right + radius;
                         }

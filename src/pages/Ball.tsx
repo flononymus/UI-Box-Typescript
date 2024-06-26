@@ -92,7 +92,7 @@ export default function Ball() {
             }
         }
 
-        const hoop = new Hoop((canvasBall.width / 4) * 3, canvasBall.height / 3, 100,80, 10, color);
+        const hoop = new Hoop((canvasBall.width / 4) * 3, canvasBall.height / 3, 125,80, 10, color);
 
 
         const onMouseMove = (e:MouseEvent) => {
@@ -200,20 +200,54 @@ export default function Ball() {
                 ballX += vx;
                 ballY += vy;
 
+
+                //hoop calculations
                 const hoopRects = hoop.calculateCollisions();
                 for (const rect of hoopRects) {
                     if (
-                        ballX + radius > rect.left && ballX - radius < rect.right &&
+                        ballX + radius > rect.left && ballX - radius < rect.right 
+                        &&
                         ballY + radius > rect.top && ballY - radius < rect.bottom
                     ) {
                         // Calculate the reflection based on the collision side
-                        if (ballY - radius < rect.top || ballY + radius > rect.bottom) {
+                        // if (ballY - radius < rect.top || ballY + radius > rect.bottom) {
+                        //     vy *= -damping;
+                        //     if (ballY < rect.top) {
+                        //         ballY = rect.top -radius;
+                        //         console.log('top')
+                        //     }
+                        //     if (ballY > rect.top) {
+                        //         ballY = rect.bottom + radius;
+                        //         console.log('bottom')
+                        //     }
+                        //     // ballY = ballY < rect.top ? rect.top - radius : rect.bottom + radius;
+
+                        // } else if (ballX - radius < rect.left || ballX + radius > rect.right) {
+                        //     vx *= -damping;
+                        //     if (ballX < rect.left) {
+                        //         ballX = rect.left - radius
+                        //         console.log('left')
+                        //     }
+                        //     if (ballX > rect.left) {
+                        //         ballX = rect.right + radius
+                        //         console.log('right')
+                        //     }
+                        //     // ballX = ballX < rect.left ? rect.left - radius : rect.right + radius;
+                        // }
+
+                        if (ballY - radius < rect.top && ballY + radius > rect.bottom) {
                             vy *= -damping;
                             ballY = ballY < rect.top ? rect.top - radius : rect.bottom + radius;
-                        } else if (ballX - radius < rect.left || ballX + radius > rect.right) {
+
+                        } else if (ballX - radius < rect.left && ballX + radius > rect.right) {
                             vx *= -damping;
                             ballX = ballX < rect.left ? rect.left - radius : rect.right + radius;
                         }
+
+
+
+
+
                     }
                 }
 
