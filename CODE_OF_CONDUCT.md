@@ -21,6 +21,8 @@ ___
     - [x] Reset button in the center of screen + bigger
     - [ ] Add a hoop
     - [ ] Add a reference for pull direction/pull strenght
+    - [ ] calculate trajectory mode, + button to turn it on/off
+    - [ ] make hoop like button, and calculate collision based on that
 
   - [ ] **Tether**
     - [x] Figure out inconsistency with damping and stiffness --> initscene called twice on window resize
