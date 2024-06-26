@@ -233,7 +233,7 @@ function Joystick() {
             ctx.arc(circleX2, circleY2, radius, 0, Math.PI * 2);
             ctx.fill();
             ctx.font = '48px Material Icons';
-            ctx.fillStyle = '#333';
+            ctx.fillStyle = '#333333';
             ctx.textAlign = 'center';
             ctx.textBaseline = 'middle';
             ctx.fillText('mouse', circleX2, circleY2);

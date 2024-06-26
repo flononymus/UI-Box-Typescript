@@ -48080,7 +48080,7 @@ function Joystick() {
             ctx.arc(circleX2, circleY2, radius, 0, Math.PI * 2);
             ctx.fill();
             ctx.font = '48px Material Icons';
-            ctx.fillStyle = '#333';
+            ctx.fillStyle = '#333333';
             ctx.textAlign = 'center';
             ctx.textBaseline = 'middle';
             ctx.fillText('mouse', circleX2, circleY2);
@@ -48183,58 +48183,6 @@ function Lock() {
         const damping = 0.8;
         const stiffness = 0.05;
         const color = getComputedStyle(document.documentElement).getPropertyValue('--particle-color') || 'black';
-        const onMouseMove = (e) => {
-            if (isDragging) {
-                mouse.x = e.clientX;
-                mouse.y = e.clientY;
-                const dx = mouse.x - centerX;
-                const dy = mouse.y - centerY;
-                const dist = Math.hypot(dx, dy);
-                if (dist <= maxDistance) {
-                    circleX = mouse.x;
-                    circleY = mouse.y;
-                }
-                else {
-                    const angle = Math.atan2(dy, dx);
-                    circleX = centerX + maxDistance * Math.cos(angle);
-                    circleY = centerY + maxDistance * Math.sin(angle);
-                }
-            }
-        };
-        const onTouchMove = (e) => {
-            if (e.touches.length > 0 && isDragging) {
-                mouse.x = e.touches[0].clientX;
-                mouse.y = e.touches[0].clientY;
-                const dx = mouse.x - centerX;
-                const dy = mouse.y - centerY;
-                const dist = Math.hypot(dx, dy);
-                if (dist <= maxDistance) {
-                    circleX = mouse.x;
-                    circleY = mouse.y;
-                }
-                else {
-                    const angle = Math.atan2(dy, dx);
-                    circleX = centerX + maxDistance * Math.cos(angle);
-                    circleY = centerY + maxDistance * Math.sin(angle);
-                }
-            }
-        };
-        const onTouchEnd = () => {
-            if (isDragging) {
-                isDragging = false;
-            }
-        };
-        const onMouseDown = (e) => {
-            const dist = Math.hypot(e.clientX - circleX, e.clientY - circleY);
-            if (dist < radius) {
-                isDragging = true;
-            }
-        };
-        const onMouseUp = () => {
-            if (isDragging) {
-                isDragging = false;
-            }
-        };
         const initscene = () => {
             ww = canvasLock.width = window.innerWidth;
             wh = canvasLock.height = window.innerHeight;
@@ -48289,19 +48237,19 @@ function Lock() {
             animationFrameId = requestAnimationFrame(render);
         };
         window.addEventListener("resize", resizeScene);
-        window.addEventListener("mousemove", onMouseMove);
-        window.addEventListener("touchmove", onTouchMove);
-        window.addEventListener("mousedown", onMouseDown);
-        window.addEventListener("mouseup", onMouseUp);
-        window.addEventListener("touchend", onTouchEnd);
+        // window.addEventListener("mousemove", onMouseMove);
+        // window.addEventListener("touchmove", onTouchMove);
+        // window.addEventListener("mousedown", onMouseDown);
+        // window.addEventListener("mouseup", onMouseUp);
+        // window.addEventListener("touchend", onTouchEnd);
         initscene();
         return () => {
             window.removeEventListener("resize", resizeScene);
-            window.removeEventListener("mousemove", onMouseMove);
-            window.removeEventListener("touchmove", onTouchMove);
-            window.removeEventListener("mousedown", onMouseDown);
-            window.removeEventListener("mouseup", onMouseUp);
-            window.removeEventListener("touchend", onTouchEnd);
+            // window.removeEventListener("mousemove", onMouseMove);
+            // window.removeEventListener("touchmove", onTouchMove);
+            // window.removeEventListener("mousedown", onMouseDown);
+            // window.removeEventListener("mouseup", onMouseUp);
+            // window.removeEventListener("touchend", onTouchEnd);
             cancelAnimationFrame(animationFrameId);
         };
     }, []);
