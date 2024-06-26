@@ -30,6 +30,7 @@ const react_1 = __importStar(require("react"));
 function Ball() {
     const [resetTrigger, setResetTrigger] = (0, react_1.useState)(0);
     const [buttonPosition, setButtonPosition] = (0, react_1.useState)({ x: 0, y: 0 });
+    const [hoopPosition, setHoopPosition] = (0, react_1.useState)({ x: 0, y: 0 });
     (0, react_1.useEffect)(() => {
         const canvasBall = document.querySelector("#sceneBall");
         const ctx = canvasBall.getContext("2d", { willReadFrequently: true });
@@ -146,6 +147,7 @@ function Ball() {
             hoop.centerX = (ww / 4) * 3;
             hoop.centerY = wh / 3;
             setButtonPosition({ x: centerX, y: centerY + 75 });
+            // setHoopPosition({ x: (canvasBall.width / 4) * 3, y: (canvasBall.height / 3) });                
             vx = 0;
             vy = 0;
             render();
@@ -161,6 +163,7 @@ function Ball() {
             vy = 0;
             hoop.centerX = (ww / 4) * 3;
             hoop.centerY = wh / 3;
+            // setHoopPosition({ x: (canvasBall.width / 4) * 3, y: (canvasBall.height / 3) });                
             setButtonPosition({ x: centerX, y: centerY + 75 });
         };
         let animationFrameId;
@@ -187,38 +190,9 @@ function Ball() {
                     if (ballX + radius > rect.left && ballX - radius < rect.right
                         &&
                             ballY + radius > rect.top && ballY - radius < rect.bottom) {
-                        // Calculate the reflection based on the collision side
-                        // if (ballY - radius < rect.top || ballY + radius > rect.bottom) {
-                        //     vy *= -damping;
-                        //     if (ballY < rect.top) {
-                        //         ballY = rect.top -radius;
-                        //         console.log('top')
-                        //     }
-                        //     if (ballY > rect.top) {
-                        //         ballY = rect.bottom + radius;
-                        //         console.log('bottom')
-                        //     }
-                        //     // ballY = ballY < rect.top ? rect.top - radius : rect.bottom + radius;
-                        // } else if (ballX - radius < rect.left || ballX + radius > rect.right) {
-                        //     vx *= -damping;
-                        //     if (ballX < rect.left) {
-                        //         ballX = rect.left - radius
-                        //         console.log('left')
-                        //     }
-                        //     if (ballX > rect.left) {
-                        //         ballX = rect.right + radius
-                        //         console.log('right')
-                        //     }
-                        //     // ballX = ballX < rect.left ? rect.left - radius : rect.right + radius;
-                        // }
                         if (ballY - radius < rect.top && ballY + radius > rect.bottom) {
                             vy *= -damping;
                             ballY = ballY < rect.top ? rect.top - radius : rect.bottom + radius;
-                            // console.log('vy',vy)
-                            if (vy > -2.4) {
-                                vy = 0;
-                                console.log('ball stop', vy);
-                            }
                         }
                         else if (ballX - radius < rect.left && ballX + radius > rect.right) {
                             vx *= -damping;

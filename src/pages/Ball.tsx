@@ -8,6 +8,8 @@ export default function Ball() {
     const [resetTrigger, setResetTrigger] = useState(0);
     const [buttonPosition, setButtonPosition] = useState({x:0,y:0})
 
+    const [hoopPosition, setHoopPosition] = useState({x:0,y:0});
+
     useEffect(() => {
         const canvasBall = document.querySelector("#sceneBall") as HTMLCanvasElement;
         const ctx = canvasBall.getContext("2d", { willReadFrequently: true }) as CanvasRenderingContext2D;
@@ -157,6 +159,8 @@ export default function Ball() {
 
             setButtonPosition({ x: centerX, y: centerY+75});
 
+            // setHoopPosition({ x: (canvasBall.width / 4) * 3, y: (canvasBall.height / 3) });                
+
             vx = 0;
             vy = 0;
             render();
@@ -174,6 +178,7 @@ export default function Ball() {
             hoop.centerX = (ww / 4) * 3;
             hoop.centerY = wh / 3;
 
+            // setHoopPosition({ x: (canvasBall.width / 4) * 3, y: (canvasBall.height / 3) });                
             setButtonPosition({ x: centerX, y: centerY+75});
         }
 
@@ -209,32 +214,6 @@ export default function Ball() {
                         &&
                         ballY + radius > rect.top && ballY - radius < rect.bottom
                     ) {
-                        // Calculate the reflection based on the collision side
-                        // if (ballY - radius < rect.top || ballY + radius > rect.bottom) {
-                        //     vy *= -damping;
-                        //     if (ballY < rect.top) {
-                        //         ballY = rect.top -radius;
-                        //         console.log('top')
-                        //     }
-                        //     if (ballY > rect.top) {
-                        //         ballY = rect.bottom + radius;
-                        //         console.log('bottom')
-                        //     }
-                        //     // ballY = ballY < rect.top ? rect.top - radius : rect.bottom + radius;
-
-                        // } else if (ballX - radius < rect.left || ballX + radius > rect.right) {
-                        //     vx *= -damping;
-                        //     if (ballX < rect.left) {
-                        //         ballX = rect.left - radius
-                        //         console.log('left')
-                        //     }
-                        //     if (ballX > rect.left) {
-                        //         ballX = rect.right + radius
-                        //         console.log('right')
-                        //     }
-                        //     // ballX = ballX < rect.left ? rect.left - radius : rect.right + radius;
-                        // }
-
                         if (ballY - radius < rect.top && ballY + radius > rect.bottom) {
                             vy *= -damping;
                             ballY = ballY < rect.top ? rect.top - radius : rect.bottom + radius;
@@ -243,11 +222,6 @@ export default function Ball() {
                             vx *= -damping;
                             ballX = ballX < rect.left ? rect.left - radius : rect.right + radius;
                         }
-
-
-
-
-
                     }
                 }
 
@@ -355,6 +329,13 @@ export default function Ball() {
                     refresh
                 </span>
             </button>
+
+            {/* <button className="hoop"
+             style={{
+                left:hoopPosition.x,
+                top:hoopPosition.y,
+            }}> test hoop </button> */}
+
 
             <canvas
                 style={{

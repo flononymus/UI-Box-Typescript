@@ -232,6 +232,16 @@ nav{
   align-items: center;
 }
 
+.hoop{
+  position:absolute;
+  display: flex;
+  width:70px;
+  height:50px;
+  justify-self: center;
+  justify-content: center;
+  align-items: center;
+}
+
   
   @media (prefers-color-scheme: dark) {
     body { background: #333; color: white; }
@@ -247,9 +257,12 @@ nav{
     .spinnerCircle {background-color: #333;}
     .spinnerCircleCenter {background-color: rgb(51, 51, 51);}
     .line {background-color: #333;}
-    .topLeftText{ color:#333}
-    .bottomRightText{color:white}
     .switcherDiv {border: 3px solid #333333}
+    .button1 {background:#333; border: 0px solid #333;}
+    .button2 {background:#333; border: 0px solid #333};
+    .button1:active {background:rgba(51,51,51,0.5)};
+    .button2:active {background:rgba(51,51,51,0.5)}; 
+    .button2toggled {background:rgba(51,51,51,0.5)}
     :root {
       --particle-color: var(--particle-color-dark);
     }
