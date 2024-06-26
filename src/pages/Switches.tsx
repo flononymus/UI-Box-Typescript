@@ -24,7 +24,7 @@ export default function Switches() {
 
     function handleSwitchMotion() {
         setSwitchedMotion(!isSwitchedMotion)
-        console.log('test');
+        console.log('Switched', isSwitchedMotion);
     }
 
 
@@ -32,28 +32,62 @@ export default function Switches() {
         <div>
             <h1> Switches </h1>
 
-            <div className='centerContainer'>
-                <div className='switcherDiv' 
-                style={{backgroundColor: isSwitched ?  "rgba(255, 255, 255, 0.5)" : "#333", transition:'0.3s'}} 
-                onMouseDown={handleSwitch} >
-                    <div className='switcherCircle' 
-                    style={{left: isSwitched ? "0px" : "100px", transition:'0.3s', backgroundColor: isSwitched ?  "#333" : "rgba(255, 255, 255, 0.5)"}} 
-                    />
+
+        <div style={{display:'flex', flexDirection:'row',justifyContent:'space-between'}}>
+
+            <div style={{display:'flex', flexDirection:'column'}}>
+
+                <div className='centerContainer'>
+                    <div className='switcherDiv' 
+                    style={{backgroundColor: isSwitched ?  "rgba(255, 255, 255, 0.5)" : "#333", transition:'0.3s'}} 
+                    onMouseDown={handleSwitch} >
+                        <div className='switcherCircle' 
+                        style={{left: isSwitched ? "0px" : "100px", transition:'0.3s', backgroundColor: isSwitched ?  "#333" : "rgba(255, 255, 255, 0.5)"}} 
+                        />
+                    </div>
                 </div>
-            </div>
             
 
-            {/* <div className='centerContainer'>
-                <motion.div className='switcherDiv' 
-                style={{ rotate: isSwitchedMotion? '0':'100'}}
-                onMouseDown={handleSwitchMotion}
-                 >
-                    <div className='switcherCircle' 
-                    style={{backgroundColor: "rgba(255, 255, 255, 0.5)"}}
-                    />
-                </motion.div>
-            </div> */}
-            
+                <div className='centerContainer'>
+                    <motion.div className='switcherDiv' 
+                    style={{width:350}}
+                    // style={{width:500}}
+                    onMouseDown={handleSwitchMotion}
+                    >
+                    </motion.div>
+                </div>
+
+
+                <div className='centerContainer'>
+                    <motion.div className='switcherDiv' 
+                    style={{width:275}}
+                    onMouseDown={handleSwitchMotion}
+                    >
+                    </motion.div>
+                </div>
+
+            </div>
+
+
+
+            <div className='centerContainer'>
+                <div className="switcherDivVertical"
+                >
+
+                    <motion.div className='switcherDivVerticalLine' 
+                    onMouseDown={handleSwitchMotion}
+                    style={{alignItems: isSwitchedMotion? 'center':'baseline'}} 
+                    >
+                        <div className='switcherCircleVerticalOutline' >
+                            <div className='switcherCircleVerticalFill'></div>
+                        </div>
+                    </motion.div>
+
+                </div>
+            </div>
+
+            </div>
+
 
 
 

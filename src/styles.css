@@ -208,9 +208,31 @@ nav{
   height:100px;
   border-radius: 100px;
   border: 3px solid white;
-  margin-bottom: 1rem;
+  margin: 0.5rem;
 }
 
+.switcherDivVertical {
+  position:relative;
+  align-items: center;
+  display:grid;
+  width:100px;
+  height:350px;
+  margin: 0.5rem;
+  justify-content: center;
+  align-items: center;
+}
+
+.switcherDivVerticalLine {
+  position:relative;
+  display:grid;
+  width:10px;
+  height:350px;
+  border-radius: 100px;
+  border: 3px solid white;
+  justify-content: center;
+  align-items: center;
+  /* margin: 0.5rem; */
+}
 .switcherCircle {
   position:relative;
   height:90px;
@@ -220,6 +242,28 @@ nav{
   transition: transform 0.3s;
   margin-left:5px;
   margin-right: 5px;
+}
+
+.switcherCircleVerticalOutline {
+  display:flex;
+  position:relative;
+  /* position:absolute; */
+  height:60px;
+  width:60px;
+  border-radius: 100px;
+  background-color:#333;
+  transition: transform 0.3s;
+  align-items: center;
+  justify-content: center;
+}
+.switcherCircleVerticalFill {
+  position:absolute;
+  height:50px;
+  width:50px;
+  border-radius: 100px;
+  background-color: rgba(255, 255, 255, 0.5);
+  transition: transform 0.3s;
+
 }
 
 .resetButton {
