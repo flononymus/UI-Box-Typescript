@@ -2,6 +2,7 @@
 ___
 
 - **General/QOL**
+  - [ ] Remove settings and replace with darkmode toggle instead
 
 - **Pages + Functionality**
 
