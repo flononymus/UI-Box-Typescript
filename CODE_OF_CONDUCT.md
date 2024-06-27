@@ -3,8 +3,6 @@ ___
 
 - **General/QOL**
   - [x] Factor out Navbar into react component instead of on the index.html
-  - [ ] Switch for navbar on top --> side: https://gist.github.com/reecelucas/2f510e6b8504008deaaa52732202d2da
-  - [ ] Consistent fps 
 
 - **Pages + Functionality**
   - [x] **Spinner**
@@ -44,10 +42,13 @@ ___
 - **Styles + Design**
 
   - [ ] **Navbar & Menus**
-    - [ ] Navbar better style
+    - [ ] Page transitions --> https://vuejs.org/guide/built-ins/transition.html
+    - [x] Navbar better style
     - [x] Icons instead of text
 
-
+- **Rest**
+  - [ ] Switch for navbar on top --> side: https://gist.github.com/reecelucas/2f510e6b8504008deaaa52732202d2da
+  - [ ] Consistent fps 
 
 ___
 

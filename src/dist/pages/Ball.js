@@ -178,7 +178,8 @@ function Ball() {
                     vy *= damping;
                 }
                 else {
-                    vy += gravity;
+                    // vy += gravity;
+                    vy -= gravity;
                 }
                 ballX += vx;
                 ballY += vy;
