@@ -32,7 +32,7 @@ export default function Buttons() {
             i === index ? !state : state
           );
           setIsToggled(updateToggle)
-          console.log('toggled',isToggled)
+          // console.log('toggled',isToggled)
           // if (isToggled) 
       }
 

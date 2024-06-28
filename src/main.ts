@@ -15,7 +15,13 @@ function createWindow () {
   mainWindow.webContents.openDevTools()
 
   mainWindow.removeMenu()
-// }
+
+
+  //test
+nativeTheme.on('updated', () => {
+  mainWindow.webContents.send('theme-changed');
+});
+//test end
 
 ipcMain.handle('dark-mode:toggle', () => {
   if (nativeTheme.shouldUseDarkColors) {

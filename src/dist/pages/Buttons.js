@@ -48,7 +48,7 @@ function Buttons() {
     const handleToggle = (index) => {
         const updateToggle = isToggled.map((state, i) => i === index ? !state : state);
         setIsToggled(updateToggle);
-        console.log('toggled', isToggled);
+        // console.log('toggled',isToggled)
         // if (isToggled) 
     };
     return (react_1.default.createElement("div", null,

@@ -12,6 +12,9 @@ export default function Ball() {
         const ctx = canvasBall.getContext("2d", { willReadFrequently: true }) as CanvasRenderingContext2D;
         const mouse = { x: 0, y: 0 };
         const radius = 25;
+
+
+
         let isDragging = false;
         let isReleased = false; 
 
@@ -284,6 +287,10 @@ export default function Ball() {
         };
 
         window.addEventListener("resize", resizeScene);
+
+        // darkmodeToggleButton!.addEventListener("mousedown", handleThemeChange);
+        // darkmodeToggleButton!.addEventListener("mousedown",resetScene) ;
+
         window.addEventListener("mousemove", onMouseMove);
         window.addEventListener("touchmove", onTouchMove);
         window.addEventListener("mousedown", onMouseDown);
@@ -293,6 +300,10 @@ export default function Ball() {
 
         return () => {
             window.removeEventListener("resize", resizeScene);
+            
+            // darkmodeToggleButton!.removeEventListener("mousedown", handleThemeChange);
+            // darkmodeToggleButton!.removeEventListener("mousedown", resetScene);
+
             window.removeEventListener("mousemove", onMouseMove);
             window.removeEventListener("touchmove", onTouchMove);
             window.removeEventListener("mousedown", onMouseDown);
@@ -307,6 +318,7 @@ export default function Ball() {
         setResetTrigger(prev => prev + 1);
         // window.location.reload();
     }
+
 
     return (
         <div>

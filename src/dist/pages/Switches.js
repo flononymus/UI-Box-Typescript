@@ -52,7 +52,6 @@ function Switches() {
     }
     function handleSwitchFill() {
         setSwitchedFill(!isSwitchedFill);
-        console.log("Fill switch", isSwitchedFill);
     }
     function handleSwitchMotion() {
         setSwitchedMotion(!isSwitchedMotion);

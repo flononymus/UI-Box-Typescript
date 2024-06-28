@@ -25,10 +25,23 @@ nav{
 }
 #settingsButton {
   margin-left:auto;
+  justify-content: center;
+}
+.settingsButtonHomepage {
+  /* margin-left:auto; */
+  /* justify-content: center; */
+  position:absolute;
+  z-index: 100;
+}
+
+.navbarButton{
+  margin-left:auto;
+  justify-content: center;
 }
 .left-buttons {
   display:flex;
   gap:10px;
+  /* align-items: center; */
 }
 .navbar button{
   width: 100px;
@@ -37,7 +50,7 @@ nav{
 
 
 .material-icons {
-  font-size: 20px;
+  font-size: 24px;
 }
 
 .buttonContainer{

@@ -254,6 +254,8 @@ function Ball() {
             animationFrameId = requestAnimationFrame(render);
         };
         window.addEventListener("resize", resizeScene);
+        // darkmodeToggleButton!.addEventListener("mousedown", handleThemeChange);
+        // darkmodeToggleButton!.addEventListener("mousedown",resetScene) ;
         window.addEventListener("mousemove", onMouseMove);
         window.addEventListener("touchmove", onTouchMove);
         window.addEventListener("mousedown", onMouseDown);
@@ -262,6 +264,8 @@ function Ball() {
         initscene();
         return () => {
             window.removeEventListener("resize", resizeScene);
+            // darkmodeToggleButton!.removeEventListener("mousedown", handleThemeChange);
+            // darkmodeToggleButton!.removeEventListener("mousedown", resetScene);
             window.removeEventListener("mousemove", onMouseMove);
             window.removeEventListener("touchmove", onTouchMove);
             window.removeEventListener("mousedown", onMouseDown);

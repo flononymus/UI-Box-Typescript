@@ -47400,27 +47400,31 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports["default"] = Navbar;
 const react_1 = __importDefault(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
 function Navbar() {
+    // const [isDark, setIsDark] = useState(false)
+    // function toggleIcon() {
+    //   setIsDark(!isDark);
+    // }
     return (react_1.default.createElement("nav", null,
         react_1.default.createElement("div", { className: "left-buttons" },
-            react_1.default.createElement("button", { id: "homeButton" },
+            react_1.default.createElement("button", { className: "navbarButton", id: "homeButton" },
                 react_1.default.createElement("span", { className: "material-symbols-outlined" }, "home")),
-            react_1.default.createElement("button", { id: "buttonspageButton" },
+            react_1.default.createElement("button", { className: "navbarButton", id: "buttonspageButton" },
                 react_1.default.createElement("span", { className: "material-symbols-outlined" }, "apps")),
-            react_1.default.createElement("button", { id: "spinnerpageButton" },
+            react_1.default.createElement("button", { className: "navbarButton", id: "spinnerpageButton" },
                 react_1.default.createElement("span", { className: "material-symbols-outlined" }, "network_node")),
-            react_1.default.createElement("button", { id: "particlespageButton" },
+            react_1.default.createElement("button", { className: "navbarButton", id: "particlespageButton" },
                 react_1.default.createElement("span", { className: "material-symbols-outlined" }, "lens_blur")),
-            react_1.default.createElement("button", { id: "switchespageButton" },
+            react_1.default.createElement("button", { className: "navbarButton", id: "switchespageButton" },
                 react_1.default.createElement("span", { className: "material-symbols-outlined" }, "toggle_on")),
-            react_1.default.createElement("button", { id: "tetherpageButton" },
+            react_1.default.createElement("button", { className: "navbarButton", id: "tetherpageButton" },
                 react_1.default.createElement("span", { className: "material-symbols-outlined" }, "tenancy")),
-            react_1.default.createElement("button", { id: "ballpageButton" },
+            react_1.default.createElement("button", { className: "navbarButton", id: "ballpageButton" },
                 react_1.default.createElement("span", { className: "material-symbols-outlined" }, "airline_stops")),
-            react_1.default.createElement("button", { id: "joystickpageButton" },
+            react_1.default.createElement("button", { className: "navbarButton", id: "joystickpageButton" },
                 react_1.default.createElement("span", { className: "material-symbols-outlined" }, "joystick"))),
         react_1.default.createElement("div", { className: "settingsButton" },
-            react_1.default.createElement("button", { id: "settingsButton" },
-                react_1.default.createElement("span", { className: "material-symbols-outlined" }, "settings")))));
+            react_1.default.createElement("button", { id: "darkmodeToggleButton" },
+                react_1.default.createElement("span", { className: "material-symbols-outlined" }, "contrast")))));
 }
 
 
@@ -47688,6 +47692,8 @@ function Ball() {
             animationFrameId = requestAnimationFrame(render);
         };
         window.addEventListener("resize", resizeScene);
+        // darkmodeToggleButton!.addEventListener("mousedown", handleThemeChange);
+        // darkmodeToggleButton!.addEventListener("mousedown",resetScene) ;
         window.addEventListener("mousemove", onMouseMove);
         window.addEventListener("touchmove", onTouchMove);
         window.addEventListener("mousedown", onMouseDown);
@@ -47696,6 +47702,8 @@ function Ball() {
         initscene();
         return () => {
             window.removeEventListener("resize", resizeScene);
+            // darkmodeToggleButton!.removeEventListener("mousedown", handleThemeChange);
+            // darkmodeToggleButton!.removeEventListener("mousedown", resetScene);
             window.removeEventListener("mousemove", onMouseMove);
             window.removeEventListener("touchmove", onTouchMove);
             window.removeEventListener("mousedown", onMouseDown);
@@ -47787,7 +47795,7 @@ function Buttons() {
     const handleToggle = (index) => {
         const updateToggle = isToggled.map((state, i) => i === index ? !state : state);
         setIsToggled(updateToggle);
-        console.log('toggled', isToggled);
+        // console.log('toggled',isToggled)
         // if (isToggled) 
     };
     return (react_1.default.createElement("div", null,
@@ -47828,9 +47836,15 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports["default"] = Home;
 const react_1 = __importDefault(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
-function Home() {
+function Home({ loadPage }) {
+    const handleSettingsClick = () => {
+        window.loadPage('Settings');
+    };
     return (react_1.default.createElement("div", null,
         react_1.default.createElement("h1", null, " UI-Box "),
+        react_1.default.createElement("div", { className: "settingsButton", style: { position: 'absolute', zIndex: 999 } },
+            react_1.default.createElement("button", { id: "settingsButton", onClick: handleSettingsClick },
+                react_1.default.createElement("span", { className: "material-symbols-outlined" }, "settings"))),
         react_1.default.createElement("div", { className: "logo" },
             react_1.default.createElement("img", { className: "logoImg", src: "./media/icon.png" }))));
 }
@@ -48504,10 +48518,7 @@ function Settings() {
             "Current:",
             react_1.default.createElement("strong", { id: "theme-source" }, themeSourceDisplay())),
         react_1.default.createElement("button", { className: "buttonInSettings", id: "toggle-dark-mode", onMouseDown: toggleDarkMode }, "Toggle Dark Mode"),
-        react_1.default.createElement("button", { className: "buttonInSettings", id: "reset-to-system", onMouseDown: toggleSystemMode }, "Reset to System Theme"),
-        react_1.default.createElement("p", null,
-            "Navbar alignment:",
-            react_1.default.createElement("strong", null, "not yet implemented"))));
+        react_1.default.createElement("button", { className: "buttonInSettings", id: "reset-to-system", onMouseDown: toggleSystemMode }, "Reset to System Theme")));
 }
 
 
@@ -48726,7 +48737,6 @@ function Switches() {
     }
     function handleSwitchFill() {
         setSwitchedFill(!isSwitchedFill);
-        console.log("Fill switch", isSwitchedFill);
     }
     function handleSwitchMotion() {
         setSwitchedMotion(!isSwitchedMotion);
@@ -49127,7 +49137,11 @@ const Ball_1 = __importDefault(__webpack_require__(/*! ./pages/Ball */ "./src/pa
 const Joystick_1 = __importDefault(__webpack_require__(/*! ./pages/Joystick */ "./src/pages/Joystick.tsx"));
 const Lock_1 = __importDefault(__webpack_require__(/*! ./pages/Lock */ "./src/pages/Lock.tsx"));
 const App = () => {
-    const [page, setPage] = (0, react_1.useState)('Switches');
+    const [page, setPage] = (0, react_1.useState)('Home');
+    // let CurrentPage: React.ComponentType;
+    const loadPage = (newPage) => {
+        setPage(newPage);
+    };
     let CurrentPage;
     switch (page) {
         case 'Home':
@@ -49135,6 +49149,7 @@ const App = () => {
             break;
         case 'Settings':
             CurrentPage = Settings_1.default;
+            // console.log('settings')
             break;
         case 'Buttons':
             CurrentPage = Buttons_1.default;
@@ -49166,12 +49181,13 @@ const App = () => {
     window.loadPage = (page) => {
         setPage(page);
     };
-    return react_1.default.createElement(CurrentPage, null);
+    return react_1.default.createElement(CurrentPage, { loadPage: loadPage });
 };
 const attachEventListeners = () => {
     const clickType = "mousedown";
     const homeButton = document.getElementById('homeButton');
     const settingsButton = document.getElementById('settingsButton');
+    const darkmodeToggleButton = document.getElementById('darkmodeToggleButton');
     const buttonsPageButton = document.getElementById('buttonspageButton');
     const spinnerPageButton = document.getElementById('spinnerpageButton');
     const particlesPageButton = document.getElementById('particlespageButton');
@@ -49210,18 +49226,32 @@ const attachEventListeners = () => {
     if (lockPageButton) {
         lockPageButton.addEventListener(clickType, () => window.loadPage('Lock'));
     }
+    // if (homeButton && settingsButton) {
+    //     homeButton.addEventListener(clickType, () => window.loadPage('Home'));
+    //     settingsButton.addEventListener(clickType, () => window.loadPage('Settings'));
+    // }
+    // homeButton!.addEventListener(clickType, () => window.loadPage('Home'));
+    // settingsButton!.addEventListener(clickType, () => window.loadPage('Settings'));
+    // buttonsPageButton!.addEventListener(clickType, () => window.loadPage('Buttons'));
+    // spinnerPageButton!.addEventListener(clickType, () => window.loadPage('Spinner'));
+    // particlesPageButton!.addEventListener(clickType, () => window.loadPage('Particles'));
+    // tetherPageButton!.addEventListener(clickType, () => window.loadPage('Tether'));
+    // switchesPageButton!.addEventListener(clickType, () => window.loadPage('Switches'));
+    // ballPageButton!.addEventListener(clickType, () => window.loadPage('Ball'));
+    // joystickPageButton!.addEventListener(clickType, () => window.loadPage('Joystick'));
+    if (darkmodeToggleButton) {
+        darkmodeToggleButton.addEventListener(clickType, () => {
+            window.darkMode.toggle();
+        });
+    }
 };
 document.addEventListener('DOMContentLoaded', attachEventListeners);
-// document.addEventListener('DOMContentLoaded', () => {
-//  attachEventListeners();
 const container = document.getElementById('root');
 const root = (0, client_1.createRoot)(container);
 root.render(react_1.default.createElement(App, null));
 const navbarContainer = document.getElementById('navbarRoot');
-if (navbarContainer) {
-    const navbarRoot = (0, client_1.createRoot)(navbarContainer);
-    navbarRoot.render(react_1.default.createElement(Navbar_1.default, null));
-}
+const navbarRoot = (0, client_1.createRoot)(navbarContainer);
+navbarRoot.render(react_1.default.createElement(Navbar_1.default, null));
 
 
 /***/ })
