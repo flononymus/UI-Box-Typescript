@@ -29,11 +29,15 @@ nav{
   display:flex;
   align-items: center;
   justify-content: center;
+  padding-top: 1px;
+  padding-bottom:1px;
 }
 
 .navbarButton{
   display:flex;
   margin-left:auto;
+  padding-top: 1px;
+  padding-bottom:1px;
 }
 .left-buttons {
   display:flex;
@@ -99,10 +103,10 @@ nav{
   padding: 20px; 
   border-radius: 40px;
   margin:0.5rem;
-  border: 2px solid rgba(255, 255, 255, 0.5);
+  border: 0;
 
-  background:#333;
-  /* background:rgba(255, 255, 255, 0.5); */
+  /* background:#333; */
+  background:rgba(255, 255, 255, 0.5);
   transition: transform 0.3s ease, background 0.2s;
 }
 
@@ -112,10 +116,11 @@ nav{
   padding: 20px; 
   border-radius: 40px;
   margin:0.5rem;
-  border: 0px solid #ddd;
+  border: 2px solid rgba(255, 255, 255, 0.5);
 
   /* background:white; */
-  background:rgba(255, 255, 255, 0.5);
+  /* background:rgba(255, 255, 255, 0.5); */
+  background:#333;
   transition: transform 0.3s ease, background 0.2s;
 }
 
@@ -324,9 +329,9 @@ nav{
     .switcherCircleVerticalOutline {background-color: #ddd;}
 
     .button1 {background:#333; border: 0px solid #333;}
-    .button1:active{filter:invert();transition:transform 0.3s} 
+    .button1:active{background: #ddd; border: 0px solid #333;} 
 
-    .button2{border:0}
+    /* .button2{border:0} */
     .button2toggled {background:rgba(51,51,51,0.5)}
 
     :root {

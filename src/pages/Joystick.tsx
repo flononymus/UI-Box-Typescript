@@ -10,7 +10,6 @@ export default function Joystick() {
         const canvasKeyboard= document.querySelector("#canvasKeyboard") as HTMLCanvasElement;
         const ctx = canvasKeyboard.getContext("2d", { willReadFrequently: true }) as CanvasRenderingContext2D;
         const mouse = { x: 0, y: 0 };
-        // const radius = 100;
         const radius = 75
         let isDragging = false;
         let maxDistance = 80;
