@@ -20,6 +20,9 @@ ___
     - [ ] calculate trajectory mode, + button to turn it on/off
     - [ ] make hoop like button, and calculate collision based on that
 
+  - [ ] **Joysticks**
+    - [ ] Keyboard ball not getting reset while isdragging is true
+
   - [ ] **Tether**
     - [ ] Make tethers interact with eachother
 

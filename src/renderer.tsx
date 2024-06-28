@@ -135,22 +135,6 @@ const attachEventListeners = () => {
         lockPageButton.addEventListener(clickType, () => window.loadPage('Lock'));
     }
 
-
-    // if (homeButton && settingsButton) {
-    //     homeButton.addEventListener(clickType, () => window.loadPage('Home'));
-    //     settingsButton.addEventListener(clickType, () => window.loadPage('Settings'));
-    // }
-
-    // homeButton!.addEventListener(clickType, () => window.loadPage('Home'));
-    // settingsButton!.addEventListener(clickType, () => window.loadPage('Settings'));
-    // buttonsPageButton!.addEventListener(clickType, () => window.loadPage('Buttons'));
-    // spinnerPageButton!.addEventListener(clickType, () => window.loadPage('Spinner'));
-    // particlesPageButton!.addEventListener(clickType, () => window.loadPage('Particles'));
-    // tetherPageButton!.addEventListener(clickType, () => window.loadPage('Tether'));
-    // switchesPageButton!.addEventListener(clickType, () => window.loadPage('Switches'));
-    // ballPageButton!.addEventListener(clickType, () => window.loadPage('Ball'));
-    // joystickPageButton!.addEventListener(clickType, () => window.loadPage('Joystick'));
-
     if (darkmodeToggleButton) {
         darkmodeToggleButton!.addEventListener(clickType, () => {
             window.darkMode.toggle()

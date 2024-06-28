@@ -47486,6 +47486,7 @@ function Ball() {
         const stiffness = 0.4;
         const color = getComputedStyle(document.documentElement).getPropertyValue('--particle-color') || 'black';
         const gravity = 0.3;
+        const darkmodeToggleButton = document.getElementById('darkmodeToggleButton');
         class Hoop {
             constructor(centerX, centerY, width, height, wall, color) {
                 this.centerX = centerX;
@@ -47691,9 +47692,11 @@ function Ball() {
             hoop.draw(ctx);
             animationFrameId = requestAnimationFrame(render);
         };
+        const handleThemeToggle = () => { resetScene(); };
         window.addEventListener("resize", resizeScene);
         // darkmodeToggleButton!.addEventListener("mousedown", handleThemeChange);
         // darkmodeToggleButton!.addEventListener("mousedown",resetScene) ;
+        darkmodeToggleButton.addEventListener('click', handleThemeToggle);
         window.addEventListener("mousemove", onMouseMove);
         window.addEventListener("touchmove", onTouchMove);
         window.addEventListener("mousedown", onMouseDown);
@@ -47704,6 +47707,7 @@ function Ball() {
             window.removeEventListener("resize", resizeScene);
             // darkmodeToggleButton!.removeEventListener("mousedown", handleThemeChange);
             // darkmodeToggleButton!.removeEventListener("mousedown", resetScene);
+            darkmodeToggleButton.removeEventListener('click', handleThemeToggle);
             window.removeEventListener("mousemove", onMouseMove);
             window.removeEventListener("touchmove", onTouchMove);
             window.removeEventListener("mousedown", onMouseDown);
@@ -47714,7 +47718,6 @@ function Ball() {
     }, [resetTrigger]);
     function resetScene() {
         setResetTrigger(prev => prev + 1);
-        // window.location.reload();
     }
     return (react_1.default.createElement("div", null,
         react_1.default.createElement("h1", null, "Ball"),
@@ -47887,6 +47890,7 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports["default"] = Joystick;
 const react_1 = __importStar(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
 function Joystick() {
+    const [resetTrigger, setResetTrigger] = (0, react_1.useState)(0);
     (0, react_1.useEffect)(() => {
         const canvasKeyboard = document.querySelector("#canvasKeyboard");
         const ctx = canvasKeyboard.getContext("2d", { willReadFrequently: true });
@@ -47910,6 +47914,7 @@ function Joystick() {
         let circleY2 = centerY2;
         let vx2 = 0;
         let vy2 = 0;
+        const darkmodeToggleButton = document.getElementById('darkmodeToggleButton');
         const damping = 0.8;
         const stiffness = 0.05;
         const color = getComputedStyle(document.documentElement).getPropertyValue('--particle-color') || 'black';
@@ -48109,6 +48114,8 @@ function Joystick() {
             ctx.stroke(),
                 animationFrameId = requestAnimationFrame(render);
         };
+        const handleThemeToggle = () => { resetScene(); };
+        darkmodeToggleButton.addEventListener('click', handleThemeToggle);
         window.addEventListener("mousemove", onMouseMove);
         window.addEventListener("touchmove", onTouchMove);
         window.addEventListener("mousedown", onMouseDown);
@@ -48119,6 +48126,7 @@ function Joystick() {
         window.addEventListener("resize", resizeScene);
         initscene();
         return () => {
+            darkmodeToggleButton.removeEventListener('click', handleThemeToggle);
             window.removeEventListener("mousemove", onMouseMove);
             window.removeEventListener("touchmove", onTouchMove);
             window.removeEventListener("mousedown", onMouseDown);
@@ -48129,7 +48137,10 @@ function Joystick() {
             window.removeEventListener("resize", resizeScene);
             cancelAnimationFrame(animationFrameId);
         };
-    }, []);
+    }, [resetTrigger]);
+    function resetScene() {
+        setResetTrigger(prev => prev + 1);
+    }
     return (react_1.default.createElement("div", null,
         react_1.default.createElement("h1", null, "Joystick"),
         react_1.default.createElement("canvas", { style: {
@@ -48302,10 +48313,12 @@ const react_1 = __importDefault(__webpack_require__(/*! react */ "./node_modules
 const react_2 = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 function Particles() {
     // const Particles:React.FC = () => {
+    const [resetTrigger, setResetTrigger] = (0, react_2.useState)(0);
     (0, react_2.useEffect)(() => {
         let canvas = document.querySelector("#scene"), ctx = canvas.getContext("2d", {
             willReadFrequently: true,
         }), particles = [], amount = 0, mouse = { x: 0, y: 0 }, radius = 0.5;
+        const darkmodeToggleButton = document.getElementById('darkmodeToggleButton');
         // let color = ["#ffffff"];
         const color = [
             getComputedStyle(document.documentElement).getPropertyValue("--particle-color"),
@@ -48424,6 +48437,8 @@ function Particles() {
                 particles[i].render();
             }
         }
+        const handleThemeToggle = () => { resetScene(); };
+        darkmodeToggleButton.addEventListener("click", handleThemeToggle);
         window.addEventListener("resize", initScene);
         window.addEventListener("mousemove", onMouseMove);
         window.addEventListener("touchmove", onTouchMove);
@@ -48433,6 +48448,7 @@ function Particles() {
         initScene();
         animationFrameId = requestAnimationFrame(render);
         return () => {
+            darkmodeToggleButton.removeEventListener("click", handleThemeToggle);
             window.removeEventListener("resize", initScene);
             window.removeEventListener("mousemove", onMouseMove);
             window.removeEventListener("touchmove", onTouchMove);
@@ -48441,7 +48457,10 @@ function Particles() {
             window.removeEventListener("touchend", onTouchEnd);
             cancelAnimationFrame(animationFrameId);
         };
-    }, []);
+    }, [resetTrigger]);
+    function resetScene() {
+        setResetTrigger(prev => prev + 1);
+    }
     return (react_1.default.createElement("div", null,
         react_1.default.createElement("h1", null, " Particles "),
         react_1.default.createElement("canvas", { style: {
@@ -48812,6 +48831,7 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports["default"] = Tether;
 const react_1 = __importStar(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
 function Tether() {
+    const [resetTrigger, setResetTrigger] = (0, react_1.useState)(0);
     (0, react_1.useEffect)(() => {
         const canvasTether = document.querySelector("#sceneTether");
         const ctx = canvasTether.getContext("2d", { willReadFrequently: true });
@@ -48842,6 +48862,7 @@ function Tether() {
         let particleY3 = centerY3;
         let vx3 = 0;
         let vy3 = 0;
+        const darkmodeToggleButton = document.getElementById('darkmodeToggleButton');
         // const damping = 0.9; 
         // const stiffness = 0.1; 
         const damping = 0.8;
@@ -49056,6 +49077,8 @@ function Tether() {
             // requestAnimationFrame(render);
             animationFrameId = requestAnimationFrame(render);
         };
+        const handleThemeToggle = () => { resetScene(); };
+        darkmodeToggleButton.addEventListener('click', handleThemeToggle);
         window.addEventListener("resize", resizeScene);
         window.addEventListener("mousemove", onMouseMove);
         window.addEventListener("touchmove", onTouchMove);
@@ -49064,6 +49087,7 @@ function Tether() {
         window.addEventListener("touchend", onTouchEnd);
         initscene();
         return () => {
+            darkmodeToggleButton.removeEventListener('click', handleThemeToggle);
             window.removeEventListener("resize", resizeScene);
             window.removeEventListener("mousemove", onMouseMove);
             window.removeEventListener("touchmove", onTouchMove);
@@ -49072,7 +49096,10 @@ function Tether() {
             window.removeEventListener("touchend", onTouchEnd);
             cancelAnimationFrame(animationFrameId);
         };
-    }, []);
+    }, [resetTrigger]);
+    function resetScene() {
+        setResetTrigger(prev => prev + 1);
+    }
     return (react_1.default.createElement("div", null,
         react_1.default.createElement("h1", null, "Tether"),
         react_1.default.createElement("canvas", { style: {
@@ -49226,19 +49253,6 @@ const attachEventListeners = () => {
     if (lockPageButton) {
         lockPageButton.addEventListener(clickType, () => window.loadPage('Lock'));
     }
-    // if (homeButton && settingsButton) {
-    //     homeButton.addEventListener(clickType, () => window.loadPage('Home'));
-    //     settingsButton.addEventListener(clickType, () => window.loadPage('Settings'));
-    // }
-    // homeButton!.addEventListener(clickType, () => window.loadPage('Home'));
-    // settingsButton!.addEventListener(clickType, () => window.loadPage('Settings'));
-    // buttonsPageButton!.addEventListener(clickType, () => window.loadPage('Buttons'));
-    // spinnerPageButton!.addEventListener(clickType, () => window.loadPage('Spinner'));
-    // particlesPageButton!.addEventListener(clickType, () => window.loadPage('Particles'));
-    // tetherPageButton!.addEventListener(clickType, () => window.loadPage('Tether'));
-    // switchesPageButton!.addEventListener(clickType, () => window.loadPage('Switches'));
-    // ballPageButton!.addEventListener(clickType, () => window.loadPage('Ball'));
-    // joystickPageButton!.addEventListener(clickType, () => window.loadPage('Joystick'));
     if (darkmodeToggleButton) {
         darkmodeToggleButton.addEventListener(clickType, () => {
             window.darkMode.toggle();

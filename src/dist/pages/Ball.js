@@ -48,6 +48,7 @@ function Ball() {
         const stiffness = 0.4;
         const color = getComputedStyle(document.documentElement).getPropertyValue('--particle-color') || 'black';
         const gravity = 0.3;
+        const darkmodeToggleButton = document.getElementById('darkmodeToggleButton');
         class Hoop {
             constructor(centerX, centerY, width, height, wall, color) {
                 this.centerX = centerX;
@@ -253,9 +254,11 @@ function Ball() {
             hoop.draw(ctx);
             animationFrameId = requestAnimationFrame(render);
         };
+        const handleThemeToggle = () => { resetScene(); };
         window.addEventListener("resize", resizeScene);
         // darkmodeToggleButton!.addEventListener("mousedown", handleThemeChange);
         // darkmodeToggleButton!.addEventListener("mousedown",resetScene) ;
+        darkmodeToggleButton.addEventListener('click', handleThemeToggle);
         window.addEventListener("mousemove", onMouseMove);
         window.addEventListener("touchmove", onTouchMove);
         window.addEventListener("mousedown", onMouseDown);
@@ -266,6 +269,7 @@ function Ball() {
             window.removeEventListener("resize", resizeScene);
             // darkmodeToggleButton!.removeEventListener("mousedown", handleThemeChange);
             // darkmodeToggleButton!.removeEventListener("mousedown", resetScene);
+            darkmodeToggleButton.removeEventListener('click', handleThemeToggle);
             window.removeEventListener("mousemove", onMouseMove);
             window.removeEventListener("touchmove", onTouchMove);
             window.removeEventListener("mousedown", onMouseDown);
@@ -276,7 +280,6 @@ function Ball() {
     }, [resetTrigger]);
     function resetScene() {
         setResetTrigger(prev => prev + 1);
-        // window.location.reload();
     }
     return (react_1.default.createElement("div", null,
         react_1.default.createElement("h1", null, "Ball"),
