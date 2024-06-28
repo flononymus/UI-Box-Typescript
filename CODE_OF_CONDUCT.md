@@ -28,6 +28,7 @@ ___
 
   - [ ] **Buttons**
     - [ ] Effects onpress
+    - [ ] button1 correct light mode colors
 
   - [ ] **Switches**
     - [ ] add a "manual" switch instead of click switch

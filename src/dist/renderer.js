@@ -47859,6 +47859,9 @@ function Home({ loadPage }) {
     };
     return (react_1.default.createElement("div", null,
         react_1.default.createElement("h1", null, " UI-Box "),
+        react_1.default.createElement("div", { className: "settingsButton", style: { position: 'absolute', zIndex: 999 } },
+            react_1.default.createElement("button", { id: "settingsButton", onMouseDown: handleSettingsClick },
+                react_1.default.createElement("span", { className: "material-symbols-outlined" }, "settings"))),
         react_1.default.createElement("div", { className: "logo" },
             react_1.default.createElement("img", { className: "logoImg", src: "./media/icon.png" }))));
 }
