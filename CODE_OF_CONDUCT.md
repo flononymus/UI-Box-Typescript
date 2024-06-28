@@ -13,13 +13,6 @@ ___
   - [ ] **Spinner**
     - [ ] Fix lefthalf and righthalf transition
 
-  - [ ] **Ball**
-    - [ ] Ball start position from wherever the mouse is down?
-    - [ ] Add a hoop
-    - [ ] Add a reference for pull direction/pull strenght
-    - [ ] calculate trajectory mode, + button to turn it on/off
-    - [ ] make hoop like button, and calculate collision based on that
-
   - [ ] **Joysticks**
     - [ ] Keyboard ball not getting reset while isdragging is true
 
@@ -28,6 +21,7 @@ ___
 
   - [ ] **Buttons**
     - [ ] Effects onpress
+    - [x] button1 correct light mode colors
 
   - [ ] **Switches**
     - [ ] add a "manual" switch instead of click switch
@@ -35,6 +29,14 @@ ___
 
   - [ ] **More examples**
     - [ ] Scrolling lock thing
+    - [ ] Add more inspiration gifs
+
+  - [ ] **Ball**
+    - [ ] Ball start position from wherever the mouse is down?
+    - [ ] Add a hoop
+    - [ ] Add a reference for pull direction/pull strenght
+    - [ ] calculate trajectory mode, + button to turn it on/off
+    - [ ] make hoop like button, and calculate collision based on that
 
 - **Styles + Design**
 
