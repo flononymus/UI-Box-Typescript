@@ -47393,17 +47393,37 @@ if (false) {} else {
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports["default"] = Navbar;
-const react_1 = __importDefault(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
+const react_1 = __importStar(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
 function Navbar() {
-    // const [isDark, setIsDark] = useState(false)
-    // function toggleIcon() {
-    //   setIsDark(!isDark);
-    // }
+    const [isDark, setIsDark] = (0, react_1.useState)(false);
+    function toggleIcon() {
+        setIsDark(!isDark);
+    }
     return (react_1.default.createElement("nav", null,
         react_1.default.createElement("div", { className: "left-buttons" },
             react_1.default.createElement("button", { className: "navbarButton", id: "homeButton" },
@@ -47423,8 +47443,8 @@ function Navbar() {
             react_1.default.createElement("button", { className: "navbarButton", id: "joystickpageButton" },
                 react_1.default.createElement("span", { className: "material-symbols-outlined" }, "joystick"))),
         react_1.default.createElement("div", { className: "settingsButton" },
-            react_1.default.createElement("button", { id: "darkmodeToggleButton" },
-                react_1.default.createElement("span", { className: "material-symbols-outlined" }, "contrast")))));
+            react_1.default.createElement("button", { className: "settingsButton", id: "darkmodeToggleButton", onMouseDown: toggleIcon },
+                react_1.default.createElement("span", { className: "material-symbols-outlined", style: { rotate: isDark ? '180deg' : '0deg', transition: 'transform 0.2s' } }, "contrast")))));
 }
 
 
@@ -47839,9 +47859,6 @@ function Home({ loadPage }) {
     };
     return (react_1.default.createElement("div", null,
         react_1.default.createElement("h1", null, " UI-Box "),
-        react_1.default.createElement("div", { className: "settingsButton", style: { position: 'absolute', zIndex: 999 } },
-            react_1.default.createElement("button", { id: "settingsButton", onMouseDown: handleSettingsClick },
-                react_1.default.createElement("span", { className: "material-symbols-outlined" }, "settings"))),
         react_1.default.createElement("div", { className: "logo" },
             react_1.default.createElement("img", { className: "logoImg", src: "./media/icon.png" }))));
 }
@@ -48779,8 +48796,8 @@ function Switches() {
                     react_1.default.createElement(framer_motion_1.motion.div, { className: 'switcherDiv', style: { width: 350 }, onMouseDown: handleSwitchMotion })),
                 react_1.default.createElement("div", { className: 'centerContainer' },
                     react_1.default.createElement(framer_motion_1.motion.div, { className: 'switcherDiv', style: { width: 275, display: 'flex', justifyContent: 'center', backgroundColor: '#333' }, onMouseDown: handleSwitchFill },
-                        react_1.default.createElement("div", { className: 'switcherDivHalf', style: { backgroundColor: isSwitchedFill ? "rgba(255, 255, 255, 0.5)" : "#333", transition: '0.3s', rotate: '180deg' } }),
-                        react_1.default.createElement("div", { className: 'switcherDivHalf', style: { backgroundColor: isSwitchedFill ? "#333" : "rgba(255, 255, 255, 0.5)", transition: '0.3s' } })))),
+                        react_1.default.createElement("div", { className: 'switcherDivHalf', style: { backgroundColor: isSwitchedFill ? "rgba(255, 255, 255, 0.5)" : "#333", transition: '0.05s', rotate: '180deg' } }),
+                        react_1.default.createElement("div", { className: 'switcherDivHalf', style: { backgroundColor: isSwitchedFill ? "#333" : "rgba(255, 255, 255, 0.5)", transition: '0.05s' } })))),
             react_1.default.createElement("div", { className: 'centerContainer' },
                 react_1.default.createElement("div", { className: "switcherDivVertical" },
                     react_1.default.createElement(framer_motion_1.motion.div, { id: "verticalSwitch", className: 'switcherDivVerticalLine' },
@@ -49158,7 +49175,7 @@ const Ball_1 = __importDefault(__webpack_require__(/*! ./pages/Ball */ "./src/pa
 const Joystick_1 = __importDefault(__webpack_require__(/*! ./pages/Joystick */ "./src/pages/Joystick.tsx"));
 const Lock_1 = __importDefault(__webpack_require__(/*! ./pages/Lock */ "./src/pages/Lock.tsx"));
 const App = () => {
-    const [page, setPage] = (0, react_1.useState)('Buttons');
+    const [page, setPage] = (0, react_1.useState)('Home');
     // let CurrentPage: React.ComponentType;
     const loadPage = (newPage) => {
         setPage(newPage);

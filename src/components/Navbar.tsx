@@ -1,12 +1,14 @@
+import { transform } from 'framer-motion';
 import React, { useState, useEffect } from 'react';
+import { rootCertificates } from 'tls';
 
 export default function Navbar() {
 
 
-  // const [isDark, setIsDark] = useState(false)
-  // function toggleIcon() {
-  //   setIsDark(!isDark);
-  // }
+  const [isDark, setIsDark] = useState(false)
+  function toggleIcon() {
+    setIsDark(!isDark);
+  }
 
   return(
 
@@ -73,24 +75,13 @@ export default function Navbar() {
 
       </div>
 
-
-
-
-
-      {/* <div className="settingsButton">
-        <button id="settingsButton">
-          <span className="material-symbols-outlined">
-            settings
-          </span>
-        </button>
-      </div> */}
-
       <div className="settingsButton">
-        <button id="darkmodeToggleButton"
-        // onMouseDown={toggleIcon}
+        <button className="settingsButton" id="darkmodeToggleButton"
+        onMouseDown={toggleIcon}
         >
-          <span className="material-symbols-outlined">
+          <span className="material-symbols-outlined" style={{rotate: isDark? '180deg':'0deg', transition:'transform 0.2s'}}>
             contrast
+            {/* {isDark? 'dark_mode':'light_mode'} */}
           </span>
         </button>
       </div>
