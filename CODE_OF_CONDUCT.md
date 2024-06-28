@@ -2,10 +2,10 @@
 ___
 
 - **General/QOL**
-  - [ ] Reload the canvas pages when darkmodetoggle
   - [ ] properly align icons in the navbar
-  - [ ] Figure out why settings button is not working on homepage
 
+  - [x] Figure out why settings button is not working on homepage
+  - [x] Reload the canvas pages when darkmodetoggle
   - [x] Remove settings and replace with darkmode toggle instead
 
 - **Pages + Functionality**

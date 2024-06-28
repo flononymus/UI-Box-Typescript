@@ -19,7 +19,7 @@ export default function Home({loadPage}:HomeProps) {
             <h1> UI-Box </h1>
 
              <div className="settingsButton" style={{position:'absolute', zIndex:999}}>
-                <button id="settingsButton" onClick={handleSettingsClick}>
+                <button id="settingsButton" onMouseDown={handleSettingsClick}>
                     <span className="material-symbols-outlined">
                         settings
                     </span>

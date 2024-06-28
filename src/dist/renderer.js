@@ -47790,24 +47790,18 @@ function Buttons() {
         setTimeout(() => {
             setIsPressed(false);
         }, 500);
-        // if (isPressed) {
-        //   let pressedButton = document.getElementById("buttonTest1")
-        //   pressedButton?.setAttribute("style", "background-color: red;")
-        // }
     };
     const handleToggle = (index) => {
         const updateToggle = isToggled.map((state, i) => i === index ? !state : state);
         setIsToggled(updateToggle);
-        // console.log('toggled',isToggled)
-        // if (isToggled) 
     };
     return (react_1.default.createElement("div", null,
         react_1.default.createElement("h1", null, " Buttons "),
         react_1.default.createElement("div", { style: { display: 'flex', flexDirection: 'row', justifyContent: 'space-between' } },
             react_1.default.createElement("div", { className: "buttonContainer" },
                 react_1.default.createElement("div", { className: "buttonRow" },
-                    react_1.default.createElement("button", { className: "button1", id: "buttonTest", onClick: handlePress }, " "),
-                    react_1.default.createElement("button", { className: "button1", id: "buttonTest", onClick: handlePress }, " "),
+                    react_1.default.createElement("button", { className: "button1", id: "buttonTest", onMouseDown: handlePress }, " "),
+                    react_1.default.createElement("button", { className: "button1", id: "buttonTest", onMouseDown: handlePress }, " "),
                     react_1.default.createElement("button", { className: "button1" }, " ")),
                 react_1.default.createElement("div", { className: "buttonRow" },
                     react_1.default.createElement("button", { className: "button1" }, " "),
@@ -47846,7 +47840,7 @@ function Home({ loadPage }) {
     return (react_1.default.createElement("div", null,
         react_1.default.createElement("h1", null, " UI-Box "),
         react_1.default.createElement("div", { className: "settingsButton", style: { position: 'absolute', zIndex: 999 } },
-            react_1.default.createElement("button", { id: "settingsButton", onClick: handleSettingsClick },
+            react_1.default.createElement("button", { id: "settingsButton", onMouseDown: handleSettingsClick },
                 react_1.default.createElement("span", { className: "material-symbols-outlined" }, "settings"))),
         react_1.default.createElement("div", { className: "logo" },
             react_1.default.createElement("img", { className: "logoImg", src: "./media/icon.png" }))));
@@ -49164,7 +49158,7 @@ const Ball_1 = __importDefault(__webpack_require__(/*! ./pages/Ball */ "./src/pa
 const Joystick_1 = __importDefault(__webpack_require__(/*! ./pages/Joystick */ "./src/pages/Joystick.tsx"));
 const Lock_1 = __importDefault(__webpack_require__(/*! ./pages/Lock */ "./src/pages/Lock.tsx"));
 const App = () => {
-    const [page, setPage] = (0, react_1.useState)('Home');
+    const [page, setPage] = (0, react_1.useState)('Buttons');
     // let CurrentPage: React.ComponentType;
     const loadPage = (newPage) => {
         setPage(newPage);
