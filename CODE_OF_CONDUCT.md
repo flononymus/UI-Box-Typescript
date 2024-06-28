@@ -2,7 +2,11 @@
 ___
 
 - **General/QOL**
-  - [ ] Remove settings and replace with darkmode toggle instead
+  - [ ] properly align icons in the navbar
+
+  - [x] Figure out why settings button is not working on homepage
+  - [x] Reload the canvas pages when darkmodetoggle
+  - [x] Remove settings and replace with darkmode toggle instead
 
 - **Pages + Functionality**
 
@@ -15,6 +19,9 @@ ___
     - [ ] Add a reference for pull direction/pull strenght
     - [ ] calculate trajectory mode, + button to turn it on/off
     - [ ] make hoop like button, and calculate collision based on that
+
+  - [ ] **Joysticks**
+    - [ ] Keyboard ball not getting reset while isdragging is true
 
   - [ ] **Tether**
     - [ ] Make tethers interact with eachother
