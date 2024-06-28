@@ -92,7 +92,6 @@ export default function Joystick() {
         const onTouchEnd = () => {
             if (isDragging) {
                 isDragging = false;
-                console.log('stop drag')
             }
         };
 
@@ -123,7 +122,8 @@ export default function Joystick() {
             }
         };
 
-        const updatePosition = () => {
+        // const updatePosition = () => {
+        const updatePositionKeyboard = () => {
             if (keyState.w) circleY -= 10;
             if (keyState.a) circleX -= 10;
             if (keyState.s) circleY += 10;
@@ -138,6 +138,20 @@ export default function Joystick() {
                 const angle = Math.atan2(dy, dx);
                 circleX = centerX + maxDistance * Math.cos(angle);
                 circleY = centerY + maxDistance * Math.sin(angle);
+            }
+
+        }
+        const updatePositionMouse = () => {
+
+            const dx2 = circleX2 - centerX2;
+            const dy2 = circleY2 - centerY2;
+            const dist2 = Math.hypot(dx2, dy2);
+
+
+            if (dist2 > maxDistance) {
+                const angle2 = Math.atan2(dy2, dx2);
+                circleX2 = centerX2 + maxDistance * Math.cos(angle2);
+                circleY2 = centerY2 + maxDistance * Math.sin(angle2);
             }
         };
         
@@ -183,9 +197,7 @@ export default function Joystick() {
 
         let animationFrameId: number;
 
-        const render = () => {
-
-            // const distToCenter = Math.hypot(circleX - centerX, circleY - centerY) 
+        const render= () => {
 
             if (!isMovingKeys && !isDragging) {
                 const dx = centerX - circleX;
@@ -212,11 +224,24 @@ export default function Joystick() {
             }
            
             else {
-                updatePosition();
+                updatePositionKeyboard();
                 vx = 0;
                 vy = 0;
-                vx2 = 0;
-                vy2 = 0;
+            } 
+                if (isDragging) {
+                    updatePositionMouse()
+                    vx2 = 0;
+                    vy2 = 0;
+                    const dx = centerX - circleX;
+                    const dy = centerY - circleY;
+                    const ax = dx * stiffness;
+                    const ay = dy * stiffness;
+                    vx += ax;
+                    vy += ay;
+                    vx *= damping;
+                    vy *= damping;
+                    circleX += vx;
+                    circleY += vy;
             }
 
             ctx.clearRect(0, 0, canvasKeyboard.width, canvasKeyboard.height);
@@ -229,8 +254,6 @@ export default function Joystick() {
             ctx.fill();
 
             ctx.font = '48px Material Icons';
-            // ctx.fillStyle = '#333';
-            // ctx.fillStyle = 'rgba(51,51,51,0.5)';
             ctx.fillStyle = colorText
             ctx.textAlign = 'center';
             ctx.textBaseline = 'middle';
@@ -250,8 +273,6 @@ export default function Joystick() {
             ctx.fill();
 
             ctx.font = '48px Material Icons';
-            // ctx.fillStyle = '#333333';
-            // ctx.fillStyle = 'rgba(51,51,51,0.5)';
             ctx.fillStyle = colorText
             ctx.textAlign = 'center';
             ctx.textBaseline = 'middle';
@@ -267,6 +288,7 @@ export default function Joystick() {
 
             animationFrameId = requestAnimationFrame(render);
         };
+
 
         const handleThemeToggle = () => {resetScene()}
 

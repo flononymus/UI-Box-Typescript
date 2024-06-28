@@ -47859,9 +47859,6 @@ function Home({ loadPage }) {
     };
     return (react_1.default.createElement("div", null,
         react_1.default.createElement("h1", null, " UI-Box "),
-        react_1.default.createElement("div", { className: "settingsButton", style: { position: 'absolute', zIndex: 999 } },
-            react_1.default.createElement("button", { id: "settingsButton", onMouseDown: handleSettingsClick },
-                react_1.default.createElement("span", { className: "material-symbols-outlined" }, "settings"))),
         react_1.default.createElement("div", { className: "logo" },
             react_1.default.createElement("img", { className: "logoImg", src: "./media/icon.png" }))));
 }
@@ -47978,7 +47975,6 @@ function Joystick() {
         const onTouchEnd = () => {
             if (isDragging) {
                 isDragging = false;
-                console.log('stop drag');
             }
         };
         const onMouseDown = (e) => {
@@ -48004,7 +48000,8 @@ function Joystick() {
                 isMovingKeys = Object.values(keyState).some(state => state);
             }
         };
-        const updatePosition = () => {
+        // const updatePosition = () => {
+        const updatePositionKeyboard = () => {
             if (keyState.w)
                 circleY -= 10;
             if (keyState.a)
@@ -48020,6 +48017,16 @@ function Joystick() {
                 const angle = Math.atan2(dy, dx);
                 circleX = centerX + maxDistance * Math.cos(angle);
                 circleY = centerY + maxDistance * Math.sin(angle);
+            }
+        };
+        const updatePositionMouse = () => {
+            const dx2 = circleX2 - centerX2;
+            const dy2 = circleY2 - centerY2;
+            const dist2 = Math.hypot(dx2, dy2);
+            if (dist2 > maxDistance) {
+                const angle2 = Math.atan2(dy2, dx2);
+                circleX2 = centerX2 + maxDistance * Math.cos(angle2);
+                circleY2 = centerY2 + maxDistance * Math.sin(angle2);
             }
         };
         const initscene = () => {
@@ -48059,7 +48066,6 @@ function Joystick() {
         };
         let animationFrameId;
         const render = () => {
-            // const distToCenter = Math.hypot(circleX - centerX, circleY - centerY) 
             if (!isMovingKeys && !isDragging) {
                 const dx = centerX - circleX;
                 const dy = centerY - circleY;
@@ -48083,11 +48089,42 @@ function Joystick() {
                 circleY2 += vy2;
             }
             else {
-                updatePosition();
+                // if (isMovingKeys) {
+                updatePositionKeyboard();
                 vx = 0;
                 vy = 0;
+                // const dx2 = centerX2 - circleX2;
+                // const dy2 = centerY2 - circleY2;
+                // const ax2 = dx2 * stiffness;
+                // const ay2 = dy2 * stiffness;
+                // vx2 += ax2;
+                // vy2 += ay2;
+                // vx2 *= damping;
+                // vy2 *= damping;
+                // circleX2 += vx2;
+                // circleY2 += vy2;
+            }
+            if (isDragging) {
+                updatePositionMouse();
                 vx2 = 0;
                 vy2 = 0;
+                const dx = centerX - circleX;
+                const dy = centerY - circleY;
+                const ax = dx * stiffness;
+                const ay = dy * stiffness;
+                vx += ax;
+                vy += ay;
+                vx *= damping;
+                vy *= damping;
+                circleX += vx;
+                circleY += vy;
+                // }
+                // updatePositionMouse();
+                // updatePositionKeyboard();
+                // vx = 0;
+                // vy = 0;
+                // vx2 = 0;
+                // vy2 = 0;
             }
             ctx.clearRect(0, 0, canvasKeyboard.width, canvasKeyboard.height);
             //ball keyboard
@@ -48096,8 +48133,6 @@ function Joystick() {
             ctx.arc(circleX, circleY, radius, 0, Math.PI * 2);
             ctx.fill();
             ctx.font = '48px Material Icons';
-            // ctx.fillStyle = '#333';
-            // ctx.fillStyle = 'rgba(51,51,51,0.5)';
             ctx.fillStyle = colorText;
             ctx.textAlign = 'center';
             ctx.textBaseline = 'middle';
@@ -48114,8 +48149,6 @@ function Joystick() {
             ctx.arc(circleX2, circleY2, radius, 0, Math.PI * 2);
             ctx.fill();
             ctx.font = '48px Material Icons';
-            // ctx.fillStyle = '#333333';
-            // ctx.fillStyle = 'rgba(51,51,51,0.5)';
             ctx.fillStyle = colorText;
             ctx.textAlign = 'center';
             ctx.textBaseline = 'middle';
