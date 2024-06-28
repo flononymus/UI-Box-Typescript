@@ -79,9 +79,9 @@ export default function Navbar() {
         <button className="settingsButton" id="darkmodeToggleButton"
         onMouseDown={toggleIcon}
         >
-          <span className="material-symbols-outlined" style={{rotate: isDark? '180deg':'0deg', transition:'transform 0.2s'}}>
+          <span className="material-symbols-outlined" 
+          style={{transform: isDark? 'rotate(180deg)':'rotate(0deg)', transition:'transform 0.2s'}}>
             contrast
-            {/* {isDark? 'dark_mode':'light_mode'} */}
           </span>
         </button>
       </div>
