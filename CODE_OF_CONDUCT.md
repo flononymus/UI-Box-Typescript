@@ -3,6 +3,7 @@ ___
 
 - **General/QOL**
   - [ ] fix DOM cant find darkmodeToggle when it starts on canvas page
+  - [ ] Indicate what page is active
 
 - **Pages + Functionality**
 
@@ -28,8 +29,8 @@ ___
     - [ ] Add more inspiration gifs
 
   - [ ] **Ball**
-    - [ ] Ball start position from wherever the mouse is down?
-    - [ ] Add a hoop
+    - [x] Ball start position from wherever the mouse is down?
+    - [x] Add a hoop
     - [ ] Add a reference for pull direction/pull strenght
     - [ ] calculate trajectory mode, + button to turn it on/off
     - [ ] make hoop like button, and calculate collision based on that
