@@ -3,7 +3,6 @@ ___
 
 - **General/QOL**
   - [ ] fix DOM cant find darkmodeToggle when it starts on canvas page
-  - [ ] Indicate what page is active
 
 - **Pages + Functionality**
 
@@ -38,6 +37,8 @@ ___
 - **Styles + Design**
 
   - [ ] **Navbar & Menus**
+    - [ ] Tab styles --> https://github.com/adamschwartz/chrome-tabs/tree/gh-pages
+    - [ ] Indicate what page is active
     - [ ] Page transitions --> https://vuejs.org/guide/built-ins/transition.html
 
 - **Rest**
