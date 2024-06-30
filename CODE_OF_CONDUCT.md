@@ -3,6 +3,7 @@ ___
 
 - **General/QOL**
   - [ ] fix DOM cant find darkmodeToggle when it starts on canvas page
+  - [ ] add sass
 
 - **Pages + Functionality**
 
