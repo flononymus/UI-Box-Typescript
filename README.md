@@ -1,6 +1,7 @@
 # UI-Box
 
-#### A simple UI-sandbox/playground built with Typescript, React and Electron
+A simple UI-sandbox/playground. <br/>
+Built with Typescript, React and Electron.
 
 <!-- <div align="center"> -->
 
