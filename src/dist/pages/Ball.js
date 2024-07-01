@@ -29,6 +29,8 @@ function Ball() {
     const [resetTrigger, setResetTrigger] = (0, react_1.useState)(0);
     const [buttonPosition, setButtonPosition] = (0, react_1.useState)({ x: 0, y: 0 });
     const [hoopPosition, setHoopPosition] = (0, react_1.useState)({ x: 0, y: 0 });
+    const navbar = document.querySelector('#navbarRoot');
+    const navbarHeight = navbar.offsetHeight;
     (0, react_1.useEffect)(() => {
         const canvasBall = document.querySelector("#sceneBall");
         const ctx = canvasBall.getContext("2d", { willReadFrequently: true });
@@ -38,6 +40,7 @@ function Ball() {
         let isReleased = false;
         let ww = window.innerWidth;
         let wh = window.innerHeight;
+        // let wh = window.innerHeight - navbarHeight;
         let centerX = (ww / 2);
         let centerY = (wh / 5) * 3;
         // let centerX = clientX
@@ -140,6 +143,7 @@ function Ball() {
         const initscene = () => {
             ww = canvasBall.width = window.innerWidth;
             wh = canvasBall.height = window.innerHeight;
+            // wh = canvasBall.height = window.innerHeight - navbarHeight;
             isDragging = false;
             isReleased = false;
             centerX = ww / 2;
@@ -156,6 +160,7 @@ function Ball() {
         const resizeScene = () => {
             ww = canvasBall.width = window.innerWidth;
             wh = canvasBall.height = window.innerHeight;
+            // wh = canvasBall.height = window.innerHeight - navbarHeight;
             centerX = ww / 2;
             centerY = (wh / 5) * 3;
             ballX = centerX;
@@ -202,12 +207,14 @@ function Ball() {
                         }
                     }
                 }
-                if (ballY + radius > wh || ballY - radius < 0) {
+                if (ballY + radius > wh || ballY - radius < 0 + navbarHeight) {
                     vy *= -damping;
                     if (ballY + radius > wh)
                         ballY = wh - radius;
-                    if (ballY - radius < 0)
-                        ballY = radius;
+                    if (ballY - radius < 0 + navbarHeight) {
+                        console.log('top?');
+                        ballY = navbarHeight + radius;
+                    }
                 }
                 if (ballX + radius > ww || ballX - radius < 0) {
                     vx *= -damping;
@@ -217,12 +224,14 @@ function Ball() {
                         ballX = radius;
                 }
             }
+            /* collision while dragging */
             else {
                 if (isDragging) {
                     if (ballY + radius > wh || ballY - radius < 0) {
                         vy *= -damping;
-                        if (ballY + radius > wh)
+                        if (ballY + radius > wh) {
                             ballY = wh - radius;
+                        }
                         if (ballY - radius < 0) {
                             ballY = radius;
                         }
@@ -291,6 +300,7 @@ function Ball() {
                     width: '100vw',
                     height: '100vh',
                     position: 'absolute',
+                    // top: navbarHeight,
                     top: 0,
                     left: 0,
                     overflow: 'hidden',
