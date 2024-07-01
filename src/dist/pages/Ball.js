@@ -120,6 +120,10 @@ function Ball() {
         const onMouseDown = (e) => {
             centerX = e.clientX;
             centerY = e.clientY;
+            ballX = centerX;
+            ballY = centerY;
+            vx = 0;
+            vy = 0;
             isDragging = true;
             isReleased = false;
         };
