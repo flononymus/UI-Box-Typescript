@@ -47470,9 +47470,8 @@ function Navbar() {
                         react_1.default.createElement("span", { className: "material-symbols-outlined" }, "joystick")),
                     react_1.default.createElement("button", { className: "navbarButton", id: "testpageButton" },
                         react_1.default.createElement("span", { className: "material-symbols-outlined" }, "quiz"))),
-                react_1.default.createElement("div", { className: "settingsButton" },
-                    react_1.default.createElement("button", { className: "settingsButton", id: "darkmodeToggleButton", onMouseDown: toggleIcon },
-                        react_1.default.createElement("span", { className: "material-symbols-outlined", style: { transform: isDark ? 'rotate(180deg)' : 'rotate(0deg)', transition: 'transform 0.2s' } }, "contrast"))))));
+                react_1.default.createElement("button", { className: "settingsButton", id: "darkmodeToggleButton", onMouseDown: toggleIcon },
+                    react_1.default.createElement("span", { className: "material-symbols-outlined", style: { transform: isDark ? 'rotate(180deg)' : 'rotate(0deg)', transition: 'transform 0.2s' } }, "contrast")))));
     }
     // }
     else {
@@ -47928,7 +47927,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports["default"] = Home;
 const react_1 = __importDefault(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
-function Home({ loadPage }) {
+const framer_motion_1 = __webpack_require__(/*! framer-motion */ "./node_modules/framer-motion/dist/cjs/index.js");
+function Home() {
     const handleSettingsClick = () => {
         window.loadPage('Settings');
     };
@@ -47936,7 +47936,7 @@ function Home({ loadPage }) {
         react_1.default.createElement("div", null,
             react_1.default.createElement("div", { style: { display: 'flex', flexDirection: 'row', justifyContent: 'start', alignItems: 'center' } },
                 react_1.default.createElement("h1", null, " UI-Box"),
-                react_1.default.createElement("button", { className: "navbarButton", id: "settingsButton", style: { opacity: 0.5 }, onMouseDown: handleSettingsClick },
+                react_1.default.createElement(framer_motion_1.motion.button, { className: "navbarButton", style: { backgroundColor: 'rgba(0,0,0,0)' }, id: "settingsButton", onMouseDown: handleSettingsClick, whileHover: { rotate: 180, repeatCount: 30 } },
                     react_1.default.createElement("span", { className: "material-symbols-outlined" }, "settings"))),
             react_1.default.createElement("div", { className: "logo" },
                 react_1.default.createElement("img", { className: "logoImg", src: "./media/icon.png" })))));
@@ -48479,6 +48479,9 @@ const react_1 = __importDefault(__webpack_require__(/*! react */ "./node_modules
 const react_2 = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 function Settings() {
     const [activeThemeSource, setThemeSource] = (0, react_2.useState)('system');
+    const handleHomeClick = () => {
+        window.loadPage('Home');
+    };
     (0, react_2.useEffect)(() => {
         function fetchThemeSource() {
             return __awaiter(this, void 0, void 0, function* () {
@@ -48510,7 +48513,10 @@ function Settings() {
     }
     return (react_1.default.createElement("div", { className: "bodyCenter" },
         react_1.default.createElement("div", null,
-            react_1.default.createElement("h1", null, "Settings"),
+            react_1.default.createElement("div", { style: { display: 'flex', flexDirection: 'row', justifyContent: 'start', alignItems: 'center' } },
+                react_1.default.createElement("h1", null, "Settings"),
+                react_1.default.createElement("button", { className: "navbarButton", style: { backgroundColor: 'rgba(0,0,0,0)' }, id: "settingsButton", onMouseDown: handleHomeClick },
+                    react_1.default.createElement("span", { className: "material-symbols-outlined" }, "home"))),
             react_1.default.createElement("p", null,
                 "Current:",
                 react_1.default.createElement("strong", { id: "theme-source" }, themeSourceDisplay())),
@@ -48850,15 +48856,7 @@ function Test() {
     };
     return (react_1.default.createElement("div", { className: "bodyCenter" },
         react_1.default.createElement("div", null,
-            react_1.default.createElement("h1", null, "Test"),
-            react_1.default.createElement("div", { className: "tabs" },
-                react_1.default.createElement("div", { className: `${isActive[0] ? 'tab active' : 'tab'}`, onMouseDown: () => handleActive(0) },
-                    react_1.default.createElement("div", { className: "tab-box" })),
-                react_1.default.createElement("div", { className: `${isActive[1] ? 'tab active' : 'tab'}`, onMouseDown: () => handleActive(1) },
-                    react_1.default.createElement("div", { className: "tab-box" })),
-                react_1.default.createElement("div", { className: `${isActive[2] ? 'tab active' : 'tab'}`, onMouseDown: () => handleActive(2) },
-                    react_1.default.createElement("div", { className: "tab-box" }))),
-            react_1.default.createElement("div", { className: "content" }))));
+            react_1.default.createElement("h1", null, "Test"))));
 }
 { /* <div className="surface">
 <div className="mock-browser">
@@ -49274,7 +49272,7 @@ const Joystick_1 = __importDefault(__webpack_require__(/*! ./pages/Joystick */ "
 const Test_1 = __importDefault(__webpack_require__(/*! ./pages/Test */ "./src/pages/Test.tsx"));
 const pages = ['Home', 'Buttons', 'Spinner', 'Particles', 'Switches', 'Tether', 'Ball', 'Joystick', 'Test'];
 const App = () => {
-    const [page, setPage] = (0, react_1.useState)('Home');
+    const [page, setPage] = (0, react_1.useState)('Test');
     (0, react_1.useEffect)(() => {
         const handleKeyDown = (event) => {
             if (event.metaKey && (event.key === '1' || event.key === '2')) {

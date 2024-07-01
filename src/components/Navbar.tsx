@@ -32,7 +32,6 @@ export default function Navbar() {
         });
       });
     }
- 
 });    
 
 
@@ -43,6 +42,7 @@ if (!newNavbar) {
         <div className="navbarLeft">
 
           <button className="navbarButton active" id="homeButton">
+          {/* <button className="navbarButton" id="homeButton"> */}
             <span className="material-symbols-outlined">
               home
             </span>
@@ -108,7 +108,7 @@ if (!newNavbar) {
 
           </div>
 
-          <div className="settingsButton">
+          {/* <div className="settingsButton"> */}
             <button className="settingsButton" id="darkmodeToggleButton"
             onMouseDown={toggleIcon}
             >
@@ -117,7 +117,7 @@ if (!newNavbar) {
                 contrast
               </span>
             </button>
-          </div>
+          {/* </div> */}
 
         </nav>
       </div>

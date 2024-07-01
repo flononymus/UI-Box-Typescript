@@ -31,7 +31,7 @@ declare global {
 const pages: Page[] = ['Home' , 'Buttons' , 'Spinner' , 'Particles' , 'Switches' , 'Tether' , 'Ball' , 'Joystick' , 'Test'];
 
 const App: FC = () => {
-    const [page, setPage] = useState<Page>('Home');
+    const [page, setPage] = useState<Page>('Test');
 
     useEffect(() => {
         const handleKeyDown = (event: KeyboardEvent) => {

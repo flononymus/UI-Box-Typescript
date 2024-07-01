@@ -1,13 +1,7 @@
 import React from 'react'
-import { Page } from "../renderer"
+import {motion} from 'framer-motion'
 
-interface HomeProps {
-    loadPage: (page: Page) => void;
-}
-
-export default function Home({loadPage}:HomeProps) {
-
-
+export default function Home() {
 
     const handleSettingsClick = () => {
         window.loadPage('Settings');
@@ -20,11 +14,11 @@ export default function Home({loadPage}:HomeProps) {
             
                     <h1> UI-Box</h1>
 
-                    <button className="navbarButton" id="settingsButton" style={{opacity:0.5}} onMouseDown={handleSettingsClick}>
+                    <motion.button className="navbarButton" style={{backgroundColor:'rgba(0,0,0,0)'}} id="settingsButton" onMouseDown={handleSettingsClick} whileHover={{rotate:180,repeatCount:30}}>
                         <span className="material-symbols-outlined">
                        settings 
                         </span>
-                    </button>
+                    </motion.button>
 
                 </div>
 
