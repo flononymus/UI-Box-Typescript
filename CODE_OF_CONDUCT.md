@@ -3,6 +3,7 @@ ___
 
 - **General/QOL**
   - [ ] fix DOM cant find darkmodeToggle when it starts on canvas page
+  - [ ] Add settings button next to "ui-box" title
 
 - **Pages + Functionality**
 
