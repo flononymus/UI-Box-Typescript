@@ -111,6 +111,8 @@ nav{
 .navbarButton{
   display:flex;
   margin-left:auto;
+  /* color:rgba(255, 255, 255); */
+  color:rgba(221, 221, 221,0.9);
   /* padding-top:1px; */
   /* padding-bottom:1px; */
 
@@ -119,13 +121,15 @@ nav{
   padding-left:7px;
   padding-right:7px;
   border-radius: 3px;
-  border:1px solid rgba(0,0,0,0);
-  background-color: rgb(107, 107, 107)
+  border:0;
+  /* border:1px solid rgba(0,0,0,0); */
+  background-color: rgb(107, 107, 107);
 }
 
 .navbarButton.active{
   background-color:#333;
-  border:1px solid #ddd;
+  color:rgba(255, 255, 255);
+  /* border:1px solid #ddd; */
   /* padding-top:10px; */
   /* margin-bottom:0; */
 }
@@ -387,9 +391,9 @@ nav{
 
     #navbarRoot {background-color:#c3c3c3} 
 
-    .navbarButton {background:rgba(51,51,51,0.1)}
-    .navbarButton.active {background:#ddd}
-    .settingsButton{background:rgba(51,51,51,0.1)}
+    .navbarButton {background:rgba(51,51,51,0.1);color: rgba(51,51,51,0.8);}
+    .navbarButton.active {background:#ddd;color:#333}
+    .settingsButton{background:rgba(51,51,51,0.1); color: #333}
 
     .tab.active .tab-box{background-color:#ddd}
 
@@ -415,6 +419,4 @@ nav{
       --particle-color: var(--particle-color-dark);
       --canvas-colorelement: var(--canvas-colorelement-dark)
     }
-    .navbarButton {  color: #333;}
-    .settingsButton { color: #333}
   }
