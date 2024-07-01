@@ -13,4 +13,5 @@ Built with Typescript, React and Electron.
 
 ___
 
-![preview](/src/media/preview.png)
+<!-- ![preview](/src/media/preview.png) -->
+![preview](/src/media/uibox dark.png)
