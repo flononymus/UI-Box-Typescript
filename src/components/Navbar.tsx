@@ -1,11 +1,10 @@
-import { transform } from 'framer-motion';
 import React, { useState, useEffect } from 'react';
-import { rootCertificates } from 'tls';
 
 export default function Navbar() {
 
 
   const newNavbar = false;
+  // const newNavbar = true;
 
   const [isDark, setIsDark] = useState(false)
   function toggleIcon() {
@@ -13,20 +12,27 @@ export default function Navbar() {
   }
 
   document.addEventListener('DOMContentLoaded', function() {
-  const tabs = document.querySelectorAll('.tab');
-  const content = document.querySelector('.content');
-
-  tabs.forEach(tab => {
-      tab.addEventListener('click', function() {
-          const activeTab = document.querySelector('.tab.active')
-          // if (activeTab) {
-            activeTab!.classList.remove('active');
-          // }
-          tab.classList.add('active');
-          const tabIndex = Array.from(tabs).indexOf(tab);
-          content!.innerHTML = `Content for Tab ${tabIndex + 1}`;
+    if (newNavbar) {
+      const tabs = document.querySelectorAll('.tab');
+      tabs.forEach(tab => {
+        tab.addEventListener('click', function() {
+            const activeTab = document.querySelector('.tab.active')
+              activeTab!.classList.remove('active');
+            tab.classList.add('active');
+        });
       });
-  });
+    }
+    else {
+      const oldTabs = document.querySelectorAll('.navbarButton');
+      oldTabs.forEach(oldTab => {
+        oldTab.addEventListener('click', function() {
+            const activeOldTab = document.querySelector('.navbarButton.active')
+              activeOldTab!.classList.remove('active');
+            oldTab.classList.add('active');
+        });
+      });
+    }
+ 
 });    
 
 
@@ -36,7 +42,7 @@ if (!newNavbar) {
       <nav>
         <div className="navbarLeft">
 
-          <button className="navbarButton" id="homeButton">
+          <button className="navbarButton active" id="homeButton">
             <span className="material-symbols-outlined">
               home
             </span>
@@ -121,7 +127,8 @@ if (!newNavbar) {
 
 else {
   return (
-    <div className="bodyCenter" style={{padding:0, paddingTop:'1.5rem', paddingBottom:'0rem'}}>
+    // <div className="bodyCenter" style={{padding:0, paddingTop:'1.5rem', paddingBottom:'0rem'}}>
+    <div className="bodyCenter" style={{padding:0, paddingTop:'1rem', paddingBottom:'0rem'}}>
       <nav>
         <div className="tabs">
 

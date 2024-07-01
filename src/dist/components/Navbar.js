@@ -27,30 +27,38 @@ exports.default = Navbar;
 const react_1 = __importStar(require("react"));
 function Navbar() {
     const newNavbar = false;
+    // const newNavbar = true;
     const [isDark, setIsDark] = (0, react_1.useState)(false);
     function toggleIcon() {
         setIsDark(!isDark);
     }
     document.addEventListener('DOMContentLoaded', function () {
-        const tabs = document.querySelectorAll('.tab');
-        const content = document.querySelector('.content');
-        tabs.forEach(tab => {
-            tab.addEventListener('click', function () {
-                const activeTab = document.querySelector('.tab.active');
-                // if (activeTab) {
-                activeTab.classList.remove('active');
-                // }
-                tab.classList.add('active');
-                const tabIndex = Array.from(tabs).indexOf(tab);
-                content.innerHTML = `Content for Tab ${tabIndex + 1}`;
+        if (newNavbar) {
+            const tabs = document.querySelectorAll('.tab');
+            tabs.forEach(tab => {
+                tab.addEventListener('click', function () {
+                    const activeTab = document.querySelector('.tab.active');
+                    activeTab.classList.remove('active');
+                    tab.classList.add('active');
+                });
             });
-        });
+        }
+        else {
+            const oldTabs = document.querySelectorAll('.navbarButton');
+            oldTabs.forEach(oldTab => {
+                oldTab.addEventListener('click', function () {
+                    const activeOldTab = document.querySelector('.navbarButton.active');
+                    activeOldTab.classList.remove('active');
+                    oldTab.classList.add('active');
+                });
+            });
+        }
     });
     if (!newNavbar) {
         return (react_1.default.createElement("div", { className: "bodyCenter", style: { paddingTop: '1rem', paddingBottom: '0.5rem' } },
             react_1.default.createElement("nav", null,
                 react_1.default.createElement("div", { className: "navbarLeft" },
-                    react_1.default.createElement("button", { className: "navbarButton", id: "homeButton" },
+                    react_1.default.createElement("button", { className: "navbarButton active", id: "homeButton" },
                         react_1.default.createElement("span", { className: "material-symbols-outlined" }, "home")),
                     react_1.default.createElement("button", { className: "navbarButton", id: "buttonspageButton" },
                         react_1.default.createElement("span", { className: "material-symbols-outlined" }, "apps")),
@@ -74,7 +82,9 @@ function Navbar() {
     }
     // }
     else {
-        return (react_1.default.createElement("div", { className: "bodyCenter", style: { padding: 0, paddingTop: '1.5rem', paddingBottom: '0rem' } },
+        return (
+        // <div className="bodyCenter" style={{padding:0, paddingTop:'1.5rem', paddingBottom:'0rem'}}>
+        react_1.default.createElement("div", { className: "bodyCenter", style: { padding: 0, paddingTop: '1rem', paddingBottom: '0rem' } },
             react_1.default.createElement("nav", null,
                 react_1.default.createElement("div", { className: "tabs" },
                     react_1.default.createElement("div", { className: "tab active", id: "homeButton" },
