@@ -1,7 +1,17 @@
 # To-Do 
 ___
 
+- ### Currently working on
+  - [ ] Scale up active element in navbar/remove padding
+<br>
+  - [ ] Vertical switch: make it "snap" to points
+  - [ ] Vertical switch: add lines for segments
+  - [ ] Better style 3 segment
+
+<br>
+
 - **General/QOL**
+  - [ ] Scale up active element in navbar/remove padding
   - [ ] fix DOM cant find darkmodeToggle when it starts on canvas page
 
 - **Pages + Functionality**
