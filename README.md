@@ -3,21 +3,17 @@
 A simple UI-sandbox/playground,
 Built with Typescript, React and Electron.
 
-<!-- <div align="center"> -->
-
 
 ### Web version: https://flokleiser.github.io/UI-Box/
-
-<!-- </div> -->
 
 ___
 
 <!-- ![preview](/src/media/preview.png) -->
-<div display="flex", flexDirection="row", align="center">
+<!-- <div display="flex", flexDirection="row", align="center">
 
 <button>Darkmode</button>  <button>LightMode</button>
 
-</div>
+</div> -->
 
 <!-- </div align="center">
 
