@@ -21,6 +21,7 @@ ___
   - [ ] **More examples**
     - [ ] Scrolling lock thing
     - [ ] Sliders (?)
+      - Idea: play with friction/resistance of slider based on position 
     - [ ] Add more inspiration gifs
 
   - [ ] **Ball**
