@@ -4,7 +4,6 @@ ___
 - ### Currently working on
   - [ ] Vertical switch: make it "snap" to points
   - [ ] Vertical switch: add lines for segments
-  - [ ] Better style 3 segment
 
 <br>
 
@@ -87,6 +86,7 @@ ___
   - [x] **Switches**
     - [x] add a "manual" switch instead of click switch
     - [x] More designs
+    - [x] Better style 3 segment
 
   - [x] **Logo**
     - [x] Fix/Design better logo
