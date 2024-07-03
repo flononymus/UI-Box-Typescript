@@ -2,56 +2,46 @@
 ___
 
 - ### Currently working on
-  - [ ] Vertical switch: make it "snap" to points
-  - [ ] Vertical switch: add lines for segments
-  - [ ] Better style 3 segment
+  - [ ] Switches: Vertical switch: make it "snap" to points
+  - [ ] Switches: Vertical switch: add lines for segments
+
+  - [ ] Ball --> calculate bounding box correctly
+  - [ ] Ball --> add a randomize button to randomize hoop position
+
 
 <br>
 
-- **General/QOL**
-  - [ ] Scale up active element in navbar/remove padding
-  - [ ] fix DOM cant find darkmodeToggle when it starts on canvas page
 
 - **Pages + Functionality**
-
-  - [ ] **Settings**
-    - [ ] Button to switch navbar to the left/right?
-
-  - [ ] **Tether**
-    - [ ] Make tethers interact with eachother
 
   - [ ] **Switches**
     - [ ] Vertical switch: make it "snap" to points
     - [ ] Vertical switch: add lines for segments
-
     - [ ] Better style 3 segment
 
   - [ ] **More examples**
     - [ ] Scrolling lock thing
     - [ ] Sliders (?)
-      - Idea: play with friction/resistance of slider based on position 
+    - [ ] Idea: play with friction/resistance of slider based on position 
     - [ ] Add more inspiration gifs
 
   - [ ] **Ball**
     - [ ] Add a reference for pull direction/pull strenght
     - [ ] calculate trajectory mode, + button to turn it on/off
-    - [ ] make hoop like button, and calculate collision based on that
+    - [ ] Ball --> add a randomize button to randomize hoop position
 
-- **Styles + Design**
+  - [ ] **Tether**
+    - [ ] Make tethers interact with eachother
 
-  - [ ] **Navbar & Menus**
-    - [ ] Tab styles --> https://github.com/adamschwartz/chrome-tabs/tree/gh-pages
-    - [ ] Page transitions --> https://vuejs.org/guide/built-ins/transition.html
-
-- **Rest**
-  - [ ] Switch for navbar on top --> side: 
-  - [ ] Consistent fps 
-
+- **Styles + Design** 
+- **General/QOL**
 
 - **Low priority**
   - [ ] Fix lefthalf and righthalf transition spinner
-  - [ ] Fix keyboard not resetting onmousedown joystick
-
+  - [ ] Consistent fps 
+  - [ ] fix DOM cant find darkmodeToggle when it starts on canvas page
+  - [ ] Navbar Tab styles --> https://github.com/adamschwartz/chrome-tabs/tree/gh-pages
+  - [ ] Page transitions --> https://vuejs.org/guide/built-ins/transition.html
 
 ___
 
@@ -87,6 +77,7 @@ ___
   - [x] **Switches**
     - [x] add a "manual" switch instead of click switch
     - [x] More designs
+    - [x] Better style 3 segment
 
   - [x] **Logo**
     - [x] Fix/Design better logo
@@ -102,16 +93,22 @@ ___
     - [x] Reload the canvas pages when darkmodetoggle
     - [x] Remove settings and replace with darkmode toggle instead
     - [x] Add settings button next to "ui-box" title
+    - [x] Scale up active element in navbar/remove padding
 
   - [x] **Github pages**
     - [x] Github actions to automatically push to gh-pages branch
     - [x] Fix position of ball and particles
     - [x] Fix particle sizes --> not depending on screen size
 
-  - [x] **Keyboard**
+  - [x] **Joystick**
     - [x] Add some keyboard page with wasd 
+    - [x] Joystick --> mouse and keyboard seperately
+    - [x] Joystick: Reset mouse position on keyboard press
 
   - [x] **Navbar & Menus**
     - [x] Indicate what page is active
     - [x] Navbar better style
     - [x] Icons instead of text
+
+  - [x] **Low priority**
+    - [x] Fix keyboard not resetting onmousedown joystick
