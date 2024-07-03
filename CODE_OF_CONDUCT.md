@@ -2,8 +2,14 @@
 ___
 
 - ### Currently working on
-  - [ ] Vertical switch: make it "snap" to points
-  - [ ] Vertical switch: add lines for segments
+  - [ ] Switches: Vertical switch: make it "snap" to points
+  - [ ] Switches: Vertical switch: add lines for segments
+
+  - [ ] Joystick: Reset mouse position on keyboard press
+  - [ ] Ball --> calculate bounding box
+
+
+
 
 <br>
 

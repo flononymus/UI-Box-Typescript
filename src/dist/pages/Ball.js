@@ -98,7 +98,7 @@ function Ball() {
                 ];
             }
         }
-        const hoop = new Hoop((canvasBall.width / 4) * 3, canvasBall.height / 3, 125, 80, 10, color);
+        const hoop = new Hoop(((canvasBall.width / 4) * 3), (canvasBall.height / 3), 100, 50, 10, color);
         const onMouseMove = (e) => {
             if (isDragging) {
                 mouse.x = e.clientX;
@@ -207,12 +207,14 @@ function Ball() {
                         }
                     }
                 }
-                if (ballY + radius > wh || ballY - radius < 0 + navbarHeight) {
+                // if (ballY + radius > wh|| ballY - radius < 0 + navbarHeight) {
+                if (ballY + radius > wh || ballY - radius < 0 + navbar.offsetHeight) {
                     vy *= -damping;
                     if (ballY + radius > wh)
                         ballY = wh - radius;
-                    if (ballY - radius < 0 + navbarHeight) {
-                        ballY = navbarHeight + radius;
+                    // if (ballY - radius < 0 + navbarHeight) {
+                    if (ballY - radius < 0 + navbar.offsetHeight) {
+                        ballY = navbar.offsetHeight + radius;
                     }
                 }
                 if (ballX + radius > ww || ballX - radius < 0) {

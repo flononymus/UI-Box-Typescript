@@ -77,7 +77,6 @@ function Switches() {
         }
         else {
             setSwitchedHorizontal(!isSwitchedHorizontal);
-            console.log('test');
         }
     }
     function startDrag(event) {
