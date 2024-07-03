@@ -47487,12 +47487,16 @@ var __importStar = (this && this.__importStar) || function (mod) {
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports["default"] = Ball;
 const react_1 = __importStar(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
+const framer_motion_1 = __webpack_require__(/*! framer-motion */ "./node_modules/framer-motion/dist/cjs/index.js");
 function Ball() {
     const [resetTrigger, setResetTrigger] = (0, react_1.useState)(0);
+    // const [randomizeHoop, setRandomizeHoop] = useState(0);
+    const [randomizeHoop, setRandomizeHoop] = (0, react_1.useState)(false);
     const [buttonPosition, setButtonPosition] = (0, react_1.useState)({ x: 0, y: 0 });
     const [hoopPosition, setHoopPosition] = (0, react_1.useState)({ x: 0, y: 0 });
     const navbar = document.querySelector('#navbarRoot');
     const navbarHeight = navbar.offsetHeight;
+    // const hoop = new Hoop( ((canvasBall.width / 4) * 3), (canvasBall.height / 3), 100, 50, 5, color);
     (0, react_1.useEffect)(() => {
         const canvasBall = document.querySelector("#sceneBall");
         const ctx = canvasBall.getContext("2d", { willReadFrequently: true });
@@ -47516,6 +47520,7 @@ function Ball() {
         const color = getComputedStyle(document.documentElement).getPropertyValue('--particle-color') || 'black';
         const gravity = 0.3;
         const darkmodeToggleButton = document.getElementById('darkmodeToggleButton');
+        const randomizerButton = document.getElementById('randomizerButton');
         class Hoop {
             constructor(centerX, centerY, width, height, wall, color) {
                 this.centerX = centerX;
@@ -47540,27 +47545,30 @@ function Ball() {
             calculateCollisions() {
                 return [
                     {
-                        left: this.centerX - this.width / 2,
+                        left: this.centerX - this.width / 2 + 2,
                         top: this.centerY + this.height,
-                        right: this.centerX + this.width / 2,
+                        right: this.centerX + this.width / 2 - 2,
                         bottom: this.centerY + this.height + this.wall
                     },
                     {
                         left: this.centerX - this.width / 2,
-                        top: this.centerY,
+                        top: this.centerY + 2,
                         right: this.centerX - this.width / 2 + this.wall,
-                        bottom: this.centerY + this.height + this.wall
+                        bottom: this.centerY + (this.height - 2) + this.wall
                     },
                     {
                         left: this.centerX + this.width / 2 - this.wall,
-                        top: this.centerY,
+                        top: this.centerY + 2,
                         right: this.centerX + this.width / 2,
-                        bottom: this.centerY + this.height + this.wall
+                        bottom: this.centerY + (this.height - 2) + this.wall
                     }
                 ];
             }
         }
-        const hoop = new Hoop(((canvasBall.width / 4) * 3), (canvasBall.height / 3), 100, 50, 10, color);
+        const hoop = new Hoop(((canvasBall.width / 4) * 3), (canvasBall.height / 3), 100, 50, 5, color);
+        // function handleRandomizeHoop() {
+        //     console.log('test random')
+        // }
         const onMouseMove = (e) => {
             if (isDragging) {
                 mouse.x = e.clientX;
@@ -47605,15 +47613,14 @@ function Ball() {
         const initscene = () => {
             ww = canvasBall.width = window.innerWidth;
             wh = canvasBall.height = window.innerHeight;
-            // wh = canvasBall.height = window.innerHeight - navbarHeight;
             isDragging = false;
             isReleased = false;
             centerX = ww / 2;
             centerY = (wh / 5) * 3;
             ballX = centerX;
             ballY = centerY;
-            hoop.centerX = (ww / 4) * 3;
-            hoop.centerY = wh / 3;
+            // hoop.centerX = (ww / 4) * 3;
+            // hoop.centerY = wh / 3;
             setButtonPosition({ x: centerX, y: centerY + 75 });
             vx = 0;
             vy = 0;
@@ -47622,7 +47629,6 @@ function Ball() {
         const resizeScene = () => {
             ww = canvasBall.width = window.innerWidth;
             wh = canvasBall.height = window.innerHeight;
-            // wh = canvasBall.height = window.innerHeight - navbarHeight;
             centerX = ww / 2;
             centerY = (wh / 5) * 3;
             ballX = centerX;
@@ -47631,7 +47637,6 @@ function Ball() {
             vy = 0;
             hoop.centerX = (ww / 4) * 3;
             hoop.centerY = wh / 3;
-            // setHoopPosition({ x: (canvasBall.width / 4) * 3, y: (canvasBall.height / 3) });                
             setButtonPosition({ x: centerX, y: centerY + 75 });
         };
         let animationFrameId;
@@ -47649,11 +47654,11 @@ function Ball() {
                 }
                 else {
                     vy += gravity;
-                    // vy -= gravity;
                 }
                 ballX += vx;
                 ballY += vy;
-                //hoop calculations
+                //hoop collisions
+                // todo --> seperate out bottom bar?
                 const hoopRects = hoop.calculateCollisions();
                 for (const rect of hoopRects) {
                     if (ballX + radius > rect.left && ballX - radius < rect.right
@@ -47669,12 +47674,11 @@ function Ball() {
                         }
                     }
                 }
-                // if (ballY + radius > wh|| ballY - radius < 0 + navbarHeight) {
+                //wall collision
                 if (ballY + radius > wh || ballY - radius < 0 + navbar.offsetHeight) {
                     vy *= -damping;
                     if (ballY + radius > wh)
                         ballY = wh - radius;
-                    // if (ballY - radius < 0 + navbarHeight) {
                     if (ballY - radius < 0 + navbar.offsetHeight) {
                         ballY = navbar.offsetHeight + radius;
                     }
@@ -47729,9 +47733,18 @@ function Ball() {
             animationFrameId = requestAnimationFrame(render);
         };
         const handleThemeToggle = () => { resetScene(); };
+        const handleRandomizeHoop = () => {
+            const hoop = new Hoop(((canvasBall.width / 2)), (canvasBall.height / 2), 100, 50, 5, color);
+            // setRandomizeHoop(!randomizeHoop)
+            initscene();
+            console.log('hoop', randomizeHoop);
+        };
         window.addEventListener("resize", resizeScene);
         if (darkmodeToggleButton) {
             darkmodeToggleButton.addEventListener('click', handleThemeToggle);
+        }
+        if (randomizerButton) {
+            randomizerButton.addEventListener('click', handleRandomizeHoop);
         }
         window.addEventListener("mousemove", onMouseMove);
         window.addEventListener("touchmove", onTouchMove);
@@ -47744,6 +47757,9 @@ function Ball() {
             if (darkmodeToggleButton) {
                 darkmodeToggleButton.removeEventListener('click', handleThemeToggle);
             }
+            if (randomizerButton) {
+                randomizerButton.removeEventListener('click', handleRandomizeHoop);
+            }
             window.removeEventListener("mousemove", onMouseMove);
             window.removeEventListener("touchmove", onTouchMove);
             window.removeEventListener("mousedown", onMouseDown);
@@ -47751,19 +47767,20 @@ function Ball() {
             window.removeEventListener("touchend", onTouchEnd);
             cancelAnimationFrame(animationFrameId);
         };
-    }, [resetTrigger]);
-    // }, []);
+    }, [resetTrigger, randomizeHoop]);
     function resetScene() {
         setResetTrigger(prev => prev + 1);
     }
     return (react_1.default.createElement("div", { className: "bodyCenter" },
         react_1.default.createElement("div", null,
-            react_1.default.createElement("h1", null, "Ball"),
+            react_1.default.createElement("div", { style: { display: 'flex', flexDirection: 'row', justifyContent: 'start', alignItems: 'center' } },
+                react_1.default.createElement("h1", null, "Ball"),
+                react_1.default.createElement(framer_motion_1.motion.button, { className: "navbarButton", style: { backgroundColor: 'rgba(0,0,0,0)' }, id: "randomizerButton", whileHover: { rotate: 180 } },
+                    react_1.default.createElement("span", { className: "material-symbols-outlined" }, "swap_horiz"))),
             react_1.default.createElement("canvas", { style: {
                     width: '100vw',
                     height: '100vh',
                     position: 'absolute',
-                    // top: navbarHeight,
                     top: 0,
                     left: 0,
                     overflow: 'hidden',
@@ -47875,7 +47892,7 @@ function Home() {
         react_1.default.createElement("div", null,
             react_1.default.createElement("div", { style: { display: 'flex', flexDirection: 'row', justifyContent: 'start', alignItems: 'center' } },
                 react_1.default.createElement("h1", null, " UI-Box"),
-                react_1.default.createElement(framer_motion_1.motion.button, { className: "navbarButton", style: { backgroundColor: 'rgba(0,0,0,0)' }, id: "settingsButton", onMouseDown: handleSettingsClick, whileHover: { rotate: 180, repeatCount: 30 } },
+                react_1.default.createElement(framer_motion_1.motion.button, { className: "navbarButton", style: { backgroundColor: 'rgba(0,0,0,0)' }, id: "settingsButton", onMouseDown: handleSettingsClick, whileHover: { rotate: 180 } },
                     react_1.default.createElement("span", { className: "material-symbols-outlined" }, "settings"))),
             react_1.default.createElement("div", { className: "logo" },
                 react_1.default.createElement("img", { className: "logoImg", src: "./media/icon.png" })))));
@@ -48110,7 +48127,6 @@ function Joystick() {
                 vx = 0;
                 vy = 0;
                 if (!isDragging) {
-                    console.log('keys and NOT dragging');
                     const dx2 = centerX2 - circleX2;
                     const dy2 = centerY2 - circleY2;
                     const ax2 = dx2 * stiffness;
@@ -48128,7 +48144,6 @@ function Joystick() {
                 vx2 = 0;
                 vy2 = 0;
                 if (!isMovingKeys) {
-                    console.log('dragging and NOT keys');
                     const dx = centerX - circleX;
                     const dy = centerY - circleY;
                     const ax = dx * stiffness;
@@ -48787,10 +48802,18 @@ function Switches() {
                                 react_1.default.createElement("div", { className: 'switcherCircleVerticalFill' })))),
                     react_1.default.createElement("div", { className: "switcherDivVertical" },
                         react_1.default.createElement(framer_motion_1.motion.div, { id: "verticalSwitch", className: 'switcherDivVerticalLineFilled' },
-                            react_1.default.createElement(framer_motion_1.motion.div, { className: 'switcherCircleVerticalOutline', drag: "y", dragConstraints: {
-                                    top: -100,
-                                    bottom: 100
-                                }, dragElastic: 0.1, onDragEnd: handleDragEnd, animate: controls, dragControls: dragControls, style: { top: "0px" } },
+                            react_1.default.createElement(framer_motion_1.motion.div, { className: 'switcherCircleVerticalOutline', 
+                                // drag="y"
+                                // dragConstraints={{
+                                //     top: -100, 
+                                //     bottom: 100
+                                // }}
+                                // dragElastic={0.1}
+                                // onDragEnd={handleDragEnd}
+                                // animate={controls}
+                                // dragControls={dragControls}
+                                // style={{ top: "0px"}}
+                                dragConstraints: constraints, dragElastic: 0, onDragEnd: handleDragEnd, animate: controls, style: { top: "0px", transition: '0.05s' } },
                                 react_1.default.createElement("div", { className: 'switcherCircleVerticalFillAlt' })))))))));
 }
 
@@ -48804,49 +48827,17 @@ function Switches() {
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
-var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    var desc = Object.getOwnPropertyDescriptor(m, k);
-    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-      desc = { enumerable: true, get: function() { return m[k]; } };
-    }
-    Object.defineProperty(o, k2, desc);
-}) : (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    o[k2] = m[k];
-}));
-var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
-    Object.defineProperty(o, "default", { enumerable: true, value: v });
-}) : function(o, v) {
-    o["default"] = v;
-});
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-    __setModuleDefault(result, mod);
-    return result;
+// https://codepen.io/steveeeie/details/zjYmjR
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports["default"] = Test;
-const react_1 = __importStar(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
+const react_1 = __importDefault(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
 function Test() {
-    const [isActive, setIsActive] = (0, react_1.useState)([false, false, false]);
-    const handleActive = (index) => {
-        const updateActive = isActive.map((state, i) => i === index ? !state : state);
-        setIsActive(updateActive);
-    };
     return (react_1.default.createElement("div", { className: "bodyCenter" },
         react_1.default.createElement("div", null,
-            react_1.default.createElement("h1", null, "Test"),
-            react_1.default.createElement("div", { className: "tabs" },
-                react_1.default.createElement("div", { className: `${isActive[0] ? 'tab active' : 'tab'}`, onMouseDown: () => handleActive(0) },
-                    react_1.default.createElement("div", { className: "tab-box" })),
-                react_1.default.createElement("div", { className: `${isActive[1] ? 'tab active' : 'tab'}`, onMouseDown: () => handleActive(1) },
-                    react_1.default.createElement("div", { className: "tab-box" })),
-                react_1.default.createElement("div", { className: `${isActive[2] ? 'tab active' : 'tab'}`, onMouseDown: () => handleActive(2) },
-                    react_1.default.createElement("div", { className: "tab-box" }))),
-            react_1.default.createElement("div", { className: "content" }))));
+            react_1.default.createElement("h1", null, "Test"))));
 }
 { /* <div className="surface">
 <div className="mock-browser">

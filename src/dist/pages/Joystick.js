@@ -218,7 +218,6 @@ function Joystick() {
                 vx = 0;
                 vy = 0;
                 if (!isDragging) {
-                    console.log('keys and NOT dragging');
                     const dx2 = centerX2 - circleX2;
                     const dy2 = centerY2 - circleY2;
                     const ax2 = dx2 * stiffness;
@@ -236,7 +235,6 @@ function Joystick() {
                 vx2 = 0;
                 vy2 = 0;
                 if (!isMovingKeys) {
-                    console.log('dragging and NOT keys');
                     const dx = centerX - circleX;
                     const dy = centerY - circleY;
                     const ax = dx * stiffness;

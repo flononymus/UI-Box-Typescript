@@ -196,18 +196,23 @@ export default function Switches() {
                     >
                         <motion.div className='switcherCircleVerticalOutline' 
 
-                        drag="y"
+                        // drag="y"
 
-                        dragConstraints={{
-                            top: -100, 
-                            bottom: 100
-                        }}
+                        // dragConstraints={{
+                        //     top: -100, 
+                        //     bottom: 100
+                        // }}
 
-                        dragElastic={0.1}
+                        // dragElastic={0.1}
+                        // onDragEnd={handleDragEnd}
+                        // animate={controls}
+                        // dragControls={dragControls}
+                        // style={{ top: "0px"}}
+                        dragConstraints={constraints}
+                        dragElastic={0}
                         onDragEnd={handleDragEnd}
                         animate={controls}
-                        dragControls={dragControls}
-                        style={{ top: "0px"}}
+                        style={{ top: "0px", transition: '0.05s' }}
                         >
                             <div className='switcherCircleVerticalFillAlt'></div>
                         </motion.div>
