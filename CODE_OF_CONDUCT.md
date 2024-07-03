@@ -5,7 +5,6 @@ ___
   - [ ] Switches: Vertical switch: make it "snap" to points
   - [ ] Switches: Vertical switch: add lines for segments
 
-  - [ ] Joystick: Reset mouse position on keyboard press
   - [ ] Ball --> calculate bounding box
 
 
@@ -41,10 +40,7 @@ ___
     - [ ] Add a reference for pull direction/pull strenght
     - [ ] calculate trajectory mode, + button to turn it on/off
     - [ ] make hoop like button, and calculate collision based on that
-
-- **Styles + Design**
-
-  - [ ] **Navbar & Menus**
+- **Styles + Design** - [ ] **Navbar & Menus**
     - [ ] Tab styles --> https://github.com/adamschwartz/chrome-tabs/tree/gh-pages
     - [ ] Page transitions --> https://vuejs.org/guide/built-ins/transition.html
 
@@ -114,8 +110,10 @@ ___
     - [x] Fix position of ball and particles
     - [x] Fix particle sizes --> not depending on screen size
 
-  - [x] **Keyboard**
+  - [x] **Joystick**
     - [x] Add some keyboard page with wasd 
+    - [x] Joystick --> mouse and keyboard seperately
+    - [x] Joystick: Reset mouse position on keyboard press
 
   - [x] **Navbar & Menus**
     - [x] Indicate what page is active
