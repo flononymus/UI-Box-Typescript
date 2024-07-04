@@ -1,6 +1,8 @@
 # To-Do 
 ___
 
+**Seti-Folder**: https://marketplace.visualstudio.com/items?itemName=sabaken.seti-minimal-folder
+
 **Seti**:https://github.com/jesseweed/seti-ui/tree/master
 **minimal**:https://github.com/jacobwgillespie/vscode-minimal-icons
 
