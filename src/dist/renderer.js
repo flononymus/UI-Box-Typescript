@@ -48733,7 +48733,7 @@ function Switches() {
             setSwitchedHorizontal(!isSwitchedHorizontal);
         }
     }
-    function startDrag(event) {
+    function handleDragStart(event) {
         dragControls.start(event, { snapToCursor: true });
     }
     function handleDragEnd(e, info) {
@@ -48790,18 +48790,7 @@ function Switches() {
                                 react_1.default.createElement("div", { className: 'switcherCircleVerticalFill' })))),
                     react_1.default.createElement("div", { className: "switcherDivVertical" },
                         react_1.default.createElement(framer_motion_1.motion.div, { id: "verticalSwitch", className: 'switcherDivVerticalLineFilled' },
-                            react_1.default.createElement(framer_motion_1.motion.div, { className: 'switcherCircleVerticalOutline', 
-                                // drag="y"
-                                // dragConstraints={{
-                                //     top: -100, 
-                                //     bottom: 100
-                                // }}
-                                // dragElastic={0.1}
-                                // onDragEnd={handleDragEnd}
-                                // animate={controls}
-                                // dragControls={dragControls}
-                                // style={{ top: "0px"}}
-                                drag: "y", dragConstraints: constraints, dragElastic: 0, onDragEnd: handleDragEnd, animate: controls, style: { top: "0px", transition: '0.05s' } },
+                            react_1.default.createElement(framer_motion_1.motion.div, { className: 'switcherCircleVerticalOutline', drag: "y", dragConstraints: constraints, dragElastic: 0.1, onDragStart: handleDragStart, onDragEnd: handleDragEnd, animate: controls, style: { top: "0px" }, dragControls: dragControls },
                                 react_1.default.createElement("div", { className: 'switcherCircleVerticalFillAlt' })))))))));
 }
 
@@ -48826,7 +48815,7 @@ function Test() {
     return (react_1.default.createElement("div", { className: "bodyCenter" },
         react_1.default.createElement("div", null,
             react_1.default.createElement("div", { style: { display: 'flex', flexDirection: 'row', justifyContent: 'start', alignItems: 'center' } },
-                react_1.default.createElement("h1", null, "Ball"),
+                react_1.default.createElement("h1", null, "Test"),
                 react_1.default.createElement(framer_motion_1.motion.button, { className: "navbarButton", style: { backgroundColor: 'rgba(0,0,0,0)' }, id: "randomizerButton", whileHover: { rotate: 180 } },
                     react_1.default.createElement("span", { className: "material-symbols-outlined" }, "swap_horiz"))))));
 }
@@ -49205,7 +49194,7 @@ const Switches_1 = __importDefault(__webpack_require__(/*! ./pages/Switches */ "
 const Ball_1 = __importDefault(__webpack_require__(/*! ./pages/Ball */ "./src/pages/Ball.tsx"));
 const Joystick_1 = __importDefault(__webpack_require__(/*! ./pages/Joystick */ "./src/pages/Joystick.tsx"));
 const Test_1 = __importDefault(__webpack_require__(/*! ./pages/Test */ "./src/pages/Test.tsx"));
-const startPage = "Test";
+const startPage = "Switches";
 const App = () => {
     const [page, setPage] = (0, react_1.useState)(startPage);
     const [active, setActive] = (0, react_1.useState)(page);
