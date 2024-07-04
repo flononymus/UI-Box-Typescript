@@ -215,9 +215,13 @@ function Ball() {
                             vx *= -damping;
                             if (ballX - radius < rect.left) {
                                 ballX = rect.left - radius;
+                                ballY = rect.bottom - radius;
+                                console.log(ballY);
                             }
                             else {
                                 ballX = rect.right + radius;
+                                ballY = rect.bottom - radius;
+                                console.log(ballY);
                             }
                         }
                     }
@@ -279,19 +283,19 @@ function Ball() {
             animationFrameId = requestAnimationFrame(render);
         };
         const handleThemeToggle = () => { resetScene(); };
-        const handleRandomizeHoop = () => {
-            const hoop = new Hoop(((canvasBall.width / 2)), (canvasBall.height / 2), 100, 50, 5, color);
-            // setRandomizeHoop(!randomizeHoop)
-            initscene();
-            console.log('hoop', randomizeHoop);
-        };
+        // const handleRandomizeHoop = () => {
+        //     const hoop = new Hoop( ((canvasBall.width / 2)), (canvasBall.height / 2), 100, 50, 5, color);
+        //     // setRandomizeHoop(!randomizeHoop)
+        //     // initscene()
+        //     console.log('hoop', randomizeHoop)
+        // }
         window.addEventListener("resize", resizeScene);
         if (darkmodeToggleButton) {
             darkmodeToggleButton.addEventListener('click', handleThemeToggle);
         }
-        if (randomizerButton) {
-            randomizerButton.addEventListener('click', handleRandomizeHoop);
-        }
+        // if (randomizerButton) {
+        //     randomizerButton.addEventListener('click', handleRandomizeHoop);
+        // }
         window.addEventListener("mousemove", onMouseMove);
         window.addEventListener("touchmove", onTouchMove);
         window.addEventListener("mousedown", onMouseDown);
@@ -303,9 +307,9 @@ function Ball() {
             if (darkmodeToggleButton) {
                 darkmodeToggleButton.removeEventListener('click', handleThemeToggle);
             }
-            if (randomizerButton) {
-                randomizerButton.removeEventListener('click', handleRandomizeHoop);
-            }
+            // if (randomizerButton) {
+            //     randomizerButton.removeEventListener('click', handleRandomizeHoop);
+            // }
             window.removeEventListener("mousemove", onMouseMove);
             window.removeEventListener("touchmove", onTouchMove);
             window.removeEventListener("mousedown", onMouseDown);

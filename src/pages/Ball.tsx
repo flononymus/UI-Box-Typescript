@@ -237,25 +237,31 @@ export default function Ball() {
                         &&
                         ballY + radius > rect.top && ballY - radius < rect.bottom
                     ) {
-                      
                         if (ballY - radius < rect.top || ballY + radius > rect.bottom) {
                             vy *= -damping;
                             if (ballY - radius < rect.top) {
                                 ballY = rect.top - radius;
-                            } else {
+                            } 
+                            else {
                                 ballY = rect.bottom + radius;
                             }
+                          
+
                         }
                         if (ballX - radius < rect.left || ballX + radius > rect.right) {
                             vx *= -damping;
                             if (ballX - radius < rect.left) {
                                 ballX = rect.left - radius;
+                                ballY = rect.bottom- radius;
+                                console.log(ballY)
                             } else {
                                 ballX = rect.right + radius;
+                                ballY = rect.bottom- radius;
+                                console.log(ballY)
                             }
                         }
 
-                      
+                                      
                     }
                 }
 
@@ -328,22 +334,22 @@ export default function Ball() {
 
         const handleThemeToggle = () => {resetScene()}
 
-        const handleRandomizeHoop = () => {
+        // const handleRandomizeHoop = () => {
 
-            const hoop = new Hoop( ((canvasBall.width / 2)), (canvasBall.height / 2), 100, 50, 5, color);
-            // setRandomizeHoop(!randomizeHoop)
-            initscene()
-            console.log('hoop', randomizeHoop)
-        }
+        //     const hoop = new Hoop( ((canvasBall.width / 2)), (canvasBall.height / 2), 100, 50, 5, color);
+        //     // setRandomizeHoop(!randomizeHoop)
+        //     // initscene()
+        //     console.log('hoop', randomizeHoop)
+        // }
 
         window.addEventListener("resize", resizeScene);
 
         if (darkmodeToggleButton) {
             darkmodeToggleButton.addEventListener('click', handleThemeToggle);
         }
-        if (randomizerButton) {
-            randomizerButton.addEventListener('click', handleRandomizeHoop);
-        }
+        // if (randomizerButton) {
+        //     randomizerButton.addEventListener('click', handleRandomizeHoop);
+        // }
 
         window.addEventListener("mousemove", onMouseMove);
         window.addEventListener("touchmove", onTouchMove);
@@ -358,9 +364,9 @@ export default function Ball() {
             if (darkmodeToggleButton) {
                 darkmodeToggleButton.removeEventListener('click', handleThemeToggle);
             }
-            if (randomizerButton) {
-                randomizerButton.removeEventListener('click', handleRandomizeHoop);
-            }
+            // if (randomizerButton) {
+            //     randomizerButton.removeEventListener('click', handleRandomizeHoop);
+            // }
 
             window.removeEventListener("mousemove", onMouseMove);
             window.removeEventListener("touchmove", onTouchMove);

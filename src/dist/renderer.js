@@ -47677,9 +47677,13 @@ function Ball() {
                             vx *= -damping;
                             if (ballX - radius < rect.left) {
                                 ballX = rect.left - radius;
+                                ballY = rect.bottom - radius;
+                                console.log(ballY);
                             }
                             else {
                                 ballX = rect.right + radius;
+                                ballY = rect.bottom - radius;
+                                console.log(ballY);
                             }
                         }
                     }
@@ -47741,19 +47745,19 @@ function Ball() {
             animationFrameId = requestAnimationFrame(render);
         };
         const handleThemeToggle = () => { resetScene(); };
-        const handleRandomizeHoop = () => {
-            const hoop = new Hoop(((canvasBall.width / 2)), (canvasBall.height / 2), 100, 50, 5, color);
-            // setRandomizeHoop(!randomizeHoop)
-            initscene();
-            console.log('hoop', randomizeHoop);
-        };
+        // const handleRandomizeHoop = () => {
+        //     const hoop = new Hoop( ((canvasBall.width / 2)), (canvasBall.height / 2), 100, 50, 5, color);
+        //     // setRandomizeHoop(!randomizeHoop)
+        //     // initscene()
+        //     console.log('hoop', randomizeHoop)
+        // }
         window.addEventListener("resize", resizeScene);
         if (darkmodeToggleButton) {
             darkmodeToggleButton.addEventListener('click', handleThemeToggle);
         }
-        if (randomizerButton) {
-            randomizerButton.addEventListener('click', handleRandomizeHoop);
-        }
+        // if (randomizerButton) {
+        //     randomizerButton.addEventListener('click', handleRandomizeHoop);
+        // }
         window.addEventListener("mousemove", onMouseMove);
         window.addEventListener("touchmove", onTouchMove);
         window.addEventListener("mousedown", onMouseDown);
@@ -47765,9 +47769,9 @@ function Ball() {
             if (darkmodeToggleButton) {
                 darkmodeToggleButton.removeEventListener('click', handleThemeToggle);
             }
-            if (randomizerButton) {
-                randomizerButton.removeEventListener('click', handleRandomizeHoop);
-            }
+            // if (randomizerButton) {
+            //     randomizerButton.removeEventListener('click', handleRandomizeHoop);
+            // }
             window.removeEventListener("mousemove", onMouseMove);
             window.removeEventListener("touchmove", onTouchMove);
             window.removeEventListener("mousedown", onMouseDown);
@@ -48835,7 +48839,6 @@ function Switches() {
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
-// https://codepen.io/steveeeie/details/zjYmjR
 var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
     var desc = Object.getOwnPropertyDescriptor(m, k);
@@ -48862,158 +48865,294 @@ var __importStar = (this && this.__importStar) || function (mod) {
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports["default"] = Test;
 const react_1 = __importStar(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
+const framer_motion_1 = __webpack_require__(/*! framer-motion */ "./node_modules/framer-motion/dist/cjs/index.js");
 function Test() {
-    const canvasRef = (0, react_1.useRef)(null);
+    const [resetTrigger, setResetTrigger] = (0, react_1.useState)(0);
+    const navbar = document.querySelector('#navbarRoot');
     (0, react_1.useEffect)(() => {
-        const canvas = canvasRef.current;
-        if (!canvas)
-            return;
-        const ctx = canvas.getContext('2d');
-        if (!ctx)
-            return;
-        // Game objects
-        const ball = {
-            x: canvas.width / 2,
-            y: canvas.height - 50,
-            radius: 20,
-            vx: 0,
-            vy: 0
-        };
-        const hoop = {
-            x: canvas.width - 100,
-            y: 100,
-            width: 100,
-            height: 70
-        };
+        const canvasBall = document.querySelector("#sceneBall");
+        const ctx = canvasBall.getContext("2d", { willReadFrequently: true });
+        const mouse = { x: 0, y: 0 };
+        const radius = 25;
         let isDragging = false;
-        const gravity = 0.5;
-        // Event listeners
-        const handleMouseDown = (e) => {
-            const rect = canvas.getBoundingClientRect();
-            const mouseX = e.clientX - rect.left;
-            const mouseY = e.clientY - rect.top;
-            if (isPointInBall(mouseX, mouseY)) {
-                isDragging = true;
+        let isReleased = false;
+        let ww = window.innerWidth;
+        let wh = window.innerHeight;
+        let centerX = (ww / 2);
+        let centerY = (wh / 5) * 3;
+        let ballX = centerX;
+        let ballY = centerY;
+        let vx = 0;
+        let vy = 0;
+        const damping = 0.7;
+        const stiffness = 0.4;
+        const color = getComputedStyle(document.documentElement).getPropertyValue('--particle-color') || 'black';
+        const gravity = 0.3;
+        const darkmodeToggleButton = document.getElementById('darkmodeToggleButton');
+        class Hoop {
+            constructor(centerX, centerY, width, height, color) {
+                this.centerX = centerX;
+                this.centerY = centerY;
+                this.width = width;
+                this.height = height;
+                this.color = color;
             }
-        };
-        const handleMouseMove = (e) => {
+            draw(ctx) {
+                ctx.fillStyle = this.color;
+                ctx.beginPath();
+                ctx.rect(this.centerX, this.centerY, this.width, this.height);
+                ctx.fill();
+            }
+        }
+        // const hoop = new Hoop( ((canvasBall.width / 4) * 3), (canvasBall.height / 3), 100, 50, 5, color);
+        const hoopLeft = new Hoop(((canvasBall.width / 4) * 3), canvasBall.height / 3, 10, 50, color);
+        const hoopRight = new Hoop(((canvasBall.width / 4) * 3), canvasBall.height / 3, 10, 50, color);
+        const hoopBottom = new Hoop(((canvasBall.width / 4) * 3), (canvasBall.height / 3) + 50, 100, 10, color);
+        function checkCollision(ballX, ballY, radius, rect) {
+            const distX = Math.abs(ballX - rect.centerX - rect.width / 2);
+            const distY = Math.abs(ballY - rect.centerY - rect.height / 2);
+            if (distX > (rect.width / 2 + radius)) {
+                return false;
+            }
+            if (distY > (rect.height / 2 + radius)) {
+                return false;
+            }
+            if (distX <= (rect.width / 2)) {
+                return true;
+            }
+            if (distY <= (rect.height / 2)) {
+                return true;
+            }
+            const dx = distX - rect.width / 2;
+            const dy = distY - rect.height / 2;
+            return (dx * dx + dy * dy <= (radius * radius));
+        }
+        const onMouseMove = (e) => {
             if (isDragging) {
-                const rect = canvas.getBoundingClientRect();
-                ball.x = e.clientX - rect.left;
-                ball.y = e.clientY - rect.top;
+                mouse.x = e.clientX;
+                mouse.y = e.clientY;
+                ballX = mouse.x;
+                ballY = mouse.y;
             }
         };
-        const handleMouseUp = (e) => {
+        const onTouchMove = (e) => {
+            if (e.touches.length > 0 && isDragging) {
+                mouse.x = e.touches[0].clientX;
+                mouse.y = e.touches[0].clientY;
+                ballX = mouse.x;
+                ballY = mouse.y;
+            }
+        };
+        const onTouchEnd = () => {
             if (isDragging) {
                 isDragging = false;
-                const rect = canvas.getBoundingClientRect();
-                const mouseX = e.clientX - rect.left;
-                const mouseY = e.clientY - rect.top;
-                ball.vx = (mouseX - ball.x) * 0.1;
-                ball.vy = (mouseY - ball.y) * 0.1;
             }
         };
-        canvas.addEventListener('mousedown', handleMouseDown);
-        canvas.addEventListener('mousemove', handleMouseMove);
-        canvas.addEventListener('mouseup', handleMouseUp);
-        // Helper functions
-        const isPointInBall = (x, y) => {
-            const dx = x - ball.x;
-            const dy = y - ball.y;
-            return dx * dx + dy * dy <= ball.radius * ball.radius;
+        const onMouseDown = (e) => {
+            centerX = e.clientX;
+            centerY = e.clientY;
+            ballX = centerX;
+            ballY = centerY;
+            vx = 0;
+            vy = 0;
+            isDragging = true;
+            isReleased = false;
         };
-        const update = () => {
+        const onMouseUp = (e) => {
+            if (isDragging) {
+                isDragging = false;
+                const dx = ballX - centerX;
+                const dy = ballY - centerY;
+                vx = -dx * 0.1;
+                vy = -dy * 0.1;
+                isReleased = true;
+            }
+        };
+        const initscene = () => {
+            ww = canvasBall.width = window.innerWidth;
+            wh = canvasBall.height = window.innerHeight;
+            isDragging = false;
+            isReleased = false;
+            centerX = ww / 2;
+            centerY = (wh / 5) * 3;
+            ballX = centerX;
+            ballY = centerY;
+            hoopLeft.centerX = (ww / 4) * 3;
+            hoopLeft.centerY = wh / 3;
+            hoopRight.centerX = ((ww / 4) * 3) + 90;
+            hoopRight.centerY = wh / 3;
+            hoopBottom.centerX = (ww / 4) * 3;
+            hoopBottom.centerY = (wh / 3) + 50;
+            vx = 0;
+            vy = 0;
+            render();
+        };
+        const resizeScene = () => {
+            ww = canvasBall.width = window.innerWidth;
+            wh = canvasBall.height = window.innerHeight;
+            centerX = ww / 2;
+            centerY = (wh / 5) * 3;
+            ballX = centerX;
+            ballY = centerY;
+            vx = 0;
+            vy = 0;
+            hoopLeft.centerX = (ww / 4) * 3;
+            hoopLeft.centerY = wh / 3;
+            hoopRight.centerX = ((ww / 4) * 3) + 90;
+            hoopRight.centerY = wh / 3;
+            hoopBottom.centerX = (ww / 4) * 3;
+            hoopBottom.centerY = (wh / 3) + 50;
+        };
+        let animationFrameId;
+        const render = () => {
             if (!isDragging) {
-                ball.x += ball.vx;
-                ball.y += ball.vy;
-                ball.vy += gravity;
-                // Collision with walls
-                if (ball.x - ball.radius < 0 || ball.x + ball.radius > canvas.width) {
-                    ball.vx *= -0.8;
+                if (!isReleased) {
+                    const dx = centerX - ballX;
+                    const dy = centerY - ballY;
+                    const ax = dx * stiffness;
+                    const ay = dy * stiffness + gravity;
+                    vx += ax;
+                    vy += ay;
+                    vx *= damping;
+                    vy *= damping;
                 }
-                if (ball.y - ball.radius < 0 || ball.y + ball.radius > canvas.height) {
-                    ball.vy *= -0.8;
+                else {
+                    vy += gravity;
                 }
-                // Simple hoop collision
-                if (ball.x > hoop.x && ball.x < hoop.x + hoop.width &&
-                    ball.y > hoop.y && ball.y < hoop.y + hoop.height) {
-                    console.log("Score!");
-                    resetBall();
+                ballX += vx;
+                ballY += vy;
+                if (checkCollision(ballX, ballY, radius, hoopLeft)) {
+                    // console.log('left collision')
+                    // if (ballX < hoopLeft.centerX) {
+                    //     ballX = hoopLeft.centerX - radius;
+                    //     vx *= -damping;
+                    // } else {
+                    //     ballX = hoopLeft.centerX + hoopLeft.width + radius;
+                    //     vx *= -damping;
+                    // }
+                }
+                if (checkCollision(ballX, ballY, radius, hoopRight)) {
+                    // console.log('right collision')
+                    // if (ballX < hoopRight.centerX) {
+                    //     ballX = hoopRight.centerX - radius;
+                    //     vx *= -damping;
+                    // } else {
+                    //     ballX = hoopRight.centerX + hoopRight.width + radius;
+                    //     vx *= -damping;
+                    // }
+                }
+                if (checkCollision(ballX, ballY, radius, hoopBottom)) {
+                    console.log('bottom collision');
+                    if (ballY < hoopBottom.centerY) {
+                        ballY = hoopBottom.centerY - radius;
+                        vy *= -damping;
+                    }
+                    else {
+                        ballY = hoopBottom.centerY + hoopBottom.height + radius;
+                        // ballY = hoopBottom.centerY + radius;
+                        vy *= -damping;
+                    }
+                }
+                //canvascollision
+                if (ballY + radius > wh || ballY - radius < 0 + navbar.offsetHeight) {
+                    vy *= -damping;
+                    if (ballY + radius > wh)
+                        ballY = wh - radius;
+                    if (ballY - radius < 0 + navbar.offsetHeight) {
+                        ballY = navbar.offsetHeight + radius;
+                    }
+                }
+                if (ballX + radius > ww || ballX - radius < 0) {
+                    vx *= -damping;
+                    if (ballX + radius > ww)
+                        ballX = ww - radius;
+                    if (ballX - radius < 0)
+                        ballX = radius;
                 }
             }
-        };
-        const resetBall = () => {
-            ball.x = canvas.width / 2;
-            ball.y = canvas.height - 50;
-            ball.vx = 0;
-            ball.vy = 0;
-        };
-        const draw = () => {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            // Draw hoop
-            ctx.fillStyle = 'orange';
-            ctx.fillRect(hoop.x, hoop.y, hoop.width, hoop.height);
-            // Draw ball
-            ctx.fillStyle = 'brown';
+            /* collision while dragging */
+            if (isDragging) {
+                if (ballY + radius > wh || ballY - radius < 0) {
+                    vy *= -damping;
+                    if (ballY + radius > wh) {
+                        ballY = wh - radius;
+                    }
+                    if (ballY - radius < 0) {
+                        ballY = radius;
+                    }
+                }
+                if (ballX + radius > ww || ballX - radius < 0) {
+                    vx *= -damping;
+                    if (ballX + radius > ww)
+                        ballX = canvasBall.width - radius;
+                    if (ballX - radius < 0) {
+                        ballX = radius;
+                    }
+                }
+                vx = 0;
+                vy = 0;
+            }
+            ctx.clearRect(0, 0, canvasBall.width, canvasBall.height);
+            if (!isReleased) {
+                ctx.strokeStyle = color;
+                ctx.lineWidth = 10;
+                ctx.lineCap = "round";
+                ctx.beginPath();
+                ctx.moveTo(centerX, centerY);
+                ctx.lineTo(ballX, ballY);
+                ctx.stroke();
+            }
+            ctx.fillStyle = color;
             ctx.beginPath();
-            ctx.arc(ball.x, ball.y, ball.radius, 0, Math.PI * 2);
+            ctx.arc(ballX, ballY, radius, 0, Math.PI * 2);
             ctx.fill();
+            hoopLeft.draw(ctx);
+            hoopRight.draw(ctx);
+            hoopBottom.draw(ctx);
+            animationFrameId = requestAnimationFrame(render);
         };
-        // Game loop
-        const gameLoop = () => {
-            update();
-            draw();
-            requestAnimationFrame(gameLoop);
-        };
-        gameLoop();
-        // Cleanup
+        const handleThemeToggle = () => { resetScene(); };
+        window.addEventListener("resize", resizeScene);
+        if (darkmodeToggleButton) {
+            darkmodeToggleButton.addEventListener('click', handleThemeToggle);
+        }
+        window.addEventListener("mousemove", onMouseMove);
+        window.addEventListener("touchmove", onTouchMove);
+        window.addEventListener("mousedown", onMouseDown);
+        window.addEventListener("mouseup", onMouseUp);
+        window.addEventListener("touchend", onTouchEnd);
+        initscene();
         return () => {
-            canvas.removeEventListener('mousedown', handleMouseDown);
-            canvas.removeEventListener('mousemove', handleMouseMove);
-            canvas.removeEventListener('mouseup', handleMouseUp);
+            window.removeEventListener("resize", resizeScene);
+            if (darkmodeToggleButton) {
+                darkmodeToggleButton.removeEventListener('click', handleThemeToggle);
+            }
+            window.removeEventListener("mousemove", onMouseMove);
+            window.removeEventListener("touchmove", onTouchMove);
+            window.removeEventListener("mousedown", onMouseDown);
+            window.removeEventListener("mouseup", onMouseUp);
+            window.removeEventListener("touchend", onTouchEnd);
+            cancelAnimationFrame(animationFrameId);
         };
-    }, []);
+    }, [resetTrigger]);
+    function resetScene() {
+        setResetTrigger(prev => prev + 1);
+    }
     return (react_1.default.createElement("div", { className: "bodyCenter" },
         react_1.default.createElement("div", null,
-            react_1.default.createElement("h1", null, "Test"),
-            react_1.default.createElement("canvas", { ref: canvasRef, width: 500, height: 300, style: { border: '1px solid black' } }))));
-}
-{ /* <div className="surface">
-<div className="mock-browser">
-<div className="chrome-tabs"
-style={{margin: '9px'}}
->
-<div className="chrome-tabs-content">
-<div className="chrome-tab">
-  <div className="chrome-tab-dividers"></div>
-  <div className="chrome-tab-background">
-  </div>
-  <div className="chrome-tab-content">
-    <div className="chrome-tab-favicon" ></div>
-    <div className="chrome-tab-title">Google</div>
-    <div className="chrome-tab-drag-handle"></div>
-    <div className="chrome-tab-close"></div>
-  </div>
-</div>
-<div className="chrome-tab"
-// active
->
-  <div className="chrome-tab-dividers"></div>
-  <div className="chrome-tab-background">
-  </div>
-  <div className="chrome-tab-content">
-    <div className="chrome-tab-favicon" ></div>
-    <div className="chrome-tab-title">Facebook</div>
-    <div className="chrome-tab-drag-handle"></div>
-    <div className="chrome-tab-close"></div>
-  </div>
-</div>
-</div>
-<div className="chrome-tabs-bottom-bar"></div>
-
-</div>
-</div>
-</div> */
+            react_1.default.createElement("div", { style: { display: 'flex', flexDirection: 'row', justifyContent: 'start', alignItems: 'center' } },
+                react_1.default.createElement("h1", null, "Ball"),
+                react_1.default.createElement(framer_motion_1.motion.button, { className: "navbarButton", style: { backgroundColor: 'rgba(0,0,0,0)' }, id: "randomizerButton", whileHover: { rotate: 180 } },
+                    react_1.default.createElement("span", { className: "material-symbols-outlined" }, "swap_horiz"))),
+            react_1.default.createElement("canvas", { style: {
+                    width: '100vw',
+                    height: '100vh',
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    overflow: 'hidden',
+                    zIndex: -10
+                }, id: "sceneBall" }))));
 }
 
 
@@ -49390,7 +49529,7 @@ const Switches_1 = __importDefault(__webpack_require__(/*! ./pages/Switches */ "
 const Ball_1 = __importDefault(__webpack_require__(/*! ./pages/Ball */ "./src/pages/Ball.tsx"));
 const Joystick_1 = __importDefault(__webpack_require__(/*! ./pages/Joystick */ "./src/pages/Joystick.tsx"));
 const Test_1 = __importDefault(__webpack_require__(/*! ./pages/Test */ "./src/pages/Test.tsx"));
-const startPage = "Ball";
+const startPage = "Test";
 const App = () => {
     const [page, setPage] = (0, react_1.useState)(startPage);
     const [active, setActive] = (0, react_1.useState)(page);
