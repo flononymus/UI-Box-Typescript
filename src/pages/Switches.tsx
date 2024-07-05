@@ -67,7 +67,7 @@ export default function Switches() {
     }
 
     function handleDragStart(event:any) {
-        dragControls.start(event, {snapToCursor:true})
+        dragControls.start(event, {snapToCursor:false })
     }
 
     function handleDragEnd(e:any,info: any) {
@@ -211,9 +211,10 @@ export default function Switches() {
                         dragElastic={0}
                         onDragStart={handleDragStart}
                         onDragEnd={handleDragEndTest}
-                        animate={controls}
+                        // animate={controls}
                         style={{ top: "0px"}}
                         dragControls={dragControls}
+                        dragSnapToOrigin
                         >
                             <div className='switcherCircleVerticalFillAlt'></div>
                         </motion.div>

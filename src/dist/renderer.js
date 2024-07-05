@@ -47599,11 +47599,12 @@ function Ball() {
             centerY = (wh / 5) * 3;
             ballX = centerX;
             ballY = centerY;
-            hoopLeft.centerX = (ww / 4) * 3;
+            hoopLeft.centerX = ((ww / 4) * 3) + 45;
             hoopLeft.centerY = wh / 3;
-            hoopRight.centerX = ((ww / 4) * 3) + 90;
+            hoopRight.centerX = ((ww / 4) * 3) - 45;
             hoopRight.centerY = wh / 3;
-            hoopBottom.centerX = (ww / 4) * 3;
+            // hoopBottom.centerX = (ww / 4) * 3;
+            hoopBottom.centerX = ((ww / 4) * 3) - 45;
             hoopBottom.centerY = (wh / 3) + 50;
             vx = 0;
             vy = 0;
@@ -47618,11 +47619,11 @@ function Ball() {
             ballY = centerY;
             vx = 0;
             vy = 0;
-            hoopLeft.centerX = (ww / 4) * 3;
+            hoopLeft.centerX = ((ww / 4) * 3) + 45;
             hoopLeft.centerY = wh / 3;
-            hoopRight.centerX = ((ww / 4) * 3) + 90;
+            hoopRight.centerX = ((ww / 4) * 3) - 45;
             hoopRight.centerY = wh / 3;
-            hoopBottom.centerX = (ww / 4) * 3;
+            hoopBottom.centerX = ((ww / 4) * 3) - 45;
             hoopBottom.centerY = (wh / 3) + 50;
         };
         let animationFrameId;
@@ -48526,7 +48527,6 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports["default"] = Spinner;
 const react_1 = __importStar(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
 function Spinner() {
-    // const Spinner: React.FC = () => {
     const spinnerRef = (0, react_1.useRef)(null);
     const [isDragging, setIsDragging] = (0, react_1.useState)(false);
     const [rotation, setRotation] = (0, react_1.useState)(0);
@@ -48734,7 +48734,7 @@ function Switches() {
         }
     }
     function handleDragStart(event) {
-        dragControls.start(event, { snapToCursor: true });
+        dragControls.start(event, { snapToCursor: false });
     }
     function handleDragEnd(e, info) {
         const verticalSwitch = document.getElementById("verticalSwitch");
@@ -48748,6 +48748,22 @@ function Switches() {
         }
         else {
             setVerticalPosition('bottom');
+        }
+    }
+    function handleDragEndTest(e, info) {
+        const verticalSwitch = document.getElementById("verticalSwitch2");
+        const rect = verticalSwitch.getBoundingClientRect();
+        const dragY = info.point.y - rect.top;
+        if (dragY < rect.height / 3) {
+            setVerticalPosition('top');
+        }
+        else if (dragY < (rect.height / 3) * 2) {
+            setVerticalPosition('middle');
+        }
+        else {
+            setVerticalPosition('bottom');
+        }
+        if (verticalPosition === 'top') {
         }
     }
     return (react_1.default.createElement("div", { className: "bodyCenter" },
@@ -48789,8 +48805,10 @@ function Switches() {
                             react_1.default.createElement(framer_motion_1.motion.div, { className: 'switcherCircleVerticalOutline', drag: "y", dragConstraints: constraints, dragElastic: 0, onDragEnd: handleDragEnd, animate: controls, style: { top: "0px", transition: '0.05s' } },
                                 react_1.default.createElement("div", { className: 'switcherCircleVerticalFill' })))),
                     react_1.default.createElement("div", { className: "switcherDivVertical" },
-                        react_1.default.createElement(framer_motion_1.motion.div, { id: "verticalSwitch", className: 'switcherDivVerticalLineFilled' },
-                            react_1.default.createElement(framer_motion_1.motion.div, { className: 'switcherCircleVerticalOutline', drag: "y", dragConstraints: constraints, dragElastic: 0.1, onDragStart: handleDragStart, onDragEnd: handleDragEnd, animate: controls, style: { top: "0px" }, dragControls: dragControls },
+                        react_1.default.createElement(framer_motion_1.motion.div, { id: "verticalSwitch2", className: 'switcherDivVerticalLineFilled' },
+                            react_1.default.createElement(framer_motion_1.motion.div, { className: 'switcherCircleVerticalOutline', drag: "y", dragConstraints: constraints, dragElastic: 0, onDragStart: handleDragStart, onDragEnd: handleDragEndTest, 
+                                // animate={controls}
+                                style: { top: "0px" }, dragControls: dragControls, dragSnapToOrigin: true },
                                 react_1.default.createElement("div", { className: 'switcherCircleVerticalFillAlt' })))))))));
 }
 
