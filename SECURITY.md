@@ -2,6 +2,9 @@
 ___
 
 - ### Currently working on
+
+  - [ ] Rewrite Tether to framer motion instead of canvas
+
   - [ ] Switches: Vertical switch: make it "snap" to points
   - [ ] Switches: Vertical switch: add lines for segments
 
@@ -37,6 +40,7 @@ ___
     - [ ] Add option to input own text/character
 
 - **Styles + Design** 
+
 - **General/QOL**
 
 - **Low priority**
