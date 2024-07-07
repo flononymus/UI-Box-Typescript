@@ -27,23 +27,14 @@ exports.default = Switches;
 const react_1 = __importStar(require("react"));
 const framer_motion_1 = require("framer-motion");
 function Switches() {
-    const switcherMotion = {
-        active: {
-            rotation: "0"
-        },
-        inactive: {
-            rotaton: 180,
-            transition: { duration: 2 }
-        }
-    };
     const newSecondSwitch = false;
     const [isSwitched, setSwitched] = (0, react_1.useState)(false);
-    const [isSwitchedMotion, setSwitchedMotion] = (0, react_1.useState)(false);
     const [isSwitchedFill, setSwitchedFill] = (0, react_1.useState)(false);
     const [verticalPosition, setVerticalPosition] = (0, react_1.useState)('middle');
     const [horizontalPosition, setHorizontalPosition] = (0, react_1.useState)('right');
     const [isSwitchedHorizontal, setSwitchedHorizontal] = (0, react_1.useState)(false);
     const [constraints, setConstraints] = (0, react_1.useState)({ top: 0, bottom: 0 });
+    const [constraints2, setConstraints2] = (0, react_1.useState)({ top: 0, bottom: 0 });
     const dragControls = (0, framer_motion_1.useDragControls)();
     const controls = (0, framer_motion_1.useAnimation)();
     const [snapTo, setSnapTo] = (0, react_1.useState)({ y: 0 });
@@ -51,18 +42,15 @@ function Switches() {
         const verticalSwitch = document.getElementById("verticalSwitch");
         const rect = verticalSwitch.getBoundingClientRect();
         setConstraints({ top: -rect.height / 2, bottom: rect.height / 2 });
-        const verticalSwitch2 = document.getElementById("verticalSwitch2");
-        const rect2 = verticalSwitch2.getBoundingClientRect();
-        setConstraints({ top: -rect2.height / 2, bottom: rect2.height / 2 });
+        // const verticalSwitch2 = document.getElementById("verticalSwitch2");
+        // const rect2 = verticalSwitch2!.getBoundingClientRect();
+        // setConstraints({ top: -rect2.height / 2, bottom: rect2.height / 2 });
     }, []);
     function handleSwitch() {
         setSwitched(!isSwitched);
     }
     function handleSwitchFill() {
         setSwitchedFill(!isSwitchedFill);
-    }
-    function handleSwitchMotion() {
-        setSwitchedMotion(!isSwitchedMotion);
     }
     function handleSwitchHorizontal(e) {
         if (newSecondSwitch) {
@@ -86,32 +74,59 @@ function Switches() {
     function handleDragEndTest(e, info) {
         const verticalSwitch2 = document.getElementById("verticalSwitch2");
         const rect2 = verticalSwitch2.getBoundingClientRect();
+        setConstraints({ top: -rect2.height / 2, bottom: rect2.height / 2 });
         const dragY = info.point.y - rect2.top;
-        // const snapY:number;
         let newPosition;
         let snapY;
-        if (dragY < rect2.height / 3) {
+        // if (dragY < rect2.height / 3) {
+        //     newPosition = 'top'
+        //     snapY = -rect2.height/2
+        //     console.log('top')
+        // if (dragY < rect2.height/3 && dragY > (rect2.height/3) * 2) {
+        //     console.log('middle')
+        //     newPosition = 'middle'
+        //     snapY = 0
+        // }
+        // if (dragY > (rect2.height/3)*2 ){
+        //     newPosition = 'bottom'
+        //     console.log('bottom')
+        //     snapY = rect2.height/2
+        // }
+        // } else  {
+        //     newPosition = 'bottom'
+        //     console.log('bottom')
+        //     snapY = rect2.height/2
+        // }
+        if (dragY < rect2.height / 5) {
             newPosition = 'top';
-            snapY = -rect2.height / 2;
             console.log('top');
-            if (dragY < rect2.height / 3 && dragY > (rect2.height / 3) * 2) {
-                console.log('middle');
-                newPosition = 'middle';
-                snapY = 0;
-            }
-            if (dragY > (rect2.height / 3) * 2) {
-                newPosition = 'bottom';
-                console.log('bottom');
-                snapY = rect2.height / 2;
-            }
-            // } else  {
-            //     newPosition = 'bottom'
-            //     console.log('bottom')
-            //     snapY = rect2.height/2
-            // }
-            setVerticalPosition(newPosition);
-            setSnapTo({ y: snapY });
+            // snapY =  -rect2.height
+            snapY = -(rect2.height / 2);
         }
+        else if (dragY < (rect2.height / 5) * 2) {
+            newPosition = 'middleTop';
+            console.log('upper third');
+            snapY = -(rect2.height / 4);
+        }
+        else if (dragY < (rect2.height / 5) * 3) {
+            newPosition = 'middle';
+            console.log('middle');
+            snapY = 0;
+        }
+        else if (dragY < (rect2.height / 5) * 4) {
+            newPosition = 'middleBottom';
+            console.log('lower third');
+            // snapY = (rect2.height/5)*4
+            snapY = (rect2.height / 4);
+        }
+        else {
+            newPosition = 'bottom';
+            console.log('bottom');
+            // snapY = rect2.height
+            snapY = (rect2.height / 2);
+        }
+        setVerticalPosition(newPosition);
+        setSnapTo({ y: snapY });
     }
     return (react_1.default.createElement("div", { className: "bodyCenter" },
         react_1.default.createElement("div", null,
@@ -153,10 +168,19 @@ function Switches() {
                                 react_1.default.createElement("div", { className: 'switcherCircleVerticalFill' })))),
                     react_1.default.createElement("div", { className: "switcherDivVertical" },
                         react_1.default.createElement(framer_motion_1.motion.div, { id: "verticalSwitch2", className: 'switcherDivVerticalLineFilled' },
-                            react_1.default.createElement("div", { style: { display: 'flex', flexDirection: 'column', height: '350px', position: 'absolute', justifyContent: 'space-evenly', justifySelf: 'center' } },
+                            react_1.default.createElement("div", { style: {
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                    height: '350px',
+                                    position: 'absolute',
+                                    justifyContent: 'space-evenly',
+                                    justifySelf: 'center'
+                                } },
                                 react_1.default.createElement("div", { className: "dividerLine" }),
                                 react_1.default.createElement("div", { className: "dividerLine" }),
                                 react_1.default.createElement("div", { className: "dividerLine" })),
-                            react_1.default.createElement(framer_motion_1.motion.div, { className: 'switcherCircleVerticalOutline', style: { top: "0px", cursor: "grab" }, drag: "y", dragConstraints: constraints, dragElastic: 0, onDragEnd: handleDragEndTest, dragControls: dragControls, dragSnapToOrigin: true, animate: snapTo, whileTap: { cursor: "grabbing" } },
+                            react_1.default.createElement(framer_motion_1.motion.div, { className: 'switcherCircleVerticalOutline', style: { top: "0px", cursor: "grab" }, drag: "y", dragConstraints: constraints, dragElastic: 0, onDragEnd: handleDragEndTest, dragControls: dragControls, 
+                                // dragSnapToOrigin
+                                animate: snapTo, whileTap: { cursor: "grabbing" } },
                                 react_1.default.createElement("div", { className: 'switcherCircleVerticalFillAlt' })))))))));
 }
