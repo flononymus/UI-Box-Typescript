@@ -3,12 +3,10 @@ ___
 
 - ### Currently working on
 
-  - [ ] Rewrite Tether to framer motion instead of canvas
+  - [ ] Tether line
 
   - [ ] Switches: Vertical switch: make it "snap" to points
   - [ ] Switches: Vertical switch: add lines for segments
-
-  - [ ] Ball --> add a randomize button to randomize hoop position
 
 <br>
 
@@ -31,6 +29,9 @@ ___
     - [ ] Ball --> add a randomize button to randomize hoop position
 
   - [ ] **Tether**
+    - [ ] Rewrite Tether to framer motion instead of canvas
+      - [ ] Figure out line from tether to origin
+      - [ ] animate color on drag
     - [ ] Make tethers interact with eachother
     - [ ] Tether effects on drag
       - [ ] changes in color the further the drag?
