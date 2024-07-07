@@ -29,6 +29,9 @@ ___
 
   - [ ] **Tether**
     - [ ] Make tethers interact with eachother
+    - [ ] Tether effects on drag
+      - [ ] changes in color the further the drag?
+    - [ ] 
 
   - [ ] **Particles**
     - [ ] Add option to input own text/character
