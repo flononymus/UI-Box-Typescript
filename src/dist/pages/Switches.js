@@ -44,8 +44,6 @@ function Switches() {
     const [horizontalPosition, setHorizontalPosition] = (0, react_1.useState)('right');
     const [isSwitchedHorizontal, setSwitchedHorizontal] = (0, react_1.useState)(false);
     const [constraints, setConstraints] = (0, react_1.useState)({ top: 0, bottom: 0 });
-    // const [constraints, setConstraints] = useState({ top:-142.875, bottom: 142.875});
-    // const [constraints, setConstraints] = useState({ top:-145, bottom: 145});
     const dragControls = (0, framer_motion_1.useDragControls)();
     const controls = (0, framer_motion_1.useAnimation)();
     const [snapTo, setSnapTo] = (0, react_1.useState)({ y: 0 });
@@ -53,9 +51,6 @@ function Switches() {
         const verticalSwitch = document.getElementById("verticalSwitch");
         const rect = verticalSwitch.getBoundingClientRect();
         setConstraints({ top: -rect.height / 2, bottom: rect.height / 2 });
-        // const verticalSwitch2 = document.getElementById("verticalSwitch2");
-        // const rect2 = verticalSwitch2!.getBoundingClientRect();
-        // setConstraints({ top: -rect2.height / 2, bottom: rect2.height / 2 });
     }, []);
     function handleSwitch() {
         setSwitched(!isSwitched);
@@ -85,23 +80,6 @@ function Switches() {
             setSwitchedHorizontal(!isSwitchedHorizontal);
         }
     }
-    // function handleDragStart(event:any) {
-    //     dragControls.start(event, {snapToCursor:false })
-    // }
-    // function handleDragEnd(e:any,info: any) {
-    //     const verticalSwitch = document.getElementById("verticalSwitch");
-    //     const rect = verticalSwitch!.getBoundingClientRect();
-    //     const dragY = info.point.y - rect.top;
-    //     if (dragY < rect.height / 3) {
-    //         setVerticalPosition('top');
-    //     } else if (dragY < (rect.height / 3) * 2) {
-    //         setVerticalPosition('middle');
-    //     } else {
-    //         setVerticalPosition('bottom');
-    //     }
-    //     // setConstraints({ top: -rect.height / 2, bottom: rect.height / 2 });
-    //     // console.log(rect.top,rect.bottom)
-    // }
     function handleDragEndTest(e, info) {
         const verticalSwitch2 = document.getElementById("verticalSwitch2");
         const rect2 = verticalSwitch2.getBoundingClientRect();
@@ -159,9 +137,7 @@ function Switches() {
                 react_1.default.createElement("div", { className: 'centerContainer' },
                     react_1.default.createElement("div", { className: "switcherDivVertical" },
                         react_1.default.createElement(framer_motion_1.motion.div, { id: "verticalSwitch", className: 'switcherDivVerticalLine' },
-                            react_1.default.createElement(framer_motion_1.motion.div, { className: 'switcherCircleVerticalOutline', drag: "y", dragConstraints: constraints, dragElastic: 0, 
-                                // onDragEnd={handleDragEnd}
-                                animate: controls, style: { top: "0px", transition: '0.05s' } },
+                            react_1.default.createElement(framer_motion_1.motion.div, { className: 'switcherCircleVerticalOutline', drag: "y", dragConstraints: constraints, dragElastic: 0, animate: controls, style: { top: "0px", transition: '0.05s' } },
                                 react_1.default.createElement("div", { className: 'switcherCircleVerticalFill' })))),
                     react_1.default.createElement("div", { className: "switcherDivVertical" },
                         react_1.default.createElement(framer_motion_1.motion.div, { id: "verticalSwitch2", className: 'switcherDivVerticalLineFilled' },
