@@ -4,18 +4,18 @@ ___
 - ### Currently working on
 
   - [ ] Tether line
-
-  - [ ] Switches: Vertical switch: make it "snap" to points
-  - [ ] Switches: Vertical switch: add lines for segments
+  - [ ] Cube reset
 
 <br>
 
 
 - **Pages + Functionality**
 
+  - [ ] **Cube**
+    - [ ] Reset perspective when mouse is outside of box
+
   - [ ] **Switches**
-    - [ ] Vertical switch: make it "snap" to points
-    - [ ] Vertical switch: add lines for segments
+    - [ ] Vertical switch: add friction to make it snap to top or bottom, reverse in other half
 
   - [ ] **More examples**
     - [ ] Scrolling lock thing
@@ -87,6 +87,8 @@ ___
     - [x] add a "manual" switch instead of click switch
     - [x] More designs
     - [x] Better style 3 segment
+    - [x] Vertical switch: make it "snap" to points
+    - [x] Vertical switch: add lines for segments
 
   - [x] **Logo**
     - [x] Fix/Design better logo

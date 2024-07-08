@@ -78,51 +78,24 @@ function Switches() {
         const dragY = info.point.y - rect2.top;
         let newPosition;
         let snapY;
-        // if (dragY < rect2.height / 3) {
-        //     newPosition = 'top'
-        //     snapY = -rect2.height/2
-        //     console.log('top')
-        // if (dragY < rect2.height/3 && dragY > (rect2.height/3) * 2) {
-        //     console.log('middle')
-        //     newPosition = 'middle'
-        //     snapY = 0
-        // }
-        // if (dragY > (rect2.height/3)*2 ){
-        //     newPosition = 'bottom'
-        //     console.log('bottom')
-        //     snapY = rect2.height/2
-        // }
-        // } else  {
-        //     newPosition = 'bottom'
-        //     console.log('bottom')
-        //     snapY = rect2.height/2
-        // }
         if (dragY < rect2.height / 5) {
             newPosition = 'top';
-            console.log('top');
-            // snapY =  -rect2.height
             snapY = -(rect2.height / 2);
         }
         else if (dragY < (rect2.height / 5) * 2) {
             newPosition = 'middleTop';
-            console.log('upper third');
             snapY = -(rect2.height / 4);
         }
         else if (dragY < (rect2.height / 5) * 3) {
             newPosition = 'middle';
-            console.log('middle');
             snapY = 0;
         }
         else if (dragY < (rect2.height / 5) * 4) {
             newPosition = 'middleBottom';
-            console.log('lower third');
-            // snapY = (rect2.height/5)*4
             snapY = (rect2.height / 4);
         }
         else {
             newPosition = 'bottom';
-            console.log('bottom');
-            // snapY = rect2.height
             snapY = (rect2.height / 2);
         }
         setVerticalPosition(newPosition);
