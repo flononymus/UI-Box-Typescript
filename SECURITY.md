@@ -4,7 +4,7 @@ ___
 - ### Currently working on
 
   - [ ] Tether line
-  - [ ] Cube reset
+  - [ ] Vertical switch: add friction to make it snap to top or bottom, reverse in other half
 
 <br>
 
@@ -12,7 +12,8 @@ ___
 - **Pages + Functionality**
 
   - [ ] **Cube**
-    - [ ] Reset perspective when mouse is outside of box
+    - [x] Reset perspective when mouse is outside of box
+    - [ ] Add more stuff
 
   - [ ] **Switches**
     - [ ] Vertical switch: add friction to make it snap to top or bottom, reverse in other half
