@@ -166,7 +166,10 @@ export default function Switches() {
                         <motion.div className='switcherCircleVerticalOutline' 
                         drag="y"
                         dragConstraints={constraints}
-                        dragElastic={0}
+                        dragElastic={0.1}
+                        dragTransition={{ bounceStiffness: 600, bounceDamping: 10}}
+
+
                         animate={controls}
                         style={{ top: "0px", transition: '0.05s' }}
                         >
