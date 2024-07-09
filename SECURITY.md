@@ -3,7 +3,6 @@ ___
 
 - ### Currently working on
 
-  - [ ] Tether line
   - [ ] Vertical switch: add friction to make it snap to top or bottom, reverse in other half
 
 <br>

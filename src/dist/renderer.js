@@ -47941,12 +47941,6 @@ function Cube() {
                     react_1.default.createElement(framer_motion_1.motion.div, { className: 'cube', style: {
                             rotateX,
                             rotateY
-                            // rotateX: isInside ? rotateX : 0,
-                            // rotateY: isInside ? rotateY : 0,
-                            // rotateX: isInside ? rotateX : rotateXSpring,
-                            // rotateY: isInside ? rotateY : rotateYSpring,
-                            // rotateX: rotateXSpring,
-                            // rotateY:rotateYSpring,
                         } }))))));
 }
 
@@ -48856,7 +48850,7 @@ function Switches() {
                 react_1.default.createElement("div", { style: { display: 'flex', flexDirection: 'column' } },
                     react_1.default.createElement("div", { className: 'centerContainer' },
                         react_1.default.createElement("div", { className: 'switcherDiv', style: { backgroundColor: isSwitched ? "#ddd" : "#333", transition: '0.3s' }, onMouseDown: handleSwitch },
-                            react_1.default.createElement("div", { className: 'switcherCircle', style: { left: isSwitched ? "0px" : "100px", transition: '0.3s', backgroundColor: isSwitched ? "#333" : "#ddd" } }))),
+                            react_1.default.createElement("div", { className: 'switcherCircle', style: { left: isSwitched ? "0px" : "100px", transition: '0.2s', backgroundColor: isSwitched ? "#333" : "#ddd" } }))),
                     react_1.default.createElement("div", { className: 'centerContainer', id: "horizontalSwitch" },
                         react_1.default.createElement(framer_motion_1.motion.div, { className: 'switcherDiv', style: { width: 325, backgroundColor: isSwitchedHorizontal ? "#ddd" : "#333", transition: '0.3s', height: '50px' }, onMouseDown: handleSwitchHorizontal },
                             react_1.default.createElement(framer_motion_1.motion.div, { className: "switcherCircleHorizontal", style: {
@@ -48885,7 +48879,7 @@ function Switches() {
                 react_1.default.createElement("div", { className: 'centerContainer' },
                     react_1.default.createElement("div", { className: "switcherDivVertical" },
                         react_1.default.createElement(framer_motion_1.motion.div, { id: "verticalSwitch", className: 'switcherDivVerticalLine' },
-                            react_1.default.createElement(framer_motion_1.motion.div, { className: 'switcherCircleVerticalOutline', drag: "y", dragConstraints: constraints, dragElastic: 0, animate: controls, style: { top: "0px", transition: '0.05s' } },
+                            react_1.default.createElement(framer_motion_1.motion.div, { className: 'switcherCircleVerticalOutline', drag: "y", dragConstraints: constraints, dragElastic: 0.1, dragTransition: { bounceStiffness: 600, bounceDamping: 10 }, animate: controls, style: { top: "0px", transition: '0.05s' } },
                                 react_1.default.createElement("div", { className: 'switcherCircleVerticalFill' })))),
                     react_1.default.createElement("div", { className: "switcherDivVertical" },
                         react_1.default.createElement(framer_motion_1.motion.div, { id: "verticalSwitch2", className: 'switcherDivVerticalLineFilled' },
@@ -48943,27 +48937,12 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports["default"] = Test;
 const react_1 = __importStar(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
 const framer_motion_1 = __webpack_require__(/*! framer-motion */ "./node_modules/framer-motion/dist/cjs/index.js");
-const DraggableCircleWithTether = ({ x, y, radius }) => {
-    const [position, setPosition] = (0, react_1.useState)({ x, y });
-    const [isDragging, setIsDragging] = (0, react_1.useState)(false);
-    const handleMouseDown = () => setIsDragging(true);
-    const handleMouseMove = (e) => {
-        if (isDragging) {
-            setPosition({ x: e.clientX, y: e.clientY });
-        }
-    };
-    const handleMouseUp = () => setIsDragging(false);
-    return (react_1.default.createElement("svg", { width: "100%", height: "400", onMouseMove: handleMouseMove, onMouseUp: handleMouseUp, onMouseLeave: handleMouseUp },
-        react_1.default.createElement("line", { x1: x, y1: y, x2: position.x, y2: position.y, stroke: "black", strokeWidth: "2" }),
-        react_1.default.createElement("circle", { cx: position.x, cy: position.y, r: radius, fill: "blue", onMouseDown: handleMouseDown, style: { cursor: 'grab' } })));
-};
 function Test() {
     const [resetTrigger, setResetTrigger] = (0, react_1.useState)(0);
     return (react_1.default.createElement("div", { className: "bodyCenter" },
         react_1.default.createElement("div", null,
             react_1.default.createElement("h1", null, "Test"),
             react_1.default.createElement("div", { style: { display: 'flex', flexDirection: 'column', justifyContent: 'center', alignContent: 'center', marginTop: '5rem' } },
-                react_1.default.createElement(DraggableCircleWithTether, { x: 200, y: 10, radius: 25 }),
                 react_1.default.createElement("div", { style: { display: 'flex', justifyContent: 'left', marginLeft: '4rem' } },
                     react_1.default.createElement(framer_motion_1.motion.div, { className: 'tetherCircle', style: { cursor: "grab",
                             width: 50,
@@ -49393,7 +49372,7 @@ const Ball_1 = __importDefault(__webpack_require__(/*! ./pages/Ball */ "./src/pa
 const Joystick_1 = __importDefault(__webpack_require__(/*! ./pages/Joystick */ "./src/pages/Joystick.tsx"));
 const Cube_1 = __importDefault(__webpack_require__(/*! ./pages/Cube */ "./src/pages/Cube.tsx"));
 const Test_1 = __importDefault(__webpack_require__(/*! ./pages/Test */ "./src/pages/Test.tsx"));
-const startPage = "Test";
+const startPage = "Switches";
 const App = () => {
     const [page, setPage] = (0, react_1.useState)(startPage);
     const [active, setActive] = (0, react_1.useState)(page);
