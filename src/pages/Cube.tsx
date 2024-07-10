@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { motion, useSpring, useMotionValue, useTransform } from "framer-motion";
+import { motion, useSpring, useMotionValue, useTransform, animate} from "framer-motion";
 
 export default function Cube() {
     const [isInside, setIsInside] = useState(false);
@@ -11,59 +11,60 @@ export default function Cube() {
     const x = useSpring(200, springConfig)
     const y = useSpring(200, springConfig)
 
-    const resetX = useSpring(0, springConfig);
-    const resetY = useSpring(0, springConfig);
-
     const rotateX = useTransform(y, [0, 400], [45, -45]);
     const rotateY = useTransform(x, [0, 400], [-45, 45]);
 
 
 //spinning experiments
 
-// const [isSpinning, setIsSpinning] = useState(false);
-// const spinVelocityX = useMotionValue(0);
-// const spinVelocityY = useMotionValue(0);
+const [isSpinning, setIsSpinning] = useState(false);
+const spinVelocityX = useMotionValue(0);
+const spinVelocityY = useMotionValue(0);
 
 
-// function handleSpin(e:React.MouseEvent) {
-//     setIsSpinning(true);
-//     const startX = e.clientX
-//     const startY = e.clientY
-    
-//     const handleMouseMove = (e: React.MouseEvent) => {
-//         const deltaX = e.clientX;
-//         const deltaY = e.clientY;
-//         spinVelocityX.set(deltaX);
-//         spinVelocityY.set(deltaY);
-//         rotateX.set(rotateX.get()  + deltaY * 0.5)
-//         rotateY.set(rotateY.get() + deltaX * 0.5)
-//     }
+const handleSpin = (e:React.MouseEvent) => {
+    setIsSpinning(true);
+    // const startX = e.clientX
+    // const startY = e.clientY
+}
 
-//     const handleMouseUp = () => {
-    // document.removeEventListener('mousemove', handleMouseMove)
-    // document.removeEventListener('mouseup', handleMouseUp)
+const handleMouseMove = (e: MouseEvent) => {
+    if (isSpinning) {
+        const startX = e.clientX
+        const startY = e.clientY
+        const deltaX = e.clientX - startX;
+        const deltaY = e.clientY - startY;
+        spinVelocityX.set(deltaX);
+        spinVelocityY.set(deltaY);
+        rotateX.set(rotateX.get()  + deltaY * 0.5)
+        rotateY.set(rotateY.get() + deltaX * 0.5)
+    }
+}
+
+const handleMouseUp = () => {
 
     // rotateX.animate({
-    //     type: "inertia",
-    //     velocity: spinVelocityY.get() * 0.5,
-    //     power: 0.2,
-    //     timeConstant: 700,
-    //     onComplete: () => setIsSpinning(false)
-    // });
+    animate(rotateX, rotateX.get(), {
+        type: "inertia",
+        velocity: spinVelocityY.get() * 0.5,
+        power: 0.2,
+        timeConstant: 700,
+        onComplete: () => setIsSpinning(false)
+    });
     // rotateY.animate({
-    //     type: "inertia",
-    //     velocity: -spinVelocityX.get() * 0.5,
-    //     power: 0.2,
-    //     timeConstant: 700,
-    //     onComplete: () => setIsSpinning(false)
-    // });
-    // }
-    // document.addEventListener('mousemove', handleMouseMove)
-    // document.addEventListener('mouseup', handleMouseUp);
-// }
+
+    animate(rotateY, rotateY.get(), {
+        type: "inertia",
+        velocity: -spinVelocityX.get() * 0.5,
+        power: 0.2,
+        timeConstant: 700,
+        onComplete: () => setIsSpinning(false)
+    });
+}
 
 
-    function handleMouse(e: React.MouseEvent) {
+
+const handleMouse = (e: React.MouseEvent) => {
         const rect = document.getElementById("cubeContainer")!.getBoundingClientRect();
         const mouseX = e.clientX - rect.left;
         const mouseY = e.clientY - rect.top;
@@ -76,14 +77,15 @@ export default function Cube() {
         else {
             setIsInside(false);
         }
-    }
+}
 
-    function handleMouseLeave(e:React.MouseEvent) {
+function handleMouseLeave(e:React.MouseEvent) {
+    if (!isSpinning) {
         setIsInside(false)
         x.set(200)
         y.set(200)
-
     }
+}
 
     return (
         <div className="bodyCenter">
@@ -113,6 +115,8 @@ export default function Cube() {
                 style={{
                     rotateX,
                     rotateY
+                    // rotateX: isSpinning ? rotateX : useTransform(y, [0, 400], [45, -45]),
+                    // rotateY: isSpinning ? rotateY : useTransform(x, [0, 400], [-45, 45])
                 }}
             />
         </motion.div>
