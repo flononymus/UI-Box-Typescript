@@ -94,7 +94,7 @@ function handleMouseLeave(e:React.MouseEvent) {
 
         <div style={{display:'flex', justifyContent:'center'}}
         >
-            <motion.div id="cubeContainer"
+            <motion.div className="cubeContainer" id="cubeContainer"
                 style={{
                     // width: 500,
                     width: 400,
@@ -103,7 +103,7 @@ function handleMouseLeave(e:React.MouseEvent) {
                     placeItems: "center",
                     placeContent: "center",
                     borderRadius: 30,
-                    backgroundColor: "rgba(255, 255, 255, 0.05)",
+                    // backgroundColor: "rgba(255, 255, 255, 0.05)",
                     perspective: 400
                 }}
                 // onMouseDown={handleSpin}

@@ -47966,7 +47966,7 @@ function Cube() {
         react_1.default.createElement("div", null,
             react_1.default.createElement("h1", null, "Cube"),
             react_1.default.createElement("div", { style: { display: 'flex', justifyContent: 'center' } },
-                react_1.default.createElement(framer_motion_1.motion.div, { id: "cubeContainer", style: {
+                react_1.default.createElement(framer_motion_1.motion.div, { className: "cubeContainer", id: "cubeContainer", style: {
                         // width: 500,
                         width: 400,
                         height: 400,
@@ -47974,7 +47974,7 @@ function Cube() {
                         placeItems: "center",
                         placeContent: "center",
                         borderRadius: 30,
-                        backgroundColor: "rgba(255, 255, 255, 0.05)",
+                        // backgroundColor: "rgba(255, 255, 255, 0.05)",
                         perspective: 400
                     }, 
                     // onMouseDown={handleSpin}
