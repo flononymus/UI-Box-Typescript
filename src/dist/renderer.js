@@ -47896,6 +47896,7 @@ const framer_motion_1 = __webpack_require__(/*! framer-motion */ "./node_modules
 function Cube() {
     const [isInside, setIsInside] = (0, react_1.useState)(false);
     const [isSwitched, setIsSwitched] = (0, react_1.useState)(false);
+    const [isSpinning, setIsSpinning] = (0, react_1.useState)(false);
     const springConfig = {
         stiffness: 150
     };
@@ -47906,57 +47907,59 @@ function Cube() {
     //spinning experiments
     const spinVelocityX = (0, framer_motion_1.useMotionValue)(0);
     const spinVelocityY = (0, framer_motion_1.useMotionValue)(0);
-    // const handleMouseMove = (e: MouseEvent) => {
-    //     if (isSpinning) {
-    //         const startX = e.clientX
-    //         const startY = e.clientY
-    //         const deltaX = e.clientX - startX;
-    //         const deltaY = e.clientY - startY;
-    //         spinVelocityX.set(deltaX);
-    //         spinVelocityY.set(deltaY);
-    //         rotateX.set(rotateX.get()  + deltaY * 0.5)
-    //         rotateY.set(rotateY.get() + deltaX * 0.5)
-    //     }
-    // }
-    // const handleMouseUp = () => {
-    //     // rotateX.animate({
-    //     animate(rotateX, rotateX.get(), {
-    //         type: "inertia",
-    //         velocity: spinVelocityY.get() * 0.5,
-    //         power: 0.2,
-    //         timeConstant: 700,
-    //         onComplete: () => setIsSpinning(false)
-    //     });
-    //     // rotateY.animate({
-    //     animate(rotateY, rotateY.get(), {
-    //         type: "inertia",
-    //         velocity: -spinVelocityX.get() * 0.5,
-    //         power: 0.2,
-    //         timeConstant: 700,
-    //         onComplete: () => setIsSpinning(false)
-    //     });
-    // }
-    const handleSpin = (e) => {
+    const handleMouseDown = (e) => {
         if (isSwitched) {
+            setIsSpinning(true);
             const startX = e.clientX;
             const startY = e.clientY;
-            const deltaX = e.clientX - startX;
-            const deltaY = e.clientY - startY;
-            spinVelocityX.set(deltaX);
-            spinVelocityY.set(deltaY);
-            rotateX.set(rotateX.get() + deltaY * 0.5);
-            rotateY.set(rotateY.get() + deltaX * 0.5);
-            console.log(e.clientX, e.clientY);
+            const handleMouseMove = (moveEvent) => {
+                const deltaX = moveEvent.clientX - startX;
+                const deltaY = moveEvent.clientY - startY;
+                spinVelocityX.set(deltaX);
+                spinVelocityY.set(deltaY);
+                rotateX.set(rotateX.get() + deltaY * 0.5);
+                rotateY.set(rotateY.get() + deltaX * 0.5);
+            };
+            const handleMouseUp = () => {
+                setIsSpinning(false);
+                window.removeEventListener('mousemove', handleMouseMove);
+                window.removeEventListener('mouseup', handleMouseUp);
+                (0, framer_motion_1.animate)(rotateX, rotateX.get(), {
+                    type: "inertia",
+                    velocity: spinVelocityY.get() * 0.01,
+                    power: 0.01,
+                    timeConstant: 700,
+                    onComplete: () => setIsSpinning(false)
+                });
+                (0, framer_motion_1.animate)(rotateY, rotateY.get(), {
+                    type: "inertia",
+                    velocity: -spinVelocityX.get() * 0.01,
+                    power: 0.01,
+                    timeConstant: 700,
+                    onComplete: () => setIsSpinning(false)
+                });
+                // animate(rotateX, {
+                //     type: "inertia",
+                //     velocity: spinVelocityY.get() * 0.5,
+                //     power: 0.5,
+                //     timeConstant: 700,
+                // });
+                // animate(rotateY, {
+                //     type: "inertia",
+                //     velocity: -spinVelocityX.get() * 0.5,
+                //     power: 0.5,
+                //     timeConstant: 700,
+                // });
+            };
+            window.addEventListener('mousemove', handleMouseMove);
+            window.addEventListener('mouseup', handleMouseUp);
         }
     };
     const handleMouse = (e) => {
         const rect = document.getElementById("cubeContainer").getBoundingClientRect();
         const mouseX = e.clientX - rect.left;
         const mouseY = e.clientY - rect.top;
-        if (isSwitched) {
-            console.log('test');
-        }
-        else {
+        if (!isSwitched) {
             if (mouseX >= 0 && mouseX <= rect.width && mouseY >= 0 && mouseY <= rect.height) {
                 setIsInside(true);
                 x.set(mouseX);
@@ -47993,7 +47996,9 @@ function Cube() {
                         borderRadius: 30,
                         // backgroundColor: "rgba(255, 255, 255, 0.05)",
                         perspective: 400
-                    }, onMouseDown: handleSpin, onMouseMove: handleMouse, onMouseLeave: handleMouseLeave },
+                    }, 
+                    // onMouseDown={handleSpin}
+                    onMouseDown: handleMouseDown, onMouseMove: handleMouse, onMouseLeave: handleMouseLeave },
                     react_1.default.createElement(framer_motion_1.motion.div, { className: 'cube', style: {
                             rotateX,
                             rotateY
