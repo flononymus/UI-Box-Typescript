@@ -3,7 +3,6 @@ import { motion, useSpring, useMotionValue, useTransform, animate} from "framer-
 
 export default function Cube() {
     const [isInside, setIsInside] = useState(false);
-    const [isSwitched, setIsSwitched] = useState(false);
     const [isSpinning, setIsSpinning] = useState(false);
 
     const springConfig = { 
@@ -12,71 +11,55 @@ export default function Cube() {
     const x = useSpring(200, springConfig)
     const y = useSpring(200, springConfig)
 
-    const rotateX = useTransform(y, [0, 400], [45, -45]);
-    const rotateY = useTransform(x, [0, 400], [-45, 45]);
+    const rotateX = useTransform(y, [0, 400], [90, -90]);
+    const rotateY = useTransform(x, [0, 400], [-90, 90]);
 
+// const spinVelocityX = useMotionValue(0);
+// const spinVelocityY = useMotionValue(0);
+// const spinVelocityX = useTransform(x, [0,400], [90, -90]);
+// const spinVelocityY = useTransform(y, [0,400], [90, -90]);
 
-//spinning experiments
+const handleMouseDown = (e: React.MouseEvent) => {
+    setIsSpinning(true);
+    const startX = e.clientX;
+    const startY = e.clientY;
 
-const spinVelocityX = useMotionValue(0);
-const spinVelocityY = useMotionValue(0);
+    const handleMouseMove = (moveEvent: MouseEvent) => {
+        // const deltaX = moveEvent.clientX - startX;
+        // const deltaY = moveEvent.clientY - startY;
+        const deltaX = (moveEvent.clientX - startX)/25;
+        const deltaY = (moveEvent.clientY - startY)/25;
+        // const deltaX = (moveEvent.clientY - startY)/50;
+        // const deltaY = (moveEvent.clientX - startX)/50;
+        // spinVelocityX.set(deltaX);
+        // spinVelocityY.set(deltaY);
+        rotateX.set(rotateX.get() + deltaY * 0.5);
+        rotateY.set(rotateY.get() + deltaX * 0.5);
+    };
 
+    const handleMouseUp = () => {
+            window.removeEventListener('mousemove', handleMouseMove);
+            setIsSpinning(false);
+            window.removeEventListener('mouseup', handleMouseUp);
+            };
 
-
-// const handleMouseDown = (e: React.MouseEvent) => {
-//     setIsSpinning(true);
-//     const startX = e.clientX;
-//     const startY = e.clientY;
-
-//     const handleMouseMove = (moveEvent: MouseEvent) => {
-//         const deltaX = moveEvent.clientX - startX;
-//         const deltaY = moveEvent.clientY - startY;
-//         spinVelocityX.set(deltaX);
-//         spinVelocityY.set(deltaY);
-//         rotateX.set(rotateX.get() + deltaY * 0.5);
-//         rotateY.set(rotateY.get() + deltaX * 0.5);
-//     };
-
-//     const handleMouseUp = () => {
-//         setIsSpinning(false);
-//         window.removeEventListener('mousemove', handleMouseMove);
-//         window.removeEventListener('mouseup', handleMouseUp);
-
-//         animate(rotateX, rotateX.get(), {
-//             type: "inertia",
-//             velocity: spinVelocityY.get() * 0.01,
-//             power: 0.01,
-//             timeConstant: 700,
-//             onComplete: () => setIsSpinning(false)
-//         });
-
-//         animate(rotateY, rotateY.get(), {
-//             type: "inertia",
-//             velocity: -spinVelocityX.get() * 0.01,
-//             power: 0.01,
-//             timeConstant: 700,
-//             onComplete: () => setIsSpinning(false)
-//         });
-//             };
-
-//     window.addEventListener('mousemove', handleMouseMove);
-//     window.addEventListener('mouseup', handleMouseUp);
-// };
+    window.addEventListener('mousemove', handleMouseMove);
+    window.addEventListener('mouseup', handleMouseUp);
+};
 
 
 // const handleMouse = (e: React.MouseEvent) => {
-const handleMouseDown = (e: React.MouseEvent) => {
-        const rect = document.getElementById("cubeContainer")!.getBoundingClientRect();
-        const mouseX = e.clientX - rect.left;
-        const mouseY = e.clientY - rect.top;
+//         const rect = document.getElementById("cubeContainer")!.getBoundingClientRect();
+//         const mouseX = e.clientX - rect.left;
+//         const mouseY = e.clientY - rect.top;
 
-        if (mouseX >= 0 && mouseX <= rect.width && mouseY >= 0 && mouseY <= rect.height) {
-            setIsInside(true);
-            x.set(mouseX);
-            y.set(mouseY);
-        } 
+//         if (mouseX >= 0 && mouseX <= rect.width && mouseY >= 0 && mouseY <= rect.height) {
+//             setIsInside(true);
+//             x.set(mouseX);
+//             y.set(mouseY);
+//         } 
     
-}
+// }
 
 function handleMouseLeave(e:React.MouseEvent) {
         setIsInside(false)
