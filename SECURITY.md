@@ -3,7 +3,9 @@ ___
 
 - ### Currently working on
 
-  - [ ] Vertical switch: add friction to make it snap to top or bottom, reverse in other half
+  - [ ] Cube: add "motions" --> "swipe left" to turn it 180 degrees, "swipe up" etc
+  https://medium.com/@gem_ray/prototyping-swipe-and-drag-gestures-with-framer-3-2e405d50b600
+
 
 <br>
 
@@ -13,12 +15,13 @@ ___
   - [ ] **Cube**
     - [x] Reset perspective when mouse is outside of box
     - [ ] Add more stuff
+    - [ ] Cube: add "motions" --> "swipe left" to turn it 180 degrees, "swipe up" etc
 
   - [ ] **Switches**
     - [ ] Vertical switch: add friction to make it snap to top or bottom, reverse in other half
 
   - [ ] **More examples**
-    - [ ] Scrolling lock thing
+    - [ ] **Scrolling lock thing**
     - [ ] Sliders (?)
     - [ ] Idea: play with friction/resistance of slider based on position 
     - [ ] Add more inspiration gifs
@@ -54,6 +57,10 @@ ___
 ___
 
 # Done
+
+  - [ ] **Cube**
+    - [x] Reset perspective when mouse is outside of box
+
   - [x] **Spinner**
     - [x] Figure out if possible
     - [x] Mousewheel
