@@ -47904,8 +47904,12 @@ function Cube() {
     };
     const x = (0, framer_motion_1.useSpring)(200, springConfig);
     const y = (0, framer_motion_1.useSpring)(200, springConfig);
+    const xClick = (0, framer_motion_1.useSpring)(200, springConfig);
+    const yClick = (0, framer_motion_1.useSpring)(200, springConfig);
     const rotateX = (0, framer_motion_1.useTransform)(y, [0, 400], [45, -45]);
     const rotateY = (0, framer_motion_1.useTransform)(x, [0, 400], [-45, 45]);
+    // const rotateXClick = useTransform(yClick, [0, 400], [180, -180]);
+    // const rotateYClick = useTransform(xClick, [0, 400], [-180, 180]);
     const handleMouse = (e) => {
         const rect = document.getElementById("cubeContainer").getBoundingClientRect();
         const mouseX = e.clientX - rect.left;
@@ -47931,7 +47935,11 @@ function Cube() {
         setDragStart(e.currentTarget.id);
     };
     function gridClick(event) {
-        console.log(event.currentTarget.id, 'test');
+        console.log(event.currentTarget.id);
+        if (event.currentTarget.id === "top-center") {
+            yClick.set(-400);
+        }
+        // const [rotation, setRotation] = useState<Page>(startPage);
     }
     return (react_1.default.createElement("div", { className: "bodyCenter" },
         react_1.default.createElement("div", null,
@@ -47959,6 +47967,8 @@ function Cube() {
                     react_1.default.createElement(framer_motion_1.motion.div, { className: 'cube', style: {
                             rotateX,
                             rotateY,
+                            // rotateXClick,
+                            // rotateYClick,
                             position: 'absolute',
                             transform: "translate(-50%,-50%)"
                         }, whileTap: { scale: 0.8 } }))))));

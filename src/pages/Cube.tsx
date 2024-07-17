@@ -16,8 +16,15 @@ export default function Cube() {
     const x = useSpring(200, springConfig)
     const y = useSpring(200, springConfig)
 
+    const xClick = useSpring(200, springConfig)
+    const yClick = useSpring(200, springConfig)
+
     const rotateX = useTransform(y, [0, 400], [45, -45]);
     const rotateY = useTransform(x, [0, 400], [-45, 45]);
+
+    // const rotateXClick = useTransform(yClick, [0, 400], [180, -180]);
+    // const rotateYClick = useTransform(xClick, [0, 400], [-180, 180]);
+
 
 const handleMouse = (e: React.MouseEvent) => {
         const rect = document.getElementById("cubeContainer")!.getBoundingClientRect();
@@ -49,6 +56,10 @@ const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
 
 function gridClick(event:React.MouseEvent<HTMLDivElement>) {
     console.log(event.currentTarget.id,)
+
+    if(event.currentTarget.id === "top-center"){
+        yClick.set(-400);
+    }
 
     // const [rotation, setRotation] = useState<Page>(startPage);
 }
@@ -118,6 +129,8 @@ function gridClick(event:React.MouseEvent<HTMLDivElement>) {
                 style={{
                     rotateX,
                     rotateY,
+                    // rotateXClick,
+                    // rotateYClick,
                     position:'absolute',
                     transform:"translate(-50%,-50%)"
 
