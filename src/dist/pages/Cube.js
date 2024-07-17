@@ -28,6 +28,7 @@ const react_1 = __importStar(require("react"));
 const framer_motion_1 = require("framer-motion");
 function Cube() {
     const [isInside, setIsInside] = (0, react_1.useState)(false);
+    const [isSwitched, setIsSwitched] = (0, react_1.useState)(false);
     const [isDragging, setIsDragging] = (0, react_1.useState)(false);
     const [dragStart, setDragStart] = (0, react_1.useState)('');
     const [dragEnd, setDragEnd] = (0, react_1.useState)('');
@@ -38,21 +39,19 @@ function Cube() {
     const y = (0, framer_motion_1.useSpring)(200, springConfig);
     const rotateX = (0, framer_motion_1.useTransform)(y, [0, 400], [45, -45]);
     const rotateY = (0, framer_motion_1.useTransform)(x, [0, 400], [-45, 45]);
-    // const handleMouse = (e: React.MouseEvent) => {
     const handleMouse = (e) => {
-        if (isDragging) {
-            setDragEnd(e.currentTarget.id);
-        }
         const rect = document.getElementById("cubeContainer").getBoundingClientRect();
         const mouseX = e.clientX - rect.left;
         const mouseY = e.clientY - rect.top;
-        if (mouseX >= 0 && mouseX <= rect.width && mouseY >= 0 && mouseY <= rect.height) {
-            setIsInside(true);
-            x.set(mouseX);
-            y.set(mouseY);
-        }
-        else {
-            setIsInside(false);
+        if (!isSwitched) {
+            if (mouseX >= 0 && mouseX <= rect.width && mouseY >= 0 && mouseY <= rect.height) {
+                setIsInside(true);
+                x.set(mouseX);
+                y.set(mouseY);
+            }
+            else {
+                setIsInside(false);
+            }
         }
     };
     function handleMouseLeave(e) {
@@ -63,17 +62,10 @@ function Cube() {
     const handleMouseDown = (e) => {
         setIsDragging(true);
         setDragStart(e.currentTarget.id);
-        console.log(dragStart);
     };
-    const handleMouseUp = () => {
-        console.log(dragEnd);
-        if (isDragging && dragStart === 'center-left' && dragEnd === 'center-right') {
-            console.log('correct drag');
-        }
-        setIsDragging(false);
-        setDragStart('');
-        setDragEnd('');
-    };
+    function gridClick(event) {
+        console.log(event.currentTarget.id, 'test');
+    }
     return (react_1.default.createElement("div", { className: "bodyCenter" },
         react_1.default.createElement("div", null,
             react_1.default.createElement("h1", null, "Cube"),
@@ -87,16 +79,16 @@ function Cube() {
                         borderRadius: 30,
                         perspective: 400,
                         position: 'relative'
-                    }, onMouseDown: handleMouseDown, onMouseMove: handleMouse, onMouseUp: handleMouseUp, onMouseLeave: handleMouseLeave },
-                    react_1.default.createElement("div", { className: "section", "data-section": "0", id: "top-left", onMouseEnter: () => handleMouse({ currentTarget: { id: 'top-left' } }) }),
-                    react_1.default.createElement("div", { className: "section", "data-section": "1", id: "top-center", onMouseEnter: () => handleMouse({ currentTarget: { id: 'top-center' } }) }),
-                    react_1.default.createElement("div", { className: "section", "data-section": "2", id: "top-right", onMouseEnter: () => handleMouse({ currentTarget: { id: 'top-right' } }) }),
-                    react_1.default.createElement("div", { className: "section", "data-section": "3", id: "center-left", onMouseEnter: () => handleMouse({ currentTarget: { id: 'center-left' } }) }),
-                    react_1.default.createElement("div", { className: "section", "data-section": "4", id: "center-center", onMouseEnter: () => handleMouse({ currentTarget: { id: 'center-center' } }) }),
-                    react_1.default.createElement("div", { className: "section", "data-section": "5", id: "center-right", onMouseEnter: () => handleMouse({ currentTarget: { id: 'center-right' } }) }),
-                    react_1.default.createElement("div", { className: "section", "data-section": "6", id: "bottom-left", onMouseEnter: () => handleMouse({ currentTarget: { id: 'bottom-left' } }) }),
-                    react_1.default.createElement("div", { className: "section", "data-section": "7", id: "bottom-center", onMouseEnter: () => handleMouse({ currentTarget: { id: 'bottom-center' } }) }),
-                    react_1.default.createElement("div", { className: "section", "data-section": "8", id: "bottom-right", onMouseEnter: () => handleMouse({ currentTarget: { id: 'bottom-right' } }) }),
+                    }, onMouseDown: handleMouseDown, onMouseMove: handleMouse, onMouseLeave: handleMouseLeave },
+                    react_1.default.createElement("div", { className: "section", "data-section": "0", id: "top-left", onMouseDown: gridClick }),
+                    react_1.default.createElement("div", { className: "section", "data-section": "1", id: "top-center", onMouseDown: gridClick }),
+                    react_1.default.createElement("div", { className: "section", "data-section": "2", id: "top-right", onMouseDown: gridClick }),
+                    react_1.default.createElement("div", { className: "section", "data-section": "3", id: "center-left", onMouseDown: gridClick }),
+                    react_1.default.createElement("div", { className: "section", "data-section": "4", id: "center-center", onMouseDown: gridClick }),
+                    react_1.default.createElement("div", { className: "section", "data-section": "5", id: "center-right", onMouseDown: gridClick }),
+                    react_1.default.createElement("div", { className: "section", "data-section": "6", id: "bottom-left", onMouseDown: gridClick }),
+                    react_1.default.createElement("div", { className: "section", "data-section": "7", id: "bottom-center", onMouseDown: gridClick }),
+                    react_1.default.createElement("div", { className: "section", "data-section": "8", id: "bottom-right", onMouseDown: gridClick }),
                     react_1.default.createElement(framer_motion_1.motion.div, { className: 'cube', style: {
                             rotateX,
                             rotateY,
