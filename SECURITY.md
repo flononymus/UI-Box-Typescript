@@ -4,6 +4,7 @@ ___
 - ### Currently working on
 
   - [ ] Cube: add "motions" --> "swipe left" to turn it 180 degrees, "swipe up" etc
+    - [x] Cube: start off with clicks
   https://medium.com/@gem_ray/prototyping-swipe-and-drag-gestures-with-framer-3-2e405d50b600
 
 
