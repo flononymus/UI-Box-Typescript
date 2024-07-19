@@ -38,6 +38,8 @@ export default function Cube() {
         y.set(200);
     }
 
+
+
     function animateRotation(newRotateX: number, newRotateY: number) {
         return new Promise<void>((resolve) => {
             animate(rotateX, newRotateX, {
@@ -53,13 +55,12 @@ export default function Cube() {
     }
 
     async function gridClick(event: React.MouseEvent<HTMLDivElement>) {
-
     // function gridClick(event:React.MouseEvent<HTMLDivElement>) {
+
         const id = event.currentTarget.id;
         let newRotateX = rotateX.get(); 
         let newRotateY = rotateY.get(); 
         
-
         switch (id) {
             case "top-center":
                 newRotateX += 180;
@@ -95,10 +96,6 @@ export default function Cube() {
 
         rotateX.set(0)
         rotateY.set(0)
-        // tiltX.set(0)
-        // tiltY.set(0)
-        // compositeRotateX.set(0)
-        // compositeRotateY.set(0)
         }
 
     return (
@@ -120,22 +117,22 @@ export default function Cube() {
                         onMouseMove={handleMouse}
                         onMouseLeave={handleMouseLeave}
                     >
-                        {/* Grid sections */}
-                        {["top-left", "top-center", "top-right", "center-left", "center-center", "center-right", "bottom-left", "bottom-center", "bottom-right"].map((id, index) => (
+                        {["top-left", 
+                        "top-center", 
+                        "top-right", 
+                        "center-left", 
+                        "center-center", 
+                        "center-right", 
+                        "bottom-left", 
+                        "bottom-center", 
+                        "bottom-right"].map((id, index) => (
                             <div key={id} className="section" data-section={index} id={id} onMouseDown={gridClick} />
                         ))}
 
                         <motion.div className='cube'
                             style={{
-                                // rotateX: rotateX,
-                                // rotateY: rotateY,
-
                                 rotateX: compositeRotateX,
                                 rotateY: compositeRotateY,
-
-                                // x: tiltY,
-                                // y: tiltX,
-
                                 position:'absolute',
                                 transform:"translate(-50%,-50%)"
                             }}
