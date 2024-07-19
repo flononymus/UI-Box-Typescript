@@ -14,8 +14,6 @@ export default function Cube() {
     const tiltX = useTransform(y, [0, 400], [45, -45]);
     const tiltY = useTransform(x, [0, 400], [-45, 45]);
 
-    // const compositeRotateX = useTransform([rotateX, tiltX], ([rx, tx]) => rx + tx);
-    // const compositeRotateY = useTransform([rotateY, tiltY], ([ry, ty]) => ry + ty);
 
     const compositeRotateX = useTransform(() => rotateX.get() + tiltX.get());
     const compositeRotateY = useTransform(() => rotateY.get() + tiltY.get());
@@ -40,17 +38,34 @@ export default function Cube() {
         y.set(200);
     }
 
-    function gridClick(event:React.MouseEvent<HTMLDivElement>) {
+    function animateRotation(newRotateX: number, newRotateY: number) {
+        return new Promise<void>((resolve) => {
+            animate(rotateX, newRotateX, {
+                duration: 0.5,
+                onComplete: () => {
+                    animate(rotateY, newRotateY, {
+                        duration: 0.5,
+                        onComplete: resolve
+                    });
+                }
+            });
+        });
+    }
+
+    async function gridClick(event: React.MouseEvent<HTMLDivElement>) {
+
+    // function gridClick(event:React.MouseEvent<HTMLDivElement>) {
         const id = event.currentTarget.id;
-        // let newRotateX = rotateX.get();
-        // let newRotateY = rotateY.get();
-        let newRotateX = 0;
-        let newRotateY = 0;
+        let newRotateX = rotateX.get(); 
+        let newRotateY = rotateY.get(); 
         
 
         switch (id) {
             case "top-center":
                 newRotateX += 180;
+                setTimeout(function(){
+                    console.log('reset')
+                },1000)
                 break;
             case "bottom-center":
                 newRotateX -= 180;
@@ -61,29 +76,33 @@ export default function Cube() {
             case "center-right":
                 newRotateY += 180;
                 break;
-            case "top-left":
-                newRotateX += 180;
-                newRotateY -= 180;
-                break;
-            case "top-right":
-                newRotateX -= 180;
-                newRotateY -= 180;
-                break;
-            case "bottom-left":
-                newRotateX += 180;
-                newRotateY += 180;
-                break;
-            case "bottom-right":
-                newRotateX += 180;
-                newRotateY -= 180;
-                break;
+            // case "top-left":
+            //     newRotateX += 180;
+            //     newRotateY -= 180;
+            //     break;
+            // case "top-right":
+            //     newRotateX -= 180;
+            //     newRotateY -= 180;
+            //     break;
+            // case "bottom-left":
+            //     newRotateX += 180;
+            //     newRotateY += 180;
+            //     break;
+            // case "bottom-right":
+            //     newRotateX += 180;
+            //     newRotateY -= 180;
+            //     break;
         }
 
-        animate(rotateX, newRotateX, { type: "spring", stiffness: 100, damping: 20, duration:50 });
-        animate(rotateY, newRotateY, { type: "spring", stiffness: 100, damping: 20, duration:50 });
-        // animate(rotateX, newRotateX);
-        // animate(rotateY, newRotateY);
-    }
+        await animateRotation(newRotateX, newRotateY);
+
+        rotateX.set(0)
+        rotateY.set(0)
+        // tiltX.set(0)
+        // tiltY.set(0)
+        // compositeRotateX.set(0)
+        // compositeRotateY.set(0)
+        }
 
     return (
         <div className="bodyCenter">
@@ -113,15 +132,13 @@ export default function Cube() {
                             style={{
                                 // rotateX: rotateX,
                                 // rotateY: rotateY,
-                                // x: tiltY,
-                                // y: tiltX,
-                                // position:'absolute',
-                                // transform:"translate(-50%,-50%)"
 
                                 rotateX: compositeRotateX,
                                 rotateY: compositeRotateY,
+
                                 // x: tiltY,
                                 // y: tiltX,
+
                                 position:'absolute',
                                 transform:"translate(-50%,-50%)"
                             }}

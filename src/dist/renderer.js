@@ -47889,6 +47889,15 @@ var __importStar = (this && this.__importStar) || function (mod) {
     __setModuleDefault(result, mod);
     return result;
 };
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports["default"] = Cube;
 const react_1 = __importStar(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
@@ -47902,8 +47911,6 @@ function Cube() {
     const rotateY = (0, framer_motion_1.useMotionValue)(0);
     const tiltX = (0, framer_motion_1.useTransform)(y, [0, 400], [45, -45]);
     const tiltY = (0, framer_motion_1.useTransform)(x, [0, 400], [-45, 45]);
-    // const compositeRotateX = useTransform([rotateX, tiltX], ([rx, tx]) => rx + tx);
-    // const compositeRotateY = useTransform([rotateY, tiltY], ([ry, ty]) => ry + ty);
     const compositeRotateX = (0, framer_motion_1.useTransform)(() => rotateX.get() + tiltX.get());
     const compositeRotateY = (0, framer_motion_1.useTransform)(() => rotateY.get() + tiltY.get());
     const handleMouse = (e) => {
@@ -47924,46 +47931,70 @@ function Cube() {
         x.set(200);
         y.set(200);
     }
+    function animateRotation(newRotateX, newRotateY) {
+        return new Promise((resolve) => {
+            (0, framer_motion_1.animate)(rotateX, newRotateX, {
+                duration: 0.5,
+                onComplete: () => {
+                    (0, framer_motion_1.animate)(rotateY, newRotateY, {
+                        duration: 0.5,
+                        onComplete: resolve
+                    });
+                }
+            });
+        });
+    }
     function gridClick(event) {
-        const id = event.currentTarget.id;
-        // let newRotateX = rotateX.get();
-        // let newRotateY = rotateY.get();
-        let newRotateX = 0;
-        let newRotateY = 0;
-        switch (id) {
-            case "top-center":
-                newRotateX += 180;
-                break;
-            case "bottom-center":
-                newRotateX -= 180;
-                break;
-            case "center-left":
-                newRotateY -= 180;
-                break;
-            case "center-right":
-                newRotateY += 180;
-                break;
-            case "top-left":
-                newRotateX += 180;
-                newRotateY -= 180;
-                break;
-            case "top-right":
-                newRotateX -= 180;
-                newRotateY -= 180;
-                break;
-            case "bottom-left":
-                newRotateX += 180;
-                newRotateY += 180;
-                break;
-            case "bottom-right":
-                newRotateX += 180;
-                newRotateY -= 180;
-                break;
-        }
-        (0, framer_motion_1.animate)(rotateX, newRotateX, { type: "spring", stiffness: 100, damping: 20, duration: 50 });
-        (0, framer_motion_1.animate)(rotateY, newRotateY, { type: "spring", stiffness: 100, damping: 20, duration: 50 });
-        // animate(rotateX, newRotateX);
-        // animate(rotateY, newRotateY);
+        return __awaiter(this, void 0, void 0, function* () {
+            // function gridClick(event:React.MouseEvent<HTMLDivElement>) {
+            const id = event.currentTarget.id;
+            let newRotateX = rotateX.get();
+            let newRotateY = rotateY.get();
+            switch (id) {
+                case "top-center":
+                    newRotateX += 180;
+                    setTimeout(function () {
+                        console.log('reset');
+                    }, 1000);
+                    break;
+                case "bottom-center":
+                    newRotateX -= 180;
+                    break;
+                case "center-left":
+                    newRotateY -= 180;
+                    break;
+                case "center-right":
+                    newRotateY += 180;
+                    break;
+                case "top-left":
+                    newRotateX += 180;
+                    newRotateY -= 180;
+                    break;
+                case "top-right":
+                    newRotateX -= 180;
+                    newRotateY -= 180;
+                    break;
+                case "bottom-left":
+                    newRotateX += 180;
+                    newRotateY += 180;
+                    break;
+                case "bottom-right":
+                    newRotateX += 180;
+                    newRotateY -= 180;
+                    break;
+            }
+            // animate(rotateX, newRotateX, { type: "spring", stiffness: 100, damping: 20, duration:50 });
+            // animate(rotateY, newRotateY, { type: "spring", stiffness: 100, damping: 20, duration:50 });
+            // animate(rotateX, newRotateX);
+            // animate(rotateY, newRotateY);
+            yield animateRotation(newRotateX, newRotateY);
+            rotateX.set(0);
+            rotateY.set(0);
+            // tiltX.set(0)
+            // tiltY.set(0)
+            // compositeRotateX.set(0)
+            // compositeRotateY.set(0)
+        });
     }
     return (react_1.default.createElement("div", { className: "bodyCenter" },
         react_1.default.createElement("div", null,
@@ -47983,10 +48014,6 @@ function Cube() {
                     react_1.default.createElement(framer_motion_1.motion.div, { className: 'cube', style: {
                             // rotateX: rotateX,
                             // rotateY: rotateY,
-                            // x: tiltY,
-                            // y: tiltX,
-                            // position:'absolute',
-                            // transform:"translate(-50%,-50%)"
                             rotateX: compositeRotateX,
                             rotateY: compositeRotateY,
                             // x: tiltY,
