@@ -48027,9 +48027,8 @@ function Cube() {
                 react_1.default.createElement(framer_motion_1.motion.button, { className: "navbarButton", style: { backgroundColor: 'rgba(0,0,0,0)' }, onMouseDown: handleSwitchClick },
                     react_1.default.createElement("span", { className: "material-symbols-outlined" }, isSwitched ? "web_traffic" : "drag_pan"))),
             react_1.default.createElement("div", { style: { display: 'flex', justifyContent: 'center' } },
-                react_1.default.createElement(framer_motion_1.motion.div, { className: "cubeContainer", id: "cubeContainer", 
-                    // drag
-                    dragConstraints: { left: 0, right: 0, top: 0, bottom: 0 }, onDragEnd: handleDragEnd, style: {
+                react_1.default.createElement("div", { style: { position: "absolute", opacity: 0.1, width: 400, height: 400 } }),
+                react_1.default.createElement(framer_motion_1.motion.div, { className: "cubeContainer", id: "cubeContainer", style: {
                         width: 400,
                         height: 400,
                         display: "grid",
@@ -48053,11 +48052,22 @@ function Cube() {
                         // dragConstraints={{ left: 0, right: 0, top: 0, bottom: 0 }}
                         // onDragEnd={handleDragEnd}
                         style: {
+                            display: "flex",
+                            justifyContent: "center",
+                            alignItems: "center",
                             rotateX: compositeRotateX,
                             rotateY: compositeRotateY,
                             position: 'absolute',
                             transform: "translate(-50%,-50%)"
-                        }, whileTap: { scale: 0.8 } }))))));
+                        }, whileTap: { scale: 0.8 } },
+                        react_1.default.createElement(framer_motion_1.motion.div, { className: "cube", drag: true, dragConstraints: { left: 0, right: 0, top: 0, bottom: 0 }, onDragEnd: handleDragEnd, style: {
+                                // width: 200,
+                                // height: 200,
+                                position: 'absolute',
+                                justifySelf: "center",
+                                backgroundColor: "rgba(50,50,50,0)"
+                                // transform:"translate(-50%,-50%)"
+                            } })))))));
 }
 
 
