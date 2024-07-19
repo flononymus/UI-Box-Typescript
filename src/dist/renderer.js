@@ -47953,9 +47953,6 @@ function Cube() {
             switch (id) {
                 case "top-center":
                     newRotateX += 180;
-                    setTimeout(function () {
-                        console.log('reset');
-                    }, 1000);
                     break;
                 case "bottom-center":
                     newRotateX -= 180;
@@ -47966,34 +47963,30 @@ function Cube() {
                 case "center-right":
                     newRotateY += 180;
                     break;
-                case "top-left":
-                    newRotateX += 180;
-                    newRotateY -= 180;
-                    break;
-                case "top-right":
-                    newRotateX -= 180;
-                    newRotateY -= 180;
-                    break;
-                case "bottom-left":
-                    newRotateX += 180;
-                    newRotateY += 180;
-                    break;
-                case "bottom-right":
-                    newRotateX += 180;
-                    newRotateY -= 180;
-                    break;
+                // case "top-left":
+                //     newRotateX += 180;
+                //     newRotateY -= 180;
+                //     break;
+                // case "top-right":
+                //     newRotateX -= 180;
+                //     newRotateY -= 180;
+                //     break;
+                // case "bottom-left":
+                //     newRotateX += 180;
+                //     newRotateY += 180;
+                //     break;
+                // case "bottom-right":
+                //     newRotateX += 180;
+                //     newRotateY -= 180;
+                //     break;
             }
-            // animate(rotateX, newRotateX, { type: "spring", stiffness: 100, damping: 20, duration:50 });
-            // animate(rotateY, newRotateY, { type: "spring", stiffness: 100, damping: 20, duration:50 });
-            // animate(rotateX, newRotateX);
-            // animate(rotateY, newRotateY);
             yield animateRotation(newRotateX, newRotateY);
-            rotateX.set(0);
-            rotateY.set(0);
+            // rotateX.set(0)
+            // rotateY.set(0)
             // tiltX.set(0)
             // tiltY.set(0)
-            // compositeRotateX.set(0)
-            // compositeRotateY.set(0)
+            compositeRotateX.set(0);
+            compositeRotateY.set(0);
         });
     }
     return (react_1.default.createElement("div", { className: "bodyCenter" },

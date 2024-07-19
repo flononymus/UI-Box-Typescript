@@ -63,9 +63,6 @@ export default function Cube() {
         switch (id) {
             case "top-center":
                 newRotateX += 180;
-                setTimeout(function(){
-                    console.log('reset')
-                },1000)
                 break;
             case "bottom-center":
                 newRotateX -= 180;
