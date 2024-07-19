@@ -47904,6 +47904,7 @@ const react_1 = __importStar(__webpack_require__(/*! react */ "./node_modules/re
 const framer_motion_1 = __webpack_require__(/*! framer-motion */ "./node_modules/framer-motion/dist/cjs/index.js");
 function Cube() {
     const [isInside, setIsInside] = (0, react_1.useState)(false);
+    const [isSwitched, setIsSwitched] = (0, react_1.useState)(false);
     const springConfig = { stiffness: 150 };
     const x = (0, framer_motion_1.useSpring)(200, springConfig);
     const y = (0, framer_motion_1.useSpring)(200, springConfig);
@@ -47913,6 +47914,9 @@ function Cube() {
     const tiltY = (0, framer_motion_1.useTransform)(x, [0, 400], [-45, 45]);
     const compositeRotateX = (0, framer_motion_1.useTransform)(() => rotateX.get() + tiltX.get());
     const compositeRotateY = (0, framer_motion_1.useTransform)(() => rotateY.get() + tiltY.get());
+    function handleSwitchClick() {
+        setIsSwitched(!isSwitched);
+    }
     const handleMouse = (e) => {
         const rect = document.getElementById("cubeContainer").getBoundingClientRect();
         const mouseX = e.clientX - rect.left;
@@ -47946,54 +47950,86 @@ function Cube() {
     }
     function gridClick(event) {
         return __awaiter(this, void 0, void 0, function* () {
-            // function gridClick(event:React.MouseEvent<HTMLDivElement>) {
-            const id = event.currentTarget.id;
-            let newRotateX = rotateX.get();
-            let newRotateY = rotateY.get();
-            switch (id) {
-                case "top-center":
-                    newRotateX += 180;
-                    break;
-                case "bottom-center":
-                    newRotateX -= 180;
-                    break;
-                case "center-left":
-                    newRotateY -= 180;
-                    break;
-                case "center-right":
-                    newRotateY += 180;
-                    break;
-                // case "top-left":
-                //     newRotateX += 180;
-                //     newRotateY -= 180;
-                //     break;
-                // case "top-right":
-                //     newRotateX -= 180;
-                //     newRotateY -= 180;
-                //     break;
-                // case "bottom-left":
-                //     newRotateX += 180;
-                //     newRotateY += 180;
-                //     break;
-                // case "bottom-right":
-                //     newRotateX += 180;
-                //     newRotateY -= 180;
-                //     break;
+            if (!isSwitched) {
+                const id = event.currentTarget.id;
+                let newRotateX = rotateX.get();
+                let newRotateY = rotateY.get();
+                switch (id) {
+                    case "top-center":
+                        newRotateX += 180;
+                        break;
+                    case "bottom-center":
+                        newRotateX -= 180;
+                        break;
+                    case "center-left":
+                        newRotateY -= 180;
+                        break;
+                    case "center-right":
+                        newRotateY += 180;
+                        break;
+                    case "top-left":
+                        newRotateX += 180;
+                        newRotateY -= 180;
+                        break;
+                    case "top-right":
+                        newRotateX -= 180;
+                        newRotateY -= 180;
+                        break;
+                    case "bottom-left":
+                        newRotateX += 180;
+                        newRotateY += 180;
+                        break;
+                    case "bottom-right":
+                        newRotateX += 180;
+                        newRotateY -= 180;
+                        break;
+                }
+                yield animateRotation(newRotateX, newRotateY);
+                rotateX.set(0);
+                rotateY.set(0);
             }
-            yield animateRotation(newRotateX, newRotateY);
-            // rotateX.set(0)
-            // rotateY.set(0)
-            // tiltX.set(0)
-            // tiltY.set(0)
-            compositeRotateX.set(0);
-            compositeRotateY.set(0);
+        });
+    }
+    function handleDragEnd(event, info) {
+        return __awaiter(this, void 0, void 0, function* () {
+            if (isSwitched) {
+                const { offset } = info;
+                let newRotateX = 0;
+                let newRotateY = 0;
+                if (Math.abs(offset.x) > Math.abs(offset.y)) {
+                    // Horizontal swipe
+                    if (offset.x > 0) {
+                        newRotateY = 180; // Swipe right
+                    }
+                    else {
+                        newRotateY = -180; // Swipe left
+                    }
+                }
+                else {
+                    // Vertical swipe
+                    if (offset.y > 0) {
+                        newRotateX = -180; // Swipe down
+                    }
+                    else {
+                        newRotateX = 180; // Swipe up
+                    }
+                }
+                yield animateRotation(newRotateX, newRotateY);
+                rotateX.set(0);
+                rotateY.set(0);
+            }
         });
     }
     return (react_1.default.createElement("div", { className: "bodyCenter" },
         react_1.default.createElement("div", null,
-            react_1.default.createElement("h1", null, "Cube"),
+            react_1.default.createElement("div", { style: { display: 'flex', flexDirection: 'row', justifyContent: 'start', alignItems: 'center' } },
+                react_1.default.createElement("h1", null, "Cube"),
+                react_1.default.createElement(framer_motion_1.motion.button, { className: "navbarButton", style: { backgroundColor: 'rgba(0,0,0,0)' }, onMouseDown: handleSwitchClick },
+                    react_1.default.createElement("span", { className: "material-symbols-outlined" }, isSwitched ? "web_traffic" : "drag_pan"))),
             react_1.default.createElement("div", { style: { display: 'flex', justifyContent: 'center' } },
-                react_1.default.createElement(framer_motion_1.motion.div, { className: "cubeContainer", id: "cubeContainer", style: {
+                react_1.default.createElement(framer_motion_1.motion.div, { className: "cubeContainer", id: "cubeContainer", 
+                    // drag
+                    dragConstraints: { left: 0, right: 0, top: 0, bottom: 0 }, onDragEnd: handleDragEnd, style: {
                         width: 400,
                         height: 400,
                         display: "grid",
@@ -48003,14 +48039,22 @@ function Cube() {
                         perspective: 400,
                         position: 'relative'
                     }, onMouseMove: handleMouse, onMouseLeave: handleMouseLeave },
-                    ["top-left", "top-center", "top-right", "center-left", "center-center", "center-right", "bottom-left", "bottom-center", "bottom-right"].map((id, index) => (react_1.default.createElement("div", { key: id, className: "section", "data-section": index, id: id, onMouseDown: gridClick }))),
-                    react_1.default.createElement(framer_motion_1.motion.div, { className: 'cube', style: {
-                            // rotateX: rotateX,
-                            // rotateY: rotateY,
+                    ["top-left",
+                        "top-center",
+                        "top-right",
+                        "center-left",
+                        "center-center",
+                        "center-right",
+                        "bottom-left",
+                        "bottom-center",
+                        "bottom-right"].map((id, index) => (react_1.default.createElement("div", { key: id, className: "section", "data-section": index, id: id, onMouseDown: gridClick }))),
+                    react_1.default.createElement(framer_motion_1.motion.div, { className: 'cube', 
+                        // drag
+                        // dragConstraints={{ left: 0, right: 0, top: 0, bottom: 0 }}
+                        // onDragEnd={handleDragEnd}
+                        style: {
                             rotateX: compositeRotateX,
                             rotateY: compositeRotateY,
-                            // x: tiltY,
-                            // y: tiltX,
                             position: 'absolute',
                             transform: "translate(-50%,-50%)"
                         }, whileTap: { scale: 0.8 } }))))));

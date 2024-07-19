@@ -3,6 +3,7 @@ import { motion, useSpring, useMotionValue, useTransform, animate, transform } f
 
 export default function Cube() {
     const [isInside, setIsInside] = useState(false);
+    const [isSwitched, setIsSwitched] = useState(false)
 
     const springConfig = { stiffness: 150 };
     const x = useSpring(200, springConfig);
@@ -17,6 +18,10 @@ export default function Cube() {
 
     const compositeRotateX = useTransform(() => rotateX.get() + tiltX.get());
     const compositeRotateY = useTransform(() => rotateY.get() + tiltY.get());
+
+    function handleSwitchClick() {
+        setIsSwitched(!isSwitched);
+    }
 
     const handleMouse = (e: React.MouseEvent) => {
         const rect = document.getElementById("cubeContainer")!.getBoundingClientRect();
@@ -54,8 +59,9 @@ export default function Cube() {
         });
     }
 
+
     async function gridClick(event: React.MouseEvent<HTMLDivElement>) {
-    // function gridClick(event:React.MouseEvent<HTMLDivElement>) {
+        if (!isSwitched) {
 
         const id = event.currentTarget.id;
         let newRotateX = rotateX.get(); 
@@ -74,36 +80,84 @@ export default function Cube() {
             case "center-right":
                 newRotateY += 180;
                 break;
-            // case "top-left":
-            //     newRotateX += 180;
-            //     newRotateY -= 180;
-            //     break;
-            // case "top-right":
-            //     newRotateX -= 180;
-            //     newRotateY -= 180;
-            //     break;
-            // case "bottom-left":
-            //     newRotateX += 180;
-            //     newRotateY += 180;
-            //     break;
-            // case "bottom-right":
-            //     newRotateX += 180;
-            //     newRotateY -= 180;
-            //     break;
-        }
+            case "top-left":
+                newRotateX += 180;
+                newRotateY -= 180;
+                break;
+            case "top-right":
+                newRotateX -= 180;
+                newRotateY -= 180;
+                break;
+            case "bottom-left":
+                newRotateX += 180;
+                newRotateY += 180;
+                break;
+            case "bottom-right":
+                newRotateX += 180;
+                newRotateY -= 180;
+                break;
+            }
 
         await animateRotation(newRotateX, newRotateY);
 
         rotateX.set(0)
         rotateY.set(0)
         }
+    }
+
+    async function handleDragEnd(event:MouseEvent, info:any) {
+        if (isSwitched) {
+            const { offset } = info;
+            let newRotateX = 0;
+            let newRotateY = 0;
+    
+            if (Math.abs(offset.x) > Math.abs(offset.y)) {
+                // Horizontal swipe
+                if (offset.x > 0) {
+                    newRotateY = 180; // Swipe right
+                } else {
+                    newRotateY = -180; // Swipe left
+                }
+            } else {
+                // Vertical swipe
+                if (offset.y > 0) {
+                    newRotateX = -180; // Swipe down
+                } else {
+                    newRotateX = 180; // Swipe up
+                }
+            }
+
+        await animateRotation(newRotateX, newRotateY);
+
+        rotateX.set(0)
+        rotateY.set(0)
+        }
+    }
 
     return (
         <div className="bodyCenter">
             <div>
+            <div style={{display:'flex',flexDirection:'row',justifyContent:'start', alignItems:'center'}}> 
                 <h1>Cube</h1>
+
+                <motion.button className="navbarButton" style={{backgroundColor:'rgba(0,0,0,0)'}} onMouseDown={handleSwitchClick}>
+                        <span className="material-symbols-outlined">
+                        {isSwitched? "web_traffic" : "drag_pan"} 
+                        </span>
+                    </motion.button>
+
+            </div>
+
                 <div style={{display:'flex', justifyContent:'center'}}>
+
+                    <div style={{position:"absolute", opacity:0.1, width:400, height:400}} 
+                        // drag
+                        // dragConstraints={{ left: 0, right: 0, top: 0, bottom: 0 }}
+                        // onDragEnd={handleDragEnd} 
+                    />
+
                     <motion.div className="cubeContainer" id="cubeContainer"
+
                         style={{
                             width: 400,
                             height: 400,
@@ -126,10 +180,17 @@ export default function Cube() {
                         "bottom-left", 
                         "bottom-center", 
                         "bottom-right"].map((id, index) => (
-                            <div key={id} className="section" data-section={index} id={id} onMouseDown={gridClick} />
+                            <div key={id} className="section" data-section={index} id={id} 
+                            onMouseDown={gridClick}
+                             />
                         ))}
 
                         <motion.div className='cube'
+
+                            // drag
+                            // dragConstraints={{ left: 0, right: 0, top: 0, bottom: 0 }}
+                            // onDragEnd={handleDragEnd}
+
                             style={{
                                 rotateX: compositeRotateX,
                                 rotateY: compositeRotateY,
