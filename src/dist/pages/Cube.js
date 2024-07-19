@@ -28,10 +28,10 @@ const react_1 = __importStar(require("react"));
 const framer_motion_1 = require("framer-motion");
 function Cube() {
     const [isInside, setIsInside] = (0, react_1.useState)(false);
-    const [isSwitched, setIsSwitched] = (0, react_1.useState)(false);
-    const [isDragging, setIsDragging] = (0, react_1.useState)(false);
-    const [dragStart, setDragStart] = (0, react_1.useState)('');
-    const [dragEnd, setDragEnd] = (0, react_1.useState)('');
+    // const [isSwitched, setIsSwitched] = useState(false);
+    // const [isDragging, setIsDragging] = useState(false);
+    // const [dragStart, setDragStart] = useState('');
+    // const [dragEnd, setDragEnd] = useState('');
     const springConfig = {
         stiffness: 150
     };
@@ -41,32 +41,34 @@ function Cube() {
     const yClick = (0, framer_motion_1.useSpring)(200, springConfig);
     const rotateX = (0, framer_motion_1.useTransform)(y, [0, 400], [45, -45]);
     const rotateY = (0, framer_motion_1.useTransform)(x, [0, 400], [-45, 45]);
+    const spinVelocityX = (0, framer_motion_1.useMotionValue)(0);
+    const spinVelocityY = (0, framer_motion_1.useMotionValue)(0);
     // const rotateXClick = useTransform(yClick, [0, 400], [180, -180]);
     // const rotateYClick = useTransform(xClick, [0, 400], [-180, 180]);
     const handleMouse = (e) => {
         const rect = document.getElementById("cubeContainer").getBoundingClientRect();
         const mouseX = e.clientX - rect.left;
         const mouseY = e.clientY - rect.top;
-        if (!isSwitched) {
-            if (mouseX >= 0 && mouseX <= rect.width && mouseY >= 0 && mouseY <= rect.height) {
-                setIsInside(true);
-                x.set(mouseX);
-                y.set(mouseY);
-            }
-            else {
-                setIsInside(false);
-            }
+        // if (!isSwitched) {
+        if (mouseX >= 0 && mouseX <= rect.width && mouseY >= 0 && mouseY <= rect.height) {
+            setIsInside(true);
+            x.set(mouseX);
+            y.set(mouseY);
         }
+        else {
+            setIsInside(false);
+        }
+        // }
     };
     function handleMouseLeave(e) {
         setIsInside(false);
         x.set(200);
         y.set(200);
     }
-    const handleMouseDown = (e) => {
-        setIsDragging(true);
-        setDragStart(e.currentTarget.id);
-    };
+    // const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
+    //     setIsDragging(true);
+    //     setDragStart(e.currentTarget.id)
+    // };
     function gridClick(event) {
         console.log(event.currentTarget.id);
         if (event.currentTarget.id === "top-center") {
@@ -87,7 +89,9 @@ function Cube() {
                         borderRadius: 30,
                         perspective: 400,
                         position: 'relative'
-                    }, onMouseDown: handleMouseDown, onMouseMove: handleMouse, onMouseLeave: handleMouseLeave },
+                    }, 
+                    // onMouseDown={handleMouseDown}
+                    onMouseMove: handleMouse, onMouseLeave: handleMouseLeave },
                     react_1.default.createElement("div", { className: "section", "data-section": "0", id: "top-left", onMouseDown: gridClick }),
                     react_1.default.createElement("div", { className: "section", "data-section": "1", id: "top-center", onMouseDown: gridClick }),
                     react_1.default.createElement("div", { className: "section", "data-section": "2", id: "top-right", onMouseDown: gridClick }),

@@ -3,11 +3,11 @@ import { motion, useSpring, useMotionValue, useTransform, animate, transform} fr
 
 export default function Cube() {
     const [isInside, setIsInside] = useState(false);
-    const [isSwitched, setIsSwitched] = useState(false);
+    // const [isSwitched, setIsSwitched] = useState(false);
 
-    const [isDragging, setIsDragging] = useState(false);
-    const [dragStart, setDragStart] = useState('');
-    const [dragEnd, setDragEnd] = useState('');
+    // const [isDragging, setIsDragging] = useState(false);
+    // const [dragStart, setDragStart] = useState('');
+    // const [dragEnd, setDragEnd] = useState('');
 
 
     const springConfig = { 
@@ -22,6 +22,9 @@ export default function Cube() {
     const rotateX = useTransform(y, [0, 400], [45, -45]);
     const rotateY = useTransform(x, [0, 400], [-45, 45]);
 
+    const spinVelocityX = useMotionValue(0);
+    const spinVelocityY = useMotionValue(0);
+
     // const rotateXClick = useTransform(yClick, [0, 400], [180, -180]);
     // const rotateYClick = useTransform(xClick, [0, 400], [-180, 180]);
 
@@ -31,7 +34,7 @@ const handleMouse = (e: React.MouseEvent) => {
         const mouseX = e.clientX - rect.left;
         const mouseY = e.clientY - rect.top;
 
-        if (!isSwitched) {
+        // if (!isSwitched) {
         if (mouseX >= 0 && mouseX <= rect.width && mouseY >= 0 && mouseY <= rect.height) {
             setIsInside(true);
             x.set(mouseX);
@@ -40,7 +43,7 @@ const handleMouse = (e: React.MouseEvent) => {
         else {
             setIsInside(false);
         }
-    }
+    // }
 }
 
 function handleMouseLeave(e:React.MouseEvent) {
@@ -49,10 +52,10 @@ function handleMouseLeave(e:React.MouseEvent) {
         y.set(200)
 }
 
-const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
-    setIsDragging(true);
-    setDragStart(e.currentTarget.id)
-};
+// const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
+//     setIsDragging(true);
+//     setDragStart(e.currentTarget.id)
+// };
 
 function gridClick(event:React.MouseEvent<HTMLDivElement>) {
     console.log(event.currentTarget.id,)
@@ -61,7 +64,6 @@ function gridClick(event:React.MouseEvent<HTMLDivElement>) {
         yClick.set(-400);
     }
 
-    // const [rotation, setRotation] = useState<Page>(startPage);
 }
 
 
@@ -84,7 +86,7 @@ function gridClick(event:React.MouseEvent<HTMLDivElement>) {
 
                     position: 'relative' 
                 }}
-                onMouseDown={handleMouseDown}
+                // onMouseDown={handleMouseDown}
                 onMouseMove={handleMouse}
                 onMouseLeave={handleMouseLeave}
             >
