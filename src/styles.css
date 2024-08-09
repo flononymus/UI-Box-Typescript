@@ -490,6 +490,11 @@ nav{
   .cube {background-color: #333;}
   .cubeContainer {background-color:rgba(51,51,51,0.2)}
 
+  .navbarButton.active:after,
+  .navbarButton.active:before{
+    border:5px solid #fff;
+}
+
   :root {
     --particle-color: var(--particle-color-dark);
     --canvas-colorelement: var(--canvas-colorelement-dark)
