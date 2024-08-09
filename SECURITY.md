@@ -3,6 +3,9 @@ ___
 
 - ### Currently working on
 
+- [ ] Hot reloading
+https://www.npmjs.com/package/electron-serve
+
 <br>
 
 
