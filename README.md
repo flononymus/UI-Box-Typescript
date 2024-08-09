@@ -8,12 +8,8 @@ Built with Typescript, React and Electron.
 
 ___
 
-
-
 ![preview](/src/media/uibox-dark.png)
 
 
 ### Refs:
-https://framerbook.com/animation/example-animations/
-
 https://codepen.io/FRADAR/pen/oNBGwqX
