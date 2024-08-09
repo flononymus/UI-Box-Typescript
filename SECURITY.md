@@ -3,8 +3,6 @@ ___
 
 - ### Currently working on
 
-- [ ] Ball: dont "spawn" ball when click in navbar area
-
 <br>
 
 
@@ -30,16 +28,10 @@ ___
     - [ ] Ball --> add a randomize button to randomize hoop position
 
   - [ ] **Tether**
-    - [ ] Rewrite Tether to framer motion instead of canvas
-      - [ ] Figure out line from tether to origin
-      - [ ] animate color on drag
     - [ ] Make tethers interact with eachother
     - [ ] Tether effects on drag
       - [ ] changes in color the further the drag?
     - [ ] 
-
-  - [ ] **Particles**
-    - [ ] Add option to input own text/character
 
 - **Styles + Design** 
 
@@ -49,7 +41,6 @@ ___
   - [ ] Fix lefthalf and righthalf transition spinner
   - [ ] Consistent fps 
   - [ ] fix DOM cant find darkmodeToggle when it starts on canvas page
-  - [ ] Navbar Tab styles --> https://github.com/adamschwartz/chrome-tabs/tree/gh-pages
   - [ ] Page transitions --> https://vuejs.org/guide/built-ins/transition.html
 
 ___
@@ -87,6 +78,7 @@ ___
     - [x] Ball start position from wherever the mouse is down?
     - [x] Add a hoop
     - [x] Ball --> calculate bounding box correctly
+    - [x] Ball: dont "spawn" ball when click in navbar area
 
   - [x] **Switches**
     - [x] add a "manual" switch instead of click switch
@@ -128,3 +120,4 @@ ___
 
   - [x] **Low priority**
     - [x] Fix keyboard not resetting onmousedown joystick
+    - [x] Navbar Tab styles --> https://github.com/adamschwartz/chrome-tabs/tree/gh-pages
