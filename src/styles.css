@@ -124,7 +124,7 @@ nav{
 .navbarButton:hover{
   display:flex;
   margin-left:auto;
-  color:rgba(221, 221, 221,0.9);
+  color:rgba(22, 22, 22,0.9);
   background-color: rgb(200, 200, 200);
 }
 
