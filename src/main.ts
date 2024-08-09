@@ -1,6 +1,12 @@
 import { app, ipcMain, BrowserWindow, nativeTheme } from 'electron'
 import path from 'node:path'
 
+const electron = require('electron')
+
+require('electron-reload')(__dirname, {
+  electron: path.join(__dirname, 'node_modules/.bin/electron.cmd')
+});
+
 function createWindow () {
   const mainWindow = new BrowserWindow({
     width: 800,

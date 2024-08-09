@@ -9,6 +9,9 @@ module.exports = {
   target: 'electron-main',
   mode:'development',
   devtool: 'source-map',
+  node: {
+    __dirname: false
+  },
   module: {
     rules: [
       {
@@ -30,6 +33,14 @@ module.exports = {
           },
         },
       },
+      {
+        test: /.node$/,
+        loader: 'node-loader',
+      }
+      // {
+      //   test: /\.(css)$/,
+      //   use: ["style-loader", "css-loader",],
+      // },
     ]
   },
   resolve: {

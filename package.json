@@ -6,6 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc && webpack",
+    "dev": "tsc -w && webpack && electron .",
     "start": "npm run build && electron ."
   },
   "repository": {
@@ -35,6 +36,8 @@
   },
   "dependencies": {
     "@emotion/styled": "^11.11.5",
-    "framer-motion": "^11.2.12"
+    "electron-reload": "^2.0.0-alpha.1",
+    "framer-motion": "^11.2.12",
+    "node-loader": "^2.0.0"
   }
 }
