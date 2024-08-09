@@ -9,9 +9,7 @@ ___
 - **Pages + Functionality**
 
   - [ ] **Cube**
-    - [x] Reset perspective when mouse is outside of box
     - [ ] Add more stuff
-    - [ ] Cube: add "motions" --> "swipe left" to turn it 180 degrees, "swipe up" etc
 
   - [ ] **Switches**
     - [ ] Vertical switch: add friction to make it snap to top or bottom, reverse in other half
@@ -49,6 +47,7 @@ ___
 
   - [ ] **Cube**
     - [x] Reset perspective when mouse is outside of box
+    - [x] Cube: add "motions" --> "swipe left" to turn it 180 degrees, "swipe up" etc
 
   - [x] **Spinner**
     - [x] Figure out if possible
