@@ -8,15 +8,6 @@
 
 body {
 
-/* OLD STYLE: add below back to body and remove .bodyCenter */
-
-  /* font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica,
-      Arial, sans-serif;
-  margin: auto;
-  max-width: 38rem;
-  padding: 1.5rem;
-  overflow:hidden; */
-
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica,
   Arial, sans-serif;
   margin:0;
@@ -71,19 +62,15 @@ gap:7px;
 .navbarButton{
 display:flex;
 margin-left:auto;
-/* color:rgba(255, 255, 255); */
 color:rgba(221, 221, 221,0.9);
-/* padding-top:1px; */
-/* padding-bottom:1px; */
-
 padding-top: 3px;
 padding-bottom:3px;
 padding-left:7px;
 padding-right:7px;
 border-radius: 3px;
 border:0;
-/* border:1px solid rgba(0,0,0,0); */
 background-color: rgb(107, 107, 107);
+/* z-index: 1; */
 }
 .navbarButton:hover{
 display:flex;
@@ -93,16 +80,50 @@ color:rgba(150, 150, 150,0.7);
 background-color:rgba(83, 83, 83);
 }
 
+
+
 .navbarButton.active{
 background-color:#333;
 color:rgba(255, 255, 255);
-
 scale:1.15;
 /* transition:0.1s ease-in-out; */
-
 padding-top:-10px;
 margin-bottom:-10px;
+/* border-top-right-radius: 3px;
+border-top-left-radius: 3px; */
+z-index: 1;
 }
+
+.navbarButton.active:after,
+.navbarButton.active:before{
+    content:'';
+    width:10px;
+    height:10px;
+    /* border:1px solid white; */
+    border:5px solid #333;
+    position:absolute;
+    bottom:1.7px;
+    border-top:0;
+    z-index:-1;
+}
+.navbarButton.active:after{
+    border-left:0;
+    border-radius: 0 0 12px 0;
+    left:-10px;
+}
+.navbarButton.active:before{
+    border-right:0;
+    border-radius: 0 0 0 12px;
+    right:-10px;
+}
+
+
+
+
+
+
+
+
 
 .buttonContainer{
 display: flex;
