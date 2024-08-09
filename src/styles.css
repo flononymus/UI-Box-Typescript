@@ -108,12 +108,14 @@ z-index: 1;
 }
 .navbarButton.active:after{
     border-left:0;
-    border-radius: 0 0 12px 0;
+    /* border-radius: 0 0 12px 0; */
+    border-radius: 0 0 10px 0;
     left:-10px;
 }
 .navbarButton.active:before{
     border-right:0;
-    border-radius: 0 0 0 12px;
+    /* border-radius: 0 0 0 12px; */
+    border-radius: 0 0 0 10px;
     right:-10px;
 }
 
