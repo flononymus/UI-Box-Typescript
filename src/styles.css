@@ -7,7 +7,6 @@
 }
 
 body {
-
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica,
   Arial, sans-serif;
   margin:0;
@@ -15,83 +14,79 @@ body {
 }
 
 .bodyCenter {
-margin: auto;
-max-width: 38rem;
-padding: 1.5rem;
-
-padding-top:0;
-/* overflow:hidden; */
+  margin: auto;
+  max-width: 38rem;
+  padding: 1.5rem;
+  padding-top:0;
 }
 
 #navbarRoot {
-background-color: #494949;
+  background-color: #494949;
 }
 
-
 nav{
-display: flex;
-justify-content: space-between;
-align-items: center;
-border-bottom: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: white;
 }
 
 .settingsButton {
-margin-left:auto;
-display:flex;
-align-items: center;
-justify-content: center;
-border-radius: 3px;
-border:0;
-/* padding-top: 1px;
-padding-bottom:1px; */
+  margin-left:auto;
+  display:flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 3px;
+  border:0;
+  /* padding-top: 1px;
+  padding-bottom:1px; */
 
-background-color: rgb(107, 107, 107);
+  background-color: rgb(107, 107, 107);
 
-padding-top: 3px;
-padding-bottom:3px;
-padding-left:7px;
-padding-right:7px;
-border:0;
+  padding-top: 3px;
+  padding-bottom:3px;
+  padding-left:7px;
+  padding-right:7px;
+  border:0;
 }
 
 .navbarLeft{
-display:flex;
-gap:7px;
+  display:flex;
+  gap:7px;
 }
 
 .navbarButton{
-display:flex;
-margin-left:auto;
-color:rgba(221, 221, 221,0.9);
-padding-top: 3px;
-padding-bottom:3px;
-padding-left:7px;
-padding-right:7px;
-border-radius: 3px;
-border:0;
-background-color: rgb(107, 107, 107);
-/* z-index: 1; */
+  display:flex;
+  margin-left:auto;
+  color:rgba(221, 221, 221,0.9);
+  padding-top: 3px;
+  padding-bottom:3px;
+  padding-left:7px;
+  padding-right:7px;
+  border-radius: 3px;
+  border:0;
+  background-color: rgb(107, 107, 107);
+  /* z-index: 1; */
 }
 .navbarButton:hover{
-display:flex;
-margin-left:auto;
-color:rgba(150, 150, 150,0.7);
-/* border:1px solid rgba(51,51,51,0.5); */
-background-color:rgba(83, 83, 83);
+  display:flex;
+  margin-left:auto;
+  color:rgba(150, 150, 150,0.7);
+  /* border:1px solid rgba(51,51,51,0.5); */
+  background-color:rgba(83, 83, 83);
 }
-
 
 
 .navbarButton.active{
-background-color:#333;
-color:rgba(255, 255, 255);
-scale:1.15;
-/* transition:0.1s ease-in-out; */
-padding-top:-10px;
-margin-bottom:-10px;
-/* border-top-right-radius: 3px;
-border-top-left-radius: 3px; */
-z-index: 1;
+  background-color:#333;
+  color:rgba(255, 255, 255);
+  scale:1.15;
+  /* transition:0.1s ease-in-out; */
+  padding-top:-10px;
+  margin-bottom:-10px;
+  /* border-top-right-radius: 3px;
+  border-top-left-radius: 3px; */
+  z-index: 1;
 }
 
 .navbarButton.active:after,
@@ -119,332 +114,324 @@ z-index: 1;
     right:-10px;
 }
 
-
-
-
-
-
-
-
-
 .buttonContainer{
-display: flex;
-flex-direction: column;
-justify-content: center;
-align-items: center;
-height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
 }
 
 .buttonRow {
-display: flex;
-flex-direction: row;
-justify-content: center;
-align-items: center;
-margin-bottom: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 10px;
 }
 
 .buttonColumn{
-display: flex;
-flex-direction: column;
-justify-content: center;
-align-items: center;
-margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 10px;
 }
 
 .button1 {
-width: 100px;
-height: 100px;
-padding: 10px 20px; 
-border-radius: 50px;
-margin:0.5rem;
-border: 0px solid white;
+  width: 100px;
+  height: 100px;
+  padding: 10px 20px; 
+  border-radius: 50px;
+  margin:0.5rem;
+  border: 0px solid white;
 
-background:rgba(255, 255, 255, 0.5);
-transition: transform 0.3s ease, background 0.2s;
+  background:rgba(255, 255, 255, 0.5);
+  transition: transform 0.3s ease, background 0.2s;
 }
 
 .button1:hover {
-transform: scale(1.03);
+  transform: scale(1.03);
 }
 
 .button1:active{
---scale-factor:0.95;
-transform: scale(var(--scale-factor));
-background: #333;
-border: 2px solid rgba(255, 255, 255, 0.5)
+  --scale-factor:0.95;
+  transform: scale(var(--scale-factor));
+  background: #333;
+  border: 2px solid rgba(255, 255, 255, 0.5)
 }
 
 .button2 {
-width: 105px;
-height: 105px;
-padding: 20px; 
-border-radius: 40px;
-margin:0.5rem;
-border: 0;
-background:rgba(255, 255, 255, 0.5);
-transition: transform 0.3s ease, background 0.2s;
+  width: 105px;
+  height: 105px;
+  padding: 20px; 
+  border-radius: 40px;
+  margin:0.5rem;
+  border: 0;
+  background:rgba(255, 255, 255, 0.5);
+  transition: transform 0.3s ease, background 0.2s;
 }
 
 .button2toggled {
-width: 105px;
-height: 105px;
-padding: 20px; 
-border-radius: 40px;
-margin:0.5rem;
-border: 2px solid rgba(255, 255, 255, 0.5);
-background:#333;
-transition: transform 0.3s ease, background 0.2s;
+  width: 105px;
+  height: 105px;
+  padding: 20px; 
+  border-radius: 40px;
+  margin:0.5rem;
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  background:#333;
+  transition: transform 0.3s ease, background 0.2s;
 }
 
 .button2:hover {
-transform: scale(1.03);
+  transform: scale(1.03);
 }
 
 .buttonInSettings{
-margin-right: 0.25rem;
+  margin-right: 0.25rem;
 }
 
 .logo{
-display:flex;
-justify-content: center;
-align-items: center;
-height:400px;
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  height:400px;
 }
 .logoImg {
-width:400px;
-height:400px;
+  width:400px;
+  height:400px;
 }
 
 .spinnerDiv {
-position:relative;
-margin-top:6rem;
-margin-left:3rem;
-margin-right:3rem;
-display:flex;
-justify-content: center;
-align-items: center;
+  position:relative;
+  margin-top:6rem;
+  margin-left:3rem;
+  margin-right:3rem;
+  display:flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .spinner {
-position:relative;
-width:250px;
-height:250px;
+  position:relative;
+  width:250px;
+  height:250px;
 
-border-radius: 50%;
+  border-radius: 50%;
 }
 
 .spinnerCircle {
-position:absolute;
-width:75px;
-height:75px;
-background-color: #ddd;
-transform:translate(-50%,-50%);
-border-radius: 50%;
+  position:absolute;
+  width:75px;
+  height:75px;
+  background-color: #ddd;
+  transform:translate(-50%,-50%);
+  border-radius: 50%;
 }
 
 .spinnerCircleCenter {
-position:absolute;
-width:50px;
-height:50px;
-background-color: #ddd;
-transform:translate(-50%,-50%);
-border-radius: 50%;
+  position:absolute;
+  width:50px;
+  height:50px;
+  background-color: #ddd;
+  transform:translate(-50%,-50%);
+  border-radius: 50%;
 }
 
 .line {
-position: absolute;
-background-color: #ddd;
-width: 5px;
+  position: absolute;
+  background-color: #ddd;
+  width: 5px;
 }
 
 .centerContainer{
-display: flex;
-justify-content: center;
-align-items: center;
-height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
 }
 
 .switcherDiv {
-position:relative;
-align-items: center;
-align-content: center;
-display:grid;
-width:200px;
-height:100px;
-border-radius: 100px;
-border: 3px solid white;
-margin: 0.5rem;
+  position:relative;
+  align-items: center;
+  align-content: center;
+  display:grid;
+  width:200px;
+  height:100px;
+  border-radius: 100px;
+  border: 3px solid white;
+  margin: 0.5rem;
 }
 
 .switcherDivFill {
-position:relative;
-align-items: center;
-display:grid;
-width:200px;
-height:100px;
-border: 3px solid white;
-margin: 0.5rem;
+  position:relative;
+  align-items: center;
+  display:grid;
+  width:200px;
+  height:100px;
+  border: 3px solid white;
+  margin: 0.5rem;
 }
 
 .switcherDivHalf {
-position:relative;
-align-items: center;
-display:flex;
-width:131px;
-height:92px;
-background-color: #ddd;
-border-radius: 0 18px 18px 0 ;
+  position:relative;
+  align-items: center;
+  display:flex;
+  width:131px;
+  height:92px;
+  background-color: #ddd;
+  border-radius: 0 18px 18px 0 ;
 }
 
 .switcherDivVertical {
-position:relative;
-align-items: center;
-display: grid;
-/* width:100px; */
-width:50px;
-height:350px;
-margin: 0.5rem;
-justify-content: center;
-align-items: center;
+  position:relative;
+  align-items: center;
+  display: grid;
+  /* width:100px; */
+  width:50px;
+  height:350px;
+  margin: 0.5rem;
+  justify-content: center;
+  align-items: center;
 }
 
 .switcherDivVerticalLine {
-position:relative;
-display:grid;
-width:10px;
-height:350px;
-border-radius: 100px;
-border: 3px solid white;
-justify-content: center;
-align-items: center;
+  position:relative;
+  display:grid;
+  width:10px;
+  height:350px;
+  border-radius: 100px;
+  border: 3px solid white;
+  justify-content: center;
+  align-items: center;
 }
 
 .switcherDivVerticalLineFilled {
-position:relative;
-display:grid;
-width:10px;
-height:350px;
-border-radius: 100px;
-border: 3px solid #ddd;
-background-color: #ddd;
-justify-content: center;
-align-items: center;
+  position:relative;
+  display:grid;
+  width:10px;
+  height:350px;
+  border-radius: 100px;
+  border: 3px solid #ddd;
+  background-color: #ddd;
+  justify-content: center;
+  align-items: center;
 }
 
 .switcherCircle {
-position:relative;
-height:90px;
-width:90px;
-border-radius: 100px;
-background-color: #333;
-transition: transform 0.3s;
-margin-left:5px;
-margin-right: 5px;
+  position:relative;
+  height:90px;
+  width:90px;
+  border-radius: 100px;
+  background-color: #333;
+  transition: transform 0.3s;
+  margin-left:5px;
+  margin-right: 5px;
 }
 
 .switcherCircleHorizontal {
-position:relative;
-height:90px;
-width:90px;
-/* border-radius: 100px; */
-border-radius: 25px;
-background-color: #ddd;
-transition: transform 0.3s;
-border-color: #333;
-margin-left:5px;
-margin-right: 5px;
+  position:relative;
+  height:90px;
+  width:90px;
+  /* border-radius: 100px; */
+  border-radius: 25px;
+  background-color: #ddd;
+  transition: transform 0.3s;
+  border-color: #333;
+  margin-left:5px;
+  margin-right: 5px;
 }
 
 .switcherCircleVerticalOutline {
-display:flex;
-position:relative;
-height:60px;
-width:60px;
-border-radius: 100px;
-background-color:#333;
-/* transition: transform 0.3s; */
-align-items: center;
-justify-content: center;
+  display:flex;
+  position:relative;
+  height:60px;
+  width:60px;
+  border-radius: 100px;
+  background-color:#333;
+  /* transition: transform 0.3s; */
+  align-items: center;
+  justify-content: center;
 }
+
 .switcherCircleVerticalFill {
-position:absolute;
-height:50px;
-width:50px;
-border-radius: 100px;
-background-color: #ddd;
-/* transition: transform 0.3s; */
+  position:absolute;
+  height:50px;
+  width:50px;
+  border-radius: 100px;
+  background-color: #ddd;
+  /* transition: transform 0.3s; */
 }
 
 .switcherCircleVerticalFillAlt {
-position:absolute;
-height:44px;
-width:44px;
-border-radius: 100px;
-background-color: #333;
-border:3px solid #ddd;
-/* transition: transform 0.3s; */
+  position:absolute;
+  height:44px;
+  width:44px;
+  border-radius: 100px;
+  background-color: #333;
+  border:3px solid #ddd;
+  /* transition: transform 0.3s; */
 }
 
 .resetButton {
-position:absolute;
-display: flex;
-width:70px;
-height:50px;
-justify-self: center;
-justify-content: center;
-align-items: center;
+  position:absolute;
+  display: flex;
+  width:70px;
+  height:50px;
+  justify-self: center;
+  justify-content: center;
+  align-items: center;
 }
 
 .hoop{
-position:absolute;
-display: flex;
-width:70px;
-height:50px;
-justify-self: center;
-justify-content: center;
-align-items: center;
+  position:absolute;
+  display: flex;
+  width:70px;
+  height:50px;
+  justify-self: center;
+  justify-content: center;
+  align-items: center;
 }
 
 .tetherCircle{
-position:relative;
-/* position:absolute; */
-height:100px;
-width:100px;
-border-radius: 100px;
-background-color: #ddd;
-margin-left:5px;
-margin-right: 5px;
+  position:relative;
+  /* position:absolute; */
+  height:100px;
+  width:100px;
+  border-radius: 100px;
+  background-color: #ddd;
+  margin-left:5px;
+  margin-right: 5px;
 }
 
 .dividerLine {
-/* width:50px; */
-width:16px;
-height:20px;
-background-color:#333;
-/* background-color:#ddd;
-border:6px solid #333; */
+  /* width:50px; */
+  width:16px;
+  height:20px;
+  background-color:#333;
+  /* background-color:#ddd;
+  border:6px solid #333; */
 }
 
 .cube {
-width: 150px;
-height: 150px;
-border-radius: 30px;
-background-color: #ddd
+  width: 150px;
+  height: 150px;
+  border-radius: 30px;
+  background-color: #ddd
 }
 
 .cubeContainer {
-/* width:400px;
-height:400px; */
-background: rgba(255, 255, 255, 0.05);
-grid-template-columns:repeat(3,1fr);
-grid-template-rows:repeat(3,1fr);
+  /* width:400px;
+  height:400px; */
+  background: rgba(255, 255, 255, 0.05);
+  grid-template-columns:repeat(3,1fr);
+  grid-template-rows:repeat(3,1fr);
 }
 
 .section {
-width:133px;
-height:133px;
-/* border:1px solid rgba(221, 221, 221,0.2) */
-
+  width:133px;
+  height:133px;
+  /* border:1px solid rgba(221, 221, 221,0.2) */
 }
 
 @media (prefers-color-scheme: dark) {
