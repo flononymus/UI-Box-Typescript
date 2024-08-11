@@ -3,6 +3,15 @@ ___
 
 - ### Currently working on
 
+___
+- [ ] Hot Reloading:
+
+  Things to try out:
+  - Move webpack.config to seperate folder
+  - set "--config ./folder/webpack.config" flag for "npm run dev"
+  - Look into "webpack serve"
+___
+
 <br>
 
 
