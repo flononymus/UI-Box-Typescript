@@ -7,6 +7,8 @@ ___
 
 - [ ] Hot Reloading:
 
+https://github.com/codesbiome/electron-react-webpack-typescript-2024
+
   Things to try out:
   - Move webpack.config to seperate folder
   - set "--config ./folder/webpack.config" flag for "npm run dev"
