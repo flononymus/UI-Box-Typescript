@@ -8,6 +8,7 @@ ___
 - [ ] Hot Reloading:
 
 https://github.com/codesbiome/electron-react-webpack-typescript-2024
+https://github.com/codesbiome/react-webpack-typescript-2023
 
   Things to try out:
   - Move webpack.config to seperate folder
