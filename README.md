@@ -10,6 +10,3 @@ ___
 
 ![preview](/src/media/uibox-dark.png)
 
-
-### Refs:
-https://codepen.io/FRADAR/pen/oNBGwqX
