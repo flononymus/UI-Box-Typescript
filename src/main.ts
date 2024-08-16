@@ -11,11 +11,17 @@ function createWindow () {
     }
   })
 
-  mainWindow.loadFile('./src/index.html')
+  // mainWindow.loadFile('./src/index.html')
 
   mainWindow.webContents.openDevTools()
 
   mainWindow.removeMenu()
+
+  if (process.env.NODE_ENV === 'development') {
+    mainWindow.loadURL('http://localhost:3000');
+  } else {
+    mainWindow.loadFile('./src/index.html')
+  }
 
 
 nativeTheme.on('updated', () => {

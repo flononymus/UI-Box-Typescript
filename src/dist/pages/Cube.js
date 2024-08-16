@@ -191,6 +191,13 @@ function Cube() {
                             position: 'absolute',
                             transform: "translate(-50%,-50%)"
                         }, whileTap: { scale: 0.95 } },
+                        react_1.default.createElement("div", { className: "cube", style: { position: 'absolute',
+                                justifySelf: 'left',
+                                backgroundColor: "rgba(50,50,50,0.5",
+                                width: 50,
+                                height: 50,
+                                margin: 6.25
+                            } }),
                         react_1.default.createElement(framer_motion_1.motion.div, { className: "cube", drag: true, dragConstraints: { left: 0, right: 0, top: 0, bottom: 0 }, onDragEnd: handleDragEnd, style: {
                                 position: 'absolute',
                                 justifySelf: "center",

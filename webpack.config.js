@@ -1,4 +1,5 @@
 const path = require('path');
+const { merge } = require('webpack-merge');
 
 module.exports = {
   entry: {
@@ -7,7 +8,8 @@ module.exports = {
     renderer:'./src/renderer.tsx'
   },
   target: 'electron-main',
-  mode:'development',
+  // mode:'development',
+  mode:'production',
   devtool: 'source-map',
   module: {
     rules: [
@@ -40,4 +42,23 @@ module.exports = {
     filename:'[name].js',
     path: path.resolve(__dirname, 'src/dist')
   },
+};
+
+const rendererConfig = {
+  mode: 'development',
+  entry: './src/renderer.tsx',
+  output: {
+    path: path.resolve(__dirname, 'dist'),
+    filename: 'renderer.js',
+    publicPath: '/', // Important for hot reloading
+  },
+  devServer: {
+    static: {
+      directory: path.join(__dirname, 'dist'), // Serve files from dist
+    },
+    hot: true, // Enable hot reloading
+    historyApiFallback: true, // For single-page apps
+    port: 3000, // You can change this to any port you prefer
+  },
+  // Add other configurations as needed
 };

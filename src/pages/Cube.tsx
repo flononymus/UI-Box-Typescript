@@ -200,15 +200,15 @@ export default function Cube() {
                             whileTap={{scale:0.95}}
                         >
 
-                        {/* <div className="cube"  */}
-                            {/* style={{ position:'absolute', 
+                        <div className="cube" 
+                            style={{ position:'absolute', 
                                 justifySelf:'left', 
-                                backgroundColor:"rgba(50,50,50,0.5", 
+                                backgroundColor:"rgba(50,50,50,0)", 
                                 width:50, 
                                 height:50,
                                 margin:6.25
                             }} 
-                        /> */}
+                        />
 
 
                         <motion.div className="cube"
