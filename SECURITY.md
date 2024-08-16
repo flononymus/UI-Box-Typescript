@@ -5,7 +5,11 @@ ___
 
 ___
 
+- [ ] Visualizer sound
+
 - [ ] Hot Reloading:
+https://github.com/codesbiome/electron-react-webpack-typescript-2024
+https://github.com/codesbiome/react-webpack-typescript-2023
 
 https://github.com/codesbiome/electron-react-webpack-typescript-2024
 

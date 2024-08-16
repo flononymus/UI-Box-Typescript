@@ -5,7 +5,8 @@ export default function Cube() {
     const [isInside, setIsInside] = useState(false);
     const [isSwitched, setIsSwitched] = useState(false)
 
-    const springConfig = { stiffness: 150 };
+    // const springConfig = { stiffness: 150 };
+    const springConfig = { stiffness: 150,damping:25};
     const x = useSpring(200, springConfig);
     const y = useSpring(200, springConfig);
 
@@ -23,32 +24,33 @@ export default function Cube() {
         setIsSwitched(!isSwitched);
     }
 
-    // const handleMouse = (e: React.MouseEvent) => {
-    //     const rect = document.getElementById("cubeContainer")!.getBoundingClientRect();
-    //     const mouseX = e.clientX - rect.left;
-    //     const mouseY = e.clientY - rect.top;
+    const handleMouse = (e: React.MouseEvent) => {
+        const rect = document.getElementById("cubeContainer")!.getBoundingClientRect();
+        const mouseX = e.clientX - rect.left;
+        const mouseY = e.clientY - rect.top;
 
-    //     if (mouseX >= 0 && mouseX <= rect.width && mouseY >= 0 && mouseY <= rect.height) {
-    //         setIsInside(true);
-    //         x.set(mouseX);
-    //         y.set(mouseY);
-    //     } else {
-    //         setIsInside(false);
-    //     }
-    // }
+        if (mouseX >= 0 && mouseX <= rect.width && mouseY >= 0 && mouseY <= rect.height) {
+            setIsInside(true);
+            x.set(mouseX);
+            y.set(mouseY);
+        } else {
+            setIsInside(false);
+        }
+    }
 
-    // function handleMouseLeave() {
-    //     setIsInside(false);
-    //     x.set(200);
-    //     y.set(200);
-    // }
+    function handleMouseLeave() {
+        setIsInside(false);
+        x.set(200);
+        y.set(200);
+    }
+
 
 
     function animateRotation(newRotateX:number, newRotateY:number) {
         return new Promise<void>((resolve) => {
             Promise.all([
-                animate(rotateY, newRotateY, {duration:0.8}),
-                animate(rotateX, newRotateX, {duration:0.8})
+                animate(rotateY, newRotateY, {duration:0.5}),
+                animate(rotateX, newRotateX, {duration:0.5})
             ]).then(() => resolve())
         });
     }
@@ -60,7 +62,6 @@ export default function Cube() {
         const id = event.currentTarget.id;
         let newRotateX = rotateX.get(); 
         let newRotateY = rotateY.get(); 
-
         
         switch (id) {
             case "top-center":
@@ -76,30 +77,27 @@ export default function Cube() {
                 newRotateY += 180;
                 break;
             case "top-left":
-                newRotateX -= 180;
-                newRotateY += 45;
+                newRotateX += 180;
+                newRotateY += 135;
                 break;
             case "top-right":
-                newRotateX += 135;
-                // newRotateY += 135;
-                newRotateY += 225;
-                // newRotateX += 180;
-                // newRotateY += 180;
+                newRotateX += 180;
+                newRotateY += 135;
                 break;
             case "bottom-left":
                 newRotateX -= 180;
-                newRotateY -= 180;
+                newRotateY -= 135;
                 break;
             case "bottom-right":
                 newRotateX -= 180;
-                newRotateY += 180;
+                newRotateY += 135;
                 break;
             }
 
         await animateRotation(newRotateX, newRotateY);
 
-        // rotateX.set(0)
-        // rotateY.set(0)
+        rotateX.set(0)
+        rotateY.set(0)
         }
     }
 
@@ -110,12 +108,14 @@ export default function Cube() {
             let newRotateY = 0;
     
             if (Math.abs(offset.x) > Math.abs(offset.y)) {
+                // Horizontal swipe
                 if (offset.x > 0) {
                     newRotateY = 180; // Swipe right
                 } else {
                     newRotateY = -180; // Swipe left
                 }
             } else {
+                // Vertical swipe
                 if (offset.y > 0) {
                     newRotateX = -180; // Swipe down
                 } else {
@@ -161,8 +161,8 @@ export default function Cube() {
                             perspective: 400,
                             position: 'relative' 
                         }}
-                        // onMouseMove={handleMouse}
-                        // onMouseLeave={handleMouseLeave}
+                        onMouseMove={handleMouse}
+                        onMouseLeave={handleMouseLeave}
                     >
                         {["top-left", 
                         "top-center", 
@@ -179,8 +179,16 @@ export default function Cube() {
                         ))}
 
                         <motion.div className='cube'
+
+                            // drag
+                            // dragConstraints={{ left: 0, right: 0, top: 0, bottom: 0 }}
+                            // onDragEnd={handleDragEnd}
+
                             style={{
                                 display:"flex",
+                                // justifyContent:"center",
+                                // alignItems:"center",
+
                                 justifyContent:"flex-start",
                                 alignItems:"flex-start",
 
@@ -192,16 +200,15 @@ export default function Cube() {
                             whileTap={{scale:0.95}}
                         >
 
-                        <div className="cube" 
-                            style={{
-                                position:'absolute', 
+                        {/* <div className="cube"  */}
+                            {/* style={{ position:'absolute', 
                                 justifySelf:'left', 
                                 backgroundColor:"rgba(50,50,50,0.5", 
                                 width:50, 
                                 height:50,
                                 margin:6.25
                             }} 
-                        />
+                        /> */}
 
 
                         <motion.div className="cube"
@@ -213,6 +220,8 @@ export default function Cube() {
                                     position:'absolute',
                                     justifySelf:"center",
                                     backgroundColor:"rgba(50,50,50,0)"
+                                    // transform:"translate(-50%,-50%)"
+
                                 }}
                             />
 
