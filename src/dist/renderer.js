@@ -49104,7 +49104,8 @@ const framer_motion_1 = __webpack_require__(/*! framer-motion */ "./node_modules
 function Cube() {
     const [isInside, setIsInside] = (0, react_1.useState)(false);
     const [isSwitched, setIsSwitched] = (0, react_1.useState)(false);
-    const springConfig = { stiffness: 150 };
+    // const springConfig = { stiffness: 150 };
+    const springConfig = { stiffness: 150, damping: 25 };
     const x = (0, framer_motion_1.useSpring)(200, springConfig);
     const y = (0, framer_motion_1.useSpring)(200, springConfig);
     const rotateX = (0, framer_motion_1.useMotionValue)(0);
@@ -49116,28 +49117,29 @@ function Cube() {
     function handleSwitchClick() {
         setIsSwitched(!isSwitched);
     }
-    // const handleMouse = (e: React.MouseEvent) => {
-    //     const rect = document.getElementById("cubeContainer")!.getBoundingClientRect();
-    //     const mouseX = e.clientX - rect.left;
-    //     const mouseY = e.clientY - rect.top;
-    //     if (mouseX >= 0 && mouseX <= rect.width && mouseY >= 0 && mouseY <= rect.height) {
-    //         setIsInside(true);
-    //         x.set(mouseX);
-    //         y.set(mouseY);
-    //     } else {
-    //         setIsInside(false);
-    //     }
-    // }
-    // function handleMouseLeave() {
-    //     setIsInside(false);
-    //     x.set(200);
-    //     y.set(200);
-    // }
+    const handleMouse = (e) => {
+        const rect = document.getElementById("cubeContainer").getBoundingClientRect();
+        const mouseX = e.clientX - rect.left;
+        const mouseY = e.clientY - rect.top;
+        if (mouseX >= 0 && mouseX <= rect.width && mouseY >= 0 && mouseY <= rect.height) {
+            setIsInside(true);
+            x.set(mouseX);
+            y.set(mouseY);
+        }
+        else {
+            setIsInside(false);
+        }
+    };
+    function handleMouseLeave() {
+        setIsInside(false);
+        x.set(200);
+        y.set(200);
+    }
     function animateRotation(newRotateX, newRotateY) {
         return new Promise((resolve) => {
             Promise.all([
-                (0, framer_motion_1.animate)(rotateY, newRotateY, { duration: 0.8 }),
-                (0, framer_motion_1.animate)(rotateX, newRotateX, { duration: 0.8 })
+                (0, framer_motion_1.animate)(rotateY, newRotateY, { duration: 0.5 }),
+                (0, framer_motion_1.animate)(rotateX, newRotateX, { duration: 0.5 })
             ]).then(() => resolve());
         });
     }
@@ -49161,28 +49163,25 @@ function Cube() {
                         newRotateY += 180;
                         break;
                     case "top-left":
-                        newRotateX -= 180;
-                        newRotateY += 45;
+                        newRotateX += 180;
+                        newRotateY += 135;
                         break;
                     case "top-right":
-                        newRotateX += 135;
-                        // newRotateY += 135;
-                        newRotateY += 225;
-                        // newRotateX += 180;
-                        // newRotateY += 180;
+                        newRotateX += 180;
+                        newRotateY += 135;
                         break;
                     case "bottom-left":
                         newRotateX -= 180;
-                        newRotateY -= 180;
+                        newRotateY -= 135;
                         break;
                     case "bottom-right":
                         newRotateX -= 180;
-                        newRotateY += 180;
+                        newRotateY += 135;
                         break;
                 }
                 yield animateRotation(newRotateX, newRotateY);
-                // rotateX.set(0)
-                // rotateY.set(0)
+                rotateX.set(0);
+                rotateY.set(0);
             }
         });
     }
@@ -49193,6 +49192,7 @@ function Cube() {
                 let newRotateX = 0;
                 let newRotateY = 0;
                 if (Math.abs(offset.x) > Math.abs(offset.y)) {
+                    // Horizontal swipe
                     if (offset.x > 0) {
                         newRotateY = 180; // Swipe right
                     }
@@ -49201,6 +49201,7 @@ function Cube() {
                     }
                 }
                 else {
+                    // Vertical swipe
                     if (offset.y > 0) {
                         newRotateX = -180; // Swipe down
                     }
@@ -49231,7 +49232,7 @@ function Cube() {
                         borderRadius: 30,
                         perspective: 400,
                         position: 'relative'
-                    } },
+                    }, onMouseMove: handleMouse, onMouseLeave: handleMouseLeave },
                     ["top-left",
                         "top-center",
                         "top-right",
@@ -49241,8 +49242,14 @@ function Cube() {
                         "bottom-left",
                         "bottom-center",
                         "bottom-right"].map((id, index) => (react_1.default.createElement("div", { key: id, className: "section", "data-section": index, id: id, onMouseDown: gridClick }))),
-                    react_1.default.createElement(framer_motion_1.motion.div, { className: 'cube', style: {
+                    react_1.default.createElement(framer_motion_1.motion.div, { className: 'cube', 
+                        // drag
+                        // dragConstraints={{ left: 0, right: 0, top: 0, bottom: 0 }}
+                        // onDragEnd={handleDragEnd}
+                        style: {
                             display: "flex",
+                            // justifyContent:"center",
+                            // alignItems:"center",
                             justifyContent: "flex-start",
                             alignItems: "flex-start",
                             rotateX: compositeRotateX,
@@ -49250,18 +49257,11 @@ function Cube() {
                             position: 'absolute',
                             transform: "translate(-50%,-50%)"
                         }, whileTap: { scale: 0.95 } },
-                        react_1.default.createElement("div", { className: "cube", style: {
-                                position: 'absolute',
-                                justifySelf: 'left',
-                                backgroundColor: "rgba(50,50,50,0.5",
-                                width: 50,
-                                height: 50,
-                                margin: 6.25
-                            } }),
                         react_1.default.createElement(framer_motion_1.motion.div, { className: "cube", drag: true, dragConstraints: { left: 0, right: 0, top: 0, bottom: 0 }, onDragEnd: handleDragEnd, style: {
                                 position: 'absolute',
                                 justifySelf: "center",
                                 backgroundColor: "rgba(50,50,50,0)"
+                                // transform:"translate(-50%,-50%)"
                             } })))))));
 }
 
@@ -49670,7 +49670,7 @@ const Ball_1 = __importDefault(__webpack_require__(/*! ./pages/Ball */ "./src/pa
 const Joystick_1 = __importDefault(__webpack_require__(/*! ./pages/Joystick */ "./src/pages/Joystick.tsx"));
 const Cube_1 = __importDefault(__webpack_require__(/*! ./pages/Cube */ "./src/pages/Cube.tsx"));
 const Test_1 = __importDefault(__webpack_require__(/*! ./pages/Test */ "./src/pages/Test.tsx"));
-const startPage = "Home";
+const startPage = "Test";
 const App = () => {
     const [page, setPage] = (0, react_1.useState)(startPage);
     const [active, setActive] = (0, react_1.useState)(page);
