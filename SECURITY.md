@@ -9,6 +9,10 @@ ___
     - [ ] Get mp3 to pause
     - [ ] Better styles for the button
 
+    https://github.com/TylerStanish/electron-audio-visualizer
+
+    - [ ] Volume slider --> https://codesandbox.io/p/sandbox/framer-motion-animate-on-state-update-ns67ib?file=%2Fsrc%2Fcomponents%2FInput.tsx&from-embed=
+
 ___
 
 - [ ] Hot Reloading:
@@ -26,6 +30,7 @@ ___
 
 - **Pages + Functionality**
 
+
   - [ ] **Cube**
     - [ ] Add more stuff
 
@@ -33,6 +38,11 @@ ___
     - [ ] Vertical switch: add friction to make it snap to top or bottom, reverse in other half
 
   - [ ] **More examples**
+    - [ ] **Matrix**  https://github.com/abishekvashok/cmatrix
+    - [ ] **Pipes** https://github.com/pipeseroni/pipes.sh
+    - [ ] **Cava (Audio visualizer)** https://github.com/karlstav/cava
+
+
     - [ ] **Scrolling lock thing**
     - [ ] Sliders (?)
     - [ ] Idea: play with friction/resistance of slider based on position 
