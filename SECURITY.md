@@ -3,9 +3,13 @@ ___
 
 - ### Currently working on
 
-___
 
-- [ ] Visualizer sound
+  - [ ] **Visualizer**
+    - [x] Get mp3 to play
+    - [ ] Get mp3 to pause
+    - [ ] Better styles for the button
+
+___
 
 - [ ] Hot Reloading:
 https://github.com/codesbiome/electron-react-webpack-typescript-2024
