@@ -6,8 +6,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = Musializer;
 const react_1 = __importDefault(require("react"));
 const react_2 = require("react");
+const framer_motion_1 = require("framer-motion");
 const Slider_1 = require("../components/Slider");
-const wavesurfer_js_1 = __importDefault(require("wavesurfer.js"));
 function Musializer() {
     const [isPlaying, setIsPlaying] = (0, react_2.useState)(true);
     const [volume, setVolume] = (0, react_2.useState)(50);
@@ -15,7 +15,6 @@ function Musializer() {
     const audioRef = (0, react_2.useRef)(null);
     const analyserRef = (0, react_2.useRef)(null);
     const audioContextRef = (0, react_2.useRef)(null);
-    const waveSurverContainer = document.getElementById("wavesurfer");
     (0, react_2.useEffect)(() => {
         if (!audioRef.current) {
             audioRef.current = new Audio("./media/sounds/check1.mp3");
@@ -57,17 +56,6 @@ function Musializer() {
             console.log('paused');
         }
     }
-    const wavesurfer = wavesurfer_js_1.default.create({
-        // document: document.getElementById("wavesurfer"),
-        container: document.body,
-        // container: '#wavesurfer',
-        waveColor: 'rgb(200,0,200)',
-        progressColor: 'rgb(100,0,100)',
-        url: './media/sounds/check1.mp3'
-    });
-    wavesurfer.on('click', () => {
-        wavesurfer.play();
-    });
     return (react_1.default.createElement("div", { className: "bodyCenter" },
         react_1.default.createElement("h1", null, "Musializer"),
         react_1.default.createElement("div", { style: { display: "flex", flexDirection: 'row', justifyContent: 'center' } },
@@ -76,5 +64,5 @@ function Musializer() {
             react_1.default.createElement("div", { className: "volumeSliderDiv" },
                 react_1.default.createElement("div", { className: "volumeSlider" },
                     react_1.default.createElement(Slider_1.Slider, { value: volume, set: setVolume })))),
-        react_1.default.createElement("div", { id: "wavesurfer" })));
+        react_1.default.createElement("div", { className: "visualizer" }, Array.from(audioData).map((value, index) => (react_1.default.createElement(framer_motion_1.motion.div, { key: index, className: "bar", initial: { height: 0 }, animate: { height: value }, transition: { duration: 0.05 } }))))));
 }
