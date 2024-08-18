@@ -6,28 +6,25 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = Musializer;
 const react_1 = __importDefault(require("react"));
 const react_2 = require("react");
-const framer_motion_1 = require("framer-motion");
 const Slider_1 = require("../components/Slider");
+const wavesurfer_js_1 = __importDefault(require("wavesurfer.js"));
 function Musializer() {
     const [isPlaying, setIsPlaying] = (0, react_2.useState)(true);
     const [volume, setVolume] = (0, react_2.useState)(50);
-    // const [audioData, setAudioData] = useState(new Uint8Array(0));
     const [audioData, setAudioData] = (0, react_2.useState)(new Uint8Array(0));
     const audioRef = (0, react_2.useRef)(null);
     const analyserRef = (0, react_2.useRef)(null);
     const audioContextRef = (0, react_2.useRef)(null);
+    const waveSurverContainer = document.getElementById("wavesurfer");
     (0, react_2.useEffect)(() => {
         if (!audioRef.current) {
             audioRef.current = new Audio("./media/sounds/check1.mp3");
             audioContextRef.current = new (window.AudioContext || window.webkitAudioContext)();
             const source = audioContextRef.current.createMediaElementSource(audioRef.current);
             analyserRef.current = audioContextRef.current.createAnalyser();
-            // analyserRef.current.maxDecibels = 25
-            // analyserRef.current.minDecibels= 2
             source.connect(analyserRef.current);
             analyserRef.current.connect(audioContextRef.current.destination);
             analyserRef.current.fftSize = 256;
-            // analyserRef.current.fftSize = 32;
             const bufferLength = analyserRef.current.frequencyBinCount;
             setAudioData(new Uint8Array(bufferLength));
         }
@@ -60,6 +57,17 @@ function Musializer() {
             console.log('paused');
         }
     }
+    const wavesurfer = wavesurfer_js_1.default.create({
+        // document: document.getElementById("wavesurfer"),
+        container: document.body,
+        // container: '#wavesurfer',
+        waveColor: 'rgb(200,0,200)',
+        progressColor: 'rgb(100,0,100)',
+        url: './media/sounds/check1.mp3'
+    });
+    wavesurfer.on('click', () => {
+        wavesurfer.play();
+    });
     return (react_1.default.createElement("div", { className: "bodyCenter" },
         react_1.default.createElement("h1", null, "Musializer"),
         react_1.default.createElement("div", { style: { display: "flex", flexDirection: 'row', justifyContent: 'center' } },
@@ -68,9 +76,5 @@ function Musializer() {
             react_1.default.createElement("div", { className: "volumeSliderDiv" },
                 react_1.default.createElement("div", { className: "volumeSlider" },
                     react_1.default.createElement(Slider_1.Slider, { value: volume, set: setVolume })))),
-        react_1.default.createElement("div", { className: "visualizer" }, Array.from(audioData).map((value, index) => (
-        // {/* {Array.from(audioData.slice(0, 20)).map((value, index) => ( */}
-        react_1.default.createElement(framer_motion_1.motion.div, { key: index, className: "bar", initial: { height: 0 }, animate: { height: value }, 
-            // animate={{ height: value*0.5 }}
-            transition: { duration: 0.05 } }))))));
+        react_1.default.createElement("div", { id: "wavesurfer" })));
 }
