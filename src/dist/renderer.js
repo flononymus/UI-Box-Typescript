@@ -47458,6 +47458,27 @@ exports["default"] = Navbar;
 
 /***/ }),
 
+/***/ "./src/components/Slider.tsx":
+/*!***********************************!*\
+  !*** ./src/components/Slider.tsx ***!
+  \***********************************/
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.Slider = Slider;
+const react_1 = __importDefault(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
+function Slider({ value, set, min = 0, max = 100 }) {
+    return (react_1.default.createElement("div", { className: "volumeSliderDiv" },
+        react_1.default.createElement("input", { className: "volumeSlider", value: value, type: "range", min: min, max: max, onChange: (e) => set(parseFloat(e.target.value)) })));
+}
+
+
+/***/ }),
+
 /***/ "./src/pages/Ball.tsx":
 /*!****************************!*\
   !*** ./src/pages/Ball.tsx ***!
@@ -48487,15 +48508,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.Slider = Slider;
 exports["default"] = Musializer;
 const react_1 = __importDefault(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
 const react_2 = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 const framer_motion_1 = __webpack_require__(/*! framer-motion */ "./node_modules/framer-motion/dist/cjs/index.js");
-function Slider({ value, set, min = 0, max = 100 }) {
-    return (react_1.default.createElement("div", { className: "volumeSliderDiv" },
-        react_1.default.createElement("input", { className: "volumeSlider", value: value, type: "range", min: min, max: max, onChange: (e) => set(parseFloat(e.target.value)) })));
-}
+const Slider_1 = __webpack_require__(/*! ../components/Slider */ "./src/components/Slider.tsx");
 function Musializer() {
     const [isPlaying, setIsPlaying] = (0, react_2.useState)(true);
     const [volume, setVolume] = (0, react_2.useState)(50);
@@ -48555,7 +48572,7 @@ function Musializer() {
                 react_1.default.createElement("span", { className: "material-symbols-outlined", style: { fontSize: '85px' } }, isPlaying ? "play_arrow" : "pause")),
             react_1.default.createElement("div", { className: "volumeSliderDiv" },
                 react_1.default.createElement("div", { className: "volumeSlider" },
-                    react_1.default.createElement(Slider, { value: volume, set: setVolume })))),
+                    react_1.default.createElement(Slider_1.Slider, { value: volume, set: setVolume })))),
         react_1.default.createElement("div", { className: "visualizer" }, Array.from(audioData).map((value, index) => (
         // {/* {Array.from(audioData.slice(0, 20)).map((value, index) => ( */}
         react_1.default.createElement(framer_motion_1.motion.div, { key: index, className: "bar", initial: { height: 0 }, animate: { height: value }, 
@@ -49763,7 +49780,19 @@ const Joystick_1 = __importDefault(__webpack_require__(/*! ./pages/Joystick */ "
 const Cube_1 = __importDefault(__webpack_require__(/*! ./pages/Cube */ "./src/pages/Cube.tsx"));
 const Test_1 = __importDefault(__webpack_require__(/*! ./pages/Test */ "./src/pages/Test.tsx"));
 const Musializer_1 = __importDefault(__webpack_require__(/*! ./pages/Musializer */ "./src/pages/Musializer.tsx"));
+// type Page = 'Home' | 'Settings' | 'Buttons' | 'Spinner' | 'Particles' | 'Switches' | 'Tether' | 'Ball' | 'Joystick' | 'Test' | 'Cube' | 'Musializer';
 const startPage = "Musializer";
+// declare global {
+//   interface Window {
+//       loadPage: (page: Page) => void;
+//       setActivePage: (page: Page) => void;
+//       darkMode: {
+//             toggle: () => Promise<void>;
+//             system: () => Promise<void>;
+//             getThemeSource: () => Promise<string>;
+//         }
+//   }
+// }
 const App = () => {
     const [page, setPage] = (0, react_1.useState)(startPage);
     const [active, setActive] = (0, react_1.useState)(page);
