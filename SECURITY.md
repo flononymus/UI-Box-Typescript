@@ -6,9 +6,12 @@ ___
 
   - [ ] **Visualizer**
     - [x] Get mp3 to play
-    - [ ] Get mp3 to pause
-    - [ ] Better styles for the button
+    - [x] Get mp3 to pause
+    - [x] Better styles for the button
+    - [x] Volume slider
+    - [ ] Volume slider --> range/progress bar
 
+    https://www.twilio.com/en-us/blog/audio-visualisation-web-audio-api--react
     https://github.com/TylerStanish/electron-audio-visualizer
 
     - [ ] Volume slider --> https://codesandbox.io/p/sandbox/framer-motion-animate-on-state-update-ns67ib?file=%2Fsrc%2Fcomponents%2FInput.tsx&from-embed=
