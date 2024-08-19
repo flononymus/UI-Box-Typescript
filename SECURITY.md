@@ -11,6 +11,8 @@ ___
     - [x] Volume slider
     - [ ] Volume slider --> range/progress bar
 
+    - [ ] **Particles instead of waveform**
+
     https://www.twilio.com/en-us/blog/audio-visualisation-web-audio-api--react
     https://github.com/TylerStanish/electron-audio-visualizer
 
