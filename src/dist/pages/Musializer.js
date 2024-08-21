@@ -38,6 +38,7 @@ function Musializer() {
     (0, react_2.useEffect)(() => {
         if (!audioRef.current) {
             audioRef.current = new Audio("./media/sounds/check1.mp3");
+            // audioRef.current = new Audio("./media/sounds/didITellYou.mp3") 
             audioContextRef.current = new (window.AudioContext || window.webkitAudioContext)();
             const source = audioContextRef.current.createMediaElementSource(audioRef.current);
             analyserRef.current = audioContextRef.current.createAnalyser();
@@ -62,7 +63,7 @@ function Musializer() {
         const canvasDivRect = canvasDiv.getBoundingClientRect();
         let ww = canvasDivRect.width;
         let wh = canvasDivRect.height;
-        console.log(canvasDivRect.height, canvasDivRect.width, canvasDivRect.x, canvasDivRect.y);
+        console.log(canvasDivRect.width, canvasDivRect.height);
         const canvas = canvasRef.current;
         const ctx = canvas.getContext("2d", { willReadFrequently: true, });
         var particles = [];
@@ -122,15 +123,22 @@ function Musializer() {
         function initScene() {
             // ww = canvas.width = window.innerWidth;
             // wh = canvas.height = window.innerHeight;
-            canvas.height = ww;
-            canvas.width = wh;
+            // canvas.height = ww
+            // canvas.width = wh
+            ww = canvas.width = canvasDivRect.width;
+            wh = canvas.height = canvasDivRect.height;
             // const rectWidth= ww /2
             // const rectHeight= wh /2 
-            const rectWidth = ww;
-            const rectHeight = wh;
+            // const rectWidth= ww 
+            // const rectHeight= wh 
+            // const rectWidth= canvasDivRect.width - 100
+            const rectWidth = canvasDivRect.width;
+            const rectHeight = canvasDivRect.height;
             const centerX = ww / 2;
-            const centerY = wh / 2;
-            const particleSpacing = 25;
+            const centerY = (wh / 2) - 100;
+            // const particleSpacing = 15; 
+            const particleSpacing = 20;
+            console.log(rectWidth, rectHeight);
             particles = [];
             for (let x = -rectWidth; x <= rectWidth; x += particleSpacing) {
                 for (let y = -rectHeight; y <= rectHeight; y += particleSpacing) {
@@ -148,7 +156,7 @@ function Musializer() {
                 const intensity = bassRange.reduce((sum, value) => sum + value, 0);
                 const bass = intensity > 509;
                 setBass(bass);
-                bounceRadius = bass ? 2 : 1;
+                bounceRadius = bass ? 2 : 0.5;
             }
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             particles.forEach((particle) => {
@@ -196,13 +204,14 @@ function Musializer() {
                 react_1.default.createElement(Slider_1.Slider, { value: bassIntensity, set: setBassIntensity }, "Intensity"),
                 react_1.default.createElement(Slider_1.Slider, { value: test, set: setTest }, "Test"))),
         react_1.default.createElement("div", { style: { margin: '10px' } }),
-        react_1.default.createElement("div", { id: "canvasDiv", style: { height: '18rem' } },
+        react_1.default.createElement("div", { id: "canvasDiv", style: { height: '18rem', position: 'relative' } },
             react_1.default.createElement("canvas", { ref: canvasRef, style: {
+                    position: 'absolute',
                     width: '100%',
                     height: '100%',
-                    top: 0,
-                    left: 0,
-                    overflow: "hidden",
-                    zIndex: -10,
+                    // top: 0,
+                    // left: 0,
+                    // overflow: "hidden",
+                    // zIndex: -10,
                 } }))));
 }

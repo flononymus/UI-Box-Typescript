@@ -40,6 +40,7 @@ export default function Musializer() {
     useEffect(() => {
        if (!audioRef.current) {
         audioRef.current = new Audio("./media/sounds/check1.mp3") 
+        // audioRef.current = new Audio("./media/sounds/didITellYou.mp3") 
         audioContextRef.current = new (window.AudioContext || (window as any).webkitAudioContext)();
         const source = audioContextRef.current.createMediaElementSource(audioRef.current);
         analyserRef.current = audioContextRef.current.createAnalyser();
@@ -71,7 +72,7 @@ export default function Musializer() {
       let ww = canvasDivRect.width
       let wh = canvasDivRect.height
 
-      console.log(canvasDivRect.height,canvasDivRect.width,canvasDivRect.x,canvasDivRect.y, )
+      console.log(canvasDivRect.width,canvasDivRect.height)
 
         const canvas = canvasRef.current 
         const ctx = canvas.getContext("2d", {willReadFrequently: true,}) as CanvasRenderingContext2D
@@ -162,16 +163,26 @@ export default function Musializer() {
         // ww = canvas.width = window.innerWidth;
         // wh = canvas.height = window.innerHeight;
 
-        canvas.height = ww
-        canvas.width = wh
-    
+        // canvas.height = ww
+        // canvas.width = wh
+
+        ww = canvas.width = canvasDivRect.width
+        wh = canvas.height = canvasDivRect.height
+
         // const rectWidth= ww /2
         // const rectHeight= wh /2 
-        const rectWidth= ww 
-        const rectHeight= wh 
+        // const rectWidth= ww 
+        // const rectHeight= wh 
+        // const rectWidth= canvasDivRect.width - 100
+        const rectWidth= canvasDivRect.width
+        const rectHeight=canvasDivRect.height 
         const centerX = ww / 2;
-        const centerY = wh / 2
-        const particleSpacing = 25; 
+        const centerY = (wh / 2) - 100
+        // const particleSpacing = 15; 
+        const particleSpacing = 20; 
+
+
+        console.log(rectWidth,rectHeight)
 
         particles = [];
         for (let x = -rectWidth; x <= rectWidth; x+= particleSpacing) {
@@ -192,7 +203,7 @@ export default function Musializer() {
 
             const bass = intensity > 509;
             setBass(bass);
-            bounceRadius = bass ? 2 : 1;
+            bounceRadius = bass ? 2 : 0.5;
         }
 
         ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -272,16 +283,17 @@ function resetScene() {
                 <div style={{margin:'10px'}} />
 
 
-            <div id="canvasDiv" style={{height:'18rem'}}>
+            <div id="canvasDiv" style={{height:'18rem', position:'relative'}}>
                 <canvas
                     ref={canvasRef}
                     style={{
+                        position:'absolute',
                         width: '100%',
                         height: '100%',
-                        top: 0,
-                        left: 0,
-                        overflow: "hidden",
-                        zIndex: -10,
+                        // top: 0,
+                        // left: 0,
+                        // overflow: "hidden",
+                        // zIndex: -10,
                     }}
                 ></canvas>
               </div>
