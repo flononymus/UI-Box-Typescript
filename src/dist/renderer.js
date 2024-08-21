@@ -48654,28 +48654,11 @@ function Musializer() {
     const canvasRef = (0, react_2.useRef)(null);
     const [resetTrigger, setResetTrigger] = (0, react_2.useState)(0);
     (0, react_2.useEffect)(() => {
-        const darkmodeToggleButton = document.getElementById('darkmodeToggleButton');
-        if (darkmodeToggleButton) {
-            const handleThemeToggle = () => resetScene();
-            darkmodeToggleButton.addEventListener('click', handleThemeToggle);
-            return () => {
-                darkmodeToggleButton.removeEventListener('click', handleThemeToggle);
-            };
-        }
-        if (!darkmodeToggleButton) {
-            console.log('darkmodeToggleButton not found');
-        }
-    }, []);
-    (0, react_2.useEffect)(() => {
         const handleThemeToggle = () => resetScene();
         setTimeout(() => {
             const darkmodeToggleButton = document.getElementById('darkmodeToggleButton');
             if (darkmodeToggleButton) {
                 darkmodeToggleButton.addEventListener('click', handleThemeToggle);
-                console.log('Button found and listener added');
-            }
-            else {
-                console.log('Button not found');
             }
         }, 1000);
         return () => {
@@ -48706,20 +48689,23 @@ function Musializer() {
         };
     }, [volume, isPlaying]);
     (0, react_2.useEffect)(() => {
-        // const darkmodeToggleButton = document.getElementById('darkmodeToggleButton');
-        if (!canvasRef.current || !audioRef.current)
+        const canvasDiv = document.getElementById("canvasDiv");
+        if (!canvasRef.current || !canvasDiv || !audioRef.current)
             return;
+        const canvasDivRect = canvasDiv.getBoundingClientRect();
+        let ww = canvasDivRect.width;
+        let wh = canvasDivRect.height;
+        console.log(canvasDivRect.height, canvasDivRect.width, canvasDivRect.x, canvasDivRect.y);
         const canvas = canvasRef.current;
         const ctx = canvas.getContext("2d", { willReadFrequently: true, });
         var particles = [];
         let amount = 0;
-        let mouse = { x: 0, y: 0 };
+        let mouse = { x: ww / 2, y: wh / 2 };
+        let bounceRadius = 1;
         let radius = 0.5;
         const color = [
             getComputedStyle(document.documentElement).getPropertyValue("--particle-color"),
         ];
-        let ww = window.innerWidth;
-        let wh = window.innerHeight;
         class Particle {
             constructor(x, y) {
                 this.x = x;
@@ -48737,12 +48723,6 @@ function Musializer() {
                 this.color = color;
             }
             render() {
-                if (bass) {
-                    this.r = 10;
-                }
-                else {
-                    this.r = 5;
-                }
                 this.accX = (this.dest.x - this.x) / 100;
                 this.accY = (this.dest.y - this.y) / 100;
                 this.vx += this.accX;
@@ -48758,13 +48738,13 @@ function Musializer() {
                 let a = this.x - mouse.x;
                 let b = this.y - mouse.y;
                 let distance = Math.sqrt(a * a + b * b);
-                if (distance < radius * 60) {
+                if (distance < bounceRadius * 60) {
                     this.accX = this.x - mouse.x;
                     this.accY = this.y - mouse.y;
                     this.vx += this.accX;
                     this.vy += this.accY;
                 }
-                if (distance > radius * 250) {
+                if (distance > bounceRadius * 250) {
                     this.accX = (this.dest.x - this.x) / 10;
                     this.accY = (this.dest.y - this.y) / 10;
                     this.vx += this.accX;
@@ -48773,12 +48753,16 @@ function Musializer() {
             }
         }
         function initScene() {
-            ww = canvas.width = window.innerWidth;
-            wh = canvas.height = window.innerHeight;
+            // ww = canvas.width = window.innerWidth;
+            // wh = canvas.height = window.innerHeight;
+            canvas.height = ww;
+            canvas.width = wh;
+            // const rectWidth= ww /2
+            // const rectHeight= wh /2 
             const rectWidth = ww;
-            const rectHeight = wh / 4;
+            const rectHeight = wh;
             const centerX = ww / 2;
-            const centerY = (wh / 4) * 3;
+            const centerY = wh / 2;
             const particleSpacing = 25;
             particles = [];
             for (let x = -rectWidth; x <= rectWidth; x += particleSpacing) {
@@ -48797,7 +48781,7 @@ function Musializer() {
                 const intensity = bassRange.reduce((sum, value) => sum + value, 0);
                 const bass = intensity > 509;
                 setBass(bass);
-                radius = bass ? 2 : 0.5;
+                bounceRadius = bass ? 2 : 1;
             }
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             particles.forEach((particle) => {
@@ -48805,37 +48789,11 @@ function Musializer() {
             });
             requestAnimationFrame(updateAndRender);
         };
-        const onMouseMove = (e) => {
-            mouse.x = e.clientX;
-            mouse.y = e.clientY;
-        };
-        const onMouseDown = () => {
-            radius = 2;
-        };
-        const onMouseUp = () => {
-            radius = 0.5;
-        };
-        // const handleThemeToggle = () => {resetScene()}
-        // if (darkmodeToggleButton) {
-        //   darkmodeToggleButton.addEventListener('click', handleThemeToggle);
-        // }
-        // if (!darkmodeToggleButton) {
-        //   console.log('not found')
-        // }
-        window.addEventListener("mousemove", onMouseMove);
-        window.addEventListener("mousedown", onMouseDown);
-        window.addEventListener("mouseup", onMouseUp);
         window.addEventListener("resize", initScene);
         initScene();
         requestAnimationFrame(updateAndRender);
         return () => {
-            window.removeEventListener("mousemove", onMouseMove);
-            window.removeEventListener("mousedown", onMouseDown);
-            window.removeEventListener("mouseup", onMouseUp);
             window.removeEventListener("resize", initScene);
-            // if (darkmodeToggleButton) {
-            //   darkmodeToggleButton.removeEventListener('click', handleThemeToggle);
-            // }
         };
     }, [resetTrigger]);
     function resetScene() {
@@ -48864,22 +48822,22 @@ function Musializer() {
     return (react_1.default.createElement("div", { className: "bodyCenter" },
         react_1.default.createElement(framer_motion_1.motion.h1, null, "Musializer"),
         react_1.default.createElement("div", { style: { display: "flex", flexDirection: 'row', justifyContent: 'center', alignItems: 'center' } },
-            react_1.default.createElement(framer_motion_1.motion.button, { className: "playButton", style: { display: 'flex', justifyContent: 'center', alignItems: 'center' }, onMouseDown: handlePlayClick, animate: { scale: bass ? 1.5 : 1 }, transition: { type: "spring", duration: 0.8, stiffness: 50 } },
+            react_1.default.createElement(framer_motion_1.motion.button, { className: "playButton", style: { display: 'flex', justifyContent: 'center', alignItems: 'center' }, onMouseDown: handlePlayClick, animate: { scale: bass ? 1.5 : 1 }, transition: { type: "spring", duration: 0.2 } },
                 react_1.default.createElement("span", { className: "material-symbols-outlined", style: { fontSize: '50px' } }, isPlaying ? "play_arrow" : "pause")),
             react_1.default.createElement("div", { style: { display: 'flex', flexDirection: 'column', paddingLeft: '50px' } },
                 react_1.default.createElement(Slider_1.Slider, { value: volume, set: setVolume }, "Volume"),
                 react_1.default.createElement(Slider_1.Slider, { value: bassIntensity, set: setBassIntensity }, "Intensity"),
                 react_1.default.createElement(Slider_1.Slider, { value: test, set: setTest }, "Test"))),
         react_1.default.createElement("div", { style: { margin: '10px' } }),
-        react_1.default.createElement("canvas", { ref: canvasRef, style: {
-                width: '100%',
-                height: '100%',
-                position: "absolute",
-                top: 0,
-                left: 0,
-                overflow: "hidden",
-                zIndex: -10,
-            } })));
+        react_1.default.createElement("div", { id: "canvasDiv", style: { height: '18rem' } },
+            react_1.default.createElement("canvas", { ref: canvasRef, style: {
+                    width: '100%',
+                    height: '100%',
+                    top: 0,
+                    left: 0,
+                    overflow: "hidden",
+                    zIndex: -10,
+                } }))));
 }
 
 

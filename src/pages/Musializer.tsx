@@ -20,22 +20,6 @@ export default function Musializer() {
 
     const [resetTrigger, setResetTrigger] = useState(0);
 
-    useEffect(() => {
-      const darkmodeToggleButton = document.getElementById('darkmodeToggleButton');
-      
-      if (darkmodeToggleButton) {
-          const handleThemeToggle = () => resetScene();
-          darkmodeToggleButton.addEventListener('click', handleThemeToggle);
-          
-          return () => {
-              darkmodeToggleButton.removeEventListener('click', handleThemeToggle);
-          };
-      }
-      if (!darkmodeToggleButton) {
-        console.log('darkmodeToggleButton not found')
-      }
-  }, []);
-
   useEffect(() => {
     const handleThemeToggle = () => resetScene();
     setTimeout(() => {
@@ -80,15 +64,21 @@ export default function Musializer() {
 
     useEffect(() => {
 
-        // const darkmodeToggleButton = document.getElementById('darkmodeToggleButton');
+      const canvasDiv= document.getElementById("canvasDiv")
+      if (!canvasRef.current || !canvasDiv|| !audioRef.current) return;
 
-        if (!canvasRef.current || !audioRef.current) return;
+      const canvasDivRect = canvasDiv.getBoundingClientRect()
+      let ww = canvasDivRect.width
+      let wh = canvasDivRect.height
+
+      console.log(canvasDivRect.height,canvasDivRect.width,canvasDivRect.x,canvasDivRect.y, )
 
         const canvas = canvasRef.current 
         const ctx = canvas.getContext("2d", {willReadFrequently: true,}) as CanvasRenderingContext2D
         var particles: Particle[] = []
         let amount = 0
-        let mouse = { x: 0, y: 0 }
+        let mouse = {x:ww/2, y:wh/2}
+        let bounceRadius = 1;
         let radius = 0.5
 
         const color = [
@@ -96,9 +86,6 @@ export default function Musializer() {
               "--particle-color"
             ),
           ];
-
-        let ww = window.innerWidth;
-        let wh = window.innerHeight;
 
         class Particle {
             x: number;
@@ -133,13 +120,6 @@ export default function Musializer() {
             }
       
             render() {
-              if (bass) {
-                this.r = 10;
-              } else {
-                this.r = 5;
-              }
-
-
               this.accX = (this.dest.x - this.x) / 100;
               this.accY = (this.dest.y - this.y) / 100;
               this.vx += this.accX;
@@ -162,14 +142,14 @@ export default function Musializer() {
       
               let distance = Math.sqrt(a * a + b * b);
       
-              if (distance < radius * 60) {
+              if (distance < bounceRadius * 60) {
                 this.accX = this.x - mouse.x;
                 this.accY = this.y - mouse.y;
       
                 this.vx += this.accX;
                 this.vy += this.accY;
               }
-              if (distance > radius * 250) {
+              if (distance > bounceRadius * 250) {
                 this.accX = (this.dest.x - this.x) / 10;
                 this.accY = (this.dest.y - this.y) / 10;
                 this.vx += this.accX;
@@ -179,13 +159,18 @@ export default function Musializer() {
           }
       
     function initScene() {
-        ww = canvas.width = window.innerWidth;
-        wh = canvas.height = window.innerHeight;
+        // ww = canvas.width = window.innerWidth;
+        // wh = canvas.height = window.innerHeight;
+
+        canvas.height = ww
+        canvas.width = wh
     
-        const rectWidth= ww
-        const rectHeight= wh /4
+        // const rectWidth= ww /2
+        // const rectHeight= wh /2 
+        const rectWidth= ww 
+        const rectHeight= wh 
         const centerX = ww / 2;
-        const centerY = (wh/4) * 3
+        const centerY = wh / 2
         const particleSpacing = 25; 
 
         particles = [];
@@ -207,7 +192,7 @@ export default function Musializer() {
 
             const bass = intensity > 509;
             setBass(bass);
-            radius = bass ? 2 : 0.5;
+            bounceRadius = bass ? 2 : 1;
         }
 
         ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -216,47 +201,13 @@ export default function Musializer() {
         });
         requestAnimationFrame(updateAndRender);
     };
-
-      const onMouseMove = (e: MouseEvent) => {
-        mouse.x = e.clientX;
-        mouse.y = e.clientY;
-    };
-
-    const onMouseDown = () => {
-        radius = 2;
-    };
-
-    const onMouseUp = () => {
-        radius = 0.5;
-    };
-
-    // const handleThemeToggle = () => {resetScene()}
-    // if (darkmodeToggleButton) {
-    //   darkmodeToggleButton.addEventListener('click', handleThemeToggle);
-    // }
-
-    // if (!darkmodeToggleButton) {
-    //   console.log('not found')
-    // }
-
-    window.addEventListener("mousemove", onMouseMove);
-    window.addEventListener("mousedown", onMouseDown);
-    window.addEventListener("mouseup", onMouseUp);
     window.addEventListener("resize", initScene);
-
 
     initScene();
     requestAnimationFrame(updateAndRender);
 
     return () => {
-        window.removeEventListener("mousemove", onMouseMove);
-        window.removeEventListener("mousedown", onMouseDown);
-        window.removeEventListener("mouseup", onMouseUp);
         window.removeEventListener("resize", initScene);
-
-            // if (darkmodeToggleButton) {
-            //   darkmodeToggleButton.removeEventListener('click', handleThemeToggle);
-            // }
     };
 }, [resetTrigger]);
 
@@ -287,7 +238,6 @@ function resetScene() {
         }
     }
 
-
     return(
         <div className="bodyCenter">
                 <motion.h1>
@@ -297,7 +247,7 @@ function resetScene() {
                 <div style={{display:"flex", flexDirection:'row', justifyContent:'center',alignItems: 'center'}}>                
                     <motion.button className="playButton" style={{display:'flex', justifyContent:'center', alignItems:'center'}} onMouseDown={handlePlayClick}
                     animate={{ scale: bass? 1.5 : 1 }}
-                    transition={{type:"spring", duration: 0.8, stiffness: 50 }}
+                    transition={{type:"spring", duration: 0.2}}
                     >
                         <span className="material-symbols-outlined" style={{fontSize: '50px'}}>
                         {isPlaying? "play_arrow" : "pause"} 
@@ -322,18 +272,19 @@ function resetScene() {
                 <div style={{margin:'10px'}} />
 
 
+            <div id="canvasDiv" style={{height:'18rem'}}>
                 <canvas
                     ref={canvasRef}
                     style={{
                         width: '100%',
                         height: '100%',
-                        position: "absolute",
                         top: 0,
                         left: 0,
                         overflow: "hidden",
                         zIndex: -10,
                     }}
                 ></canvas>
+              </div>
 
         </div>
     )
